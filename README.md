@@ -9,13 +9,13 @@ Project Summary: This project will create a bank simulation for users. They’ll
 Github Link: https://github.com/dd482IT/IT202007
 Website Link:
 Your Name: Daniel Daszkiewicz
-
+------------------------------------------------------------------------------------------------------------------------------------------------------
 Milestone Features:
 	Milestone 1:
 User will be able to register a new account
-ID (not shown on UI), Username, email, password (other fields optional)
-Password field should be 60 characters
-Passwords should be hashed (plain text passwords lose points)
+	ID (not shown on UI), Username, email, password (other fields optional)
+	Password field should be 60 characters
+	Passwords should be hashed (plain text passwords lose points)
 Email should be unique
 Username should be unique
 Form should have proper validations/checks for legitimate data
