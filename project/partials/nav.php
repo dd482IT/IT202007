@@ -15,4 +15,7 @@ require_once(__DIR__ . "/../lib/helpers.php");
         <li><a href="logout.php">Logout</a></li>
     <?php endif; ?>
 </ul>
+<<<<<<< HEAD
 </nav>
+=======
+>>>>>>> d299ced832d5f62c23d0cd3129df099204d959a6
