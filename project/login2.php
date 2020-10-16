@@ -26,20 +26,26 @@ if (isset($_POST["login"])) {
         $isValid = false;
         flash("Email/Username or password missing");
     }
-    if (!strpos($email, "@")) {
-        $email = null;
+    if (strpos($email, "@")) {
+        $username = null; 
         //echo "<br>Invalid email<br>";
+    }else{
+        $email = null;
     }
 
     if ($isValid) {
         $db = getDB();
         if (isset($db)) {
-            $stmt = $db->prepare("SELECT id, email, username, password from Users WHERE email = :email LIMIT 1");
-            $stmt = $db->prepare("SELECT id, email, username, password from Users WHERE username = :username LIMIT 1");
 
             if(isset($email)){
+                $stmt = $db->prepare("SELECT id, email, username, password from Users WHERE email = :email LIMIT 1");
+            }elseif(isset($username){
+                $stmt = $db->prepare("SELECT id, email, username, password from Users WHERE username = :username LIMIT 1");
+            }
+            
+            if(isset($email)){
               $params = array(":email" => $email);
-            }else{
+            }elseif(isset($username){
               $params = array(":username" => $username);
             }
             $r = $stmt->execute($params);
