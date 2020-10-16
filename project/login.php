@@ -1,5 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-    <form method="POST">
+    <form class="login" method="POST">
         <label for="email">Email or Username:</label>
         <input type="text" id="email" name="email" required/>
         <label for="p1">Password:</label>
@@ -76,11 +76,11 @@ SELECT Roles.name FROM Roles JOIN UserRoles on Roles.id = UserRoles.role_id wher
                     die(header("Location: home.php"));
                 }
                 else {
-                    flash("Invalid password");
+                    flash("Username or Password incorrect");
                 }
             }
             else {
-                flash("Invalid user");
+                flash("Username or Password incorrect");
             }
         }
     }
