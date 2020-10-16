@@ -1,7 +1,7 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
     <form method="POST">
         <label for="email">Email or Username:</label>
-        <input type="email" id="email" name="email" required/>
+        <input type="text" id="email" name="email" required/>
         <label for="p1">Password:</label>
         <input type="password" id="p1" name="password" required/>
         <input type="submit" name="login" value="Login"/>
@@ -35,13 +35,13 @@ if (isset($_POST["login"])) {
         $db = getDB();
         if (isset($db)) {
             $stmt = $db->prepare("SELECT id, email, username, password from Users WHERE email = :email LIMIT 1");
+            $stmt = $db->prepare("SELECT id, email, username, password from Users WHERE username = :username LIMIT 1");
 
             if(isset($email)){
               $params = array(":email" => $email);
             }else{
               $params = array(":username" => $username);
             }
-            
             $r = $stmt->execute($params);
             //echo "db returned: " . var_export($r, true);
             $e = $stmt->errorInfo();
