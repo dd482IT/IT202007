@@ -1,7 +1,7 @@
 /* design intentionally made horrible to see who doesn't change it*/
 body {
-  font-family: system;
-  font-size: 1.5em;
+  font-family: Sans-seifs;
+  font-size: 1.5em;   
 }
 
 ul[class="nav"]{
@@ -9,7 +9,7 @@ ul[class="nav"]{
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #026e02;
+  background-color: #40E0D0;
 }
 
 .nav > li {
@@ -25,4 +25,33 @@ ul[class="nav"]{
 }
 
 .nav > li a:hover {
-  background-color: #39ca40;
+  background-color: #00CED1;
+}
+
+.register{ 
+	font-size: 1.5em;
+	width: 200px;	
+	height: 200px;
+	 margin: auto;
+        float: left; 
+       padding: 10; 	
+}
+
+.login{
+	font-size: 1.5em;
+        width: 200px;   
+        height: 200px;
+     	 margin: auto;
+        float: left; 
+       padding: 10;
+	
+}
+
+.home{
+	font-size: 1.5em;
+        width: 200px;   
+        height: 200px;
+         margin: auto;
+        float: left; 
+       padding: 10; 
+}
