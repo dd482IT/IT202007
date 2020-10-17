@@ -68,7 +68,7 @@ if (!isset($username)) {
     $username = "";
 }
 ?>
-    <form class="register"  method="POST">
+    <form method="POST">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required value="<?php safer_echo($email); ?>"/>
         <label for="user">Username:</label>
