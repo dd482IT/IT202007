@@ -34,7 +34,6 @@ if (isset($_POST["register"])) {
     //TODO other validation as desired, remember this is the last line of defense
     if ($isValid) {
         $hash = password_hash($password, PASSWORD_BCRYPT);
-
         $db = getDB();
         if (isset($db)) {
             //here we'll use placeholders to let PDO map and sanitize our data

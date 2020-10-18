@@ -74,7 +74,7 @@ if (isset($_POST["saved"])) {
         }
         //password is optional, so check if it's even set6
         //if so, then check if it's a valid reset request
-        if (!empty($_POST["password"]) && !empty($_POST["confirm"])) {
+        if (!empty($_POST["password"]) && !empty($_POST["confirm"] && !empty($_POST["original"]))) {
             if ($_POST["password"] == $_POST["confirm"]) {
                 $password = $_POST["password"];
                 $hash = password_hash($password, PASSWORD_BCRYPT);
@@ -120,7 +120,7 @@ if (isset($_POST["saved"])) {
         <!-- DO NOT PRELOAD PASSWORD-->
         <label for="ogpw">Current Password</label>
         <input type="password" name="original"/>
-        <label for="pw">Password</label>
+        <label for="pw">New Password</label>
         <input type="password" name="password"/>
         <label for="cpw">Confirm Password</label>
         <input type="password" name="confirm"/>
