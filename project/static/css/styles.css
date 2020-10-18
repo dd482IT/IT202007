@@ -55,3 +55,12 @@ ul[class="nav"]{
         float: left; 
        padding: 10; 
 }
+
+.profile{
+	font-size: 1.5em;
+        width: 200px;   
+        height: 200px;
+         margin: auto;
+        float: left; 
+       padding: 10; 
+}
