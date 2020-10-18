@@ -66,16 +66,13 @@ if (isset($_POST["saved"])) {
     if ($isValid) {
         $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
         $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);
-        $OriginalPassword = $_POST["original"]; //added 
-        $hash = password_hash($OriginalPassword, PASSWORD_BCRYPT);//added 
-
-        if ($r and $OriginalPassword == $hash) {
+        if ($r) {
             flash("Updated profile");
         }
         else {
             flash("Error updating profile");
         }
-        //password is optional, so check if it's even set
+        //password is optional, so check if it's even set6
         //if so, then check if it's a valid reset request
         if (!empty($_POST["password"]) && !empty($_POST["confirm"])) {
             if ($_POST["password"] == $_POST["confirm"]) {
