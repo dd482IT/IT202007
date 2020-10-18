@@ -111,7 +111,8 @@ if (isset($_POST["saved"])) {
 <div class="profile">
     <form method="POST">
 	<text><Strong>Current Email: </Strong></text> <?php safer_echo(get_email()); ?>
-	<text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
+    <text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
+    <text><Strong>Role:</Strong></text> 
         <label for="email">Email</label>
         <input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>
         <label for="username">Username</label>

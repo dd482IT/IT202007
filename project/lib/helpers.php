@@ -18,6 +18,13 @@ function has_role($role) {
     return false;
 }
 
+/*
+function get_role(){ //added by Daniel Daszkiewicz, 10/18/2020
+    if (is_logged_in() && isset($_SESSION["user"]["roles"])){
+        return $_SESSION["user"]["roles"];  
+    }
+}
+*/
 function get_username() {
     if (is_logged_in() && isset($_SESSION["user"]["username"])) {
         return $_SESSION["user"]["username"];
