@@ -1,2 +1,2 @@
-ALTER TABLE usernames
-ADD UNIQUE(usernames);
+ALTER TABLE Users
+ADD UNIQUE(Users);

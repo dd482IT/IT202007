@@ -92,11 +92,11 @@ if (isset($_POST["saved"])) {
                     }
                     //this one we'll do separate
                 }
-            flash("Updated profile");
-        }
-        else {
-            flash("Error updating profile");
-        }
+                flash("Updated profile");
+            }
+            else {
+                flash("Error updating profile");
+            }
         //password is optional, so check if it's even set6
         //if so, then check if it's a valid reset request
         //fetch/select fresh data in case anything changed
@@ -110,11 +110,13 @@ if (isset($_POST["saved"])) {
             $_SESSION["user"]["email"] = $email;
             $_SESSION["user"]["username"] = $username;
         }
+        else {
+            
+        }
     }
     else {
-        //else for $isValid, though don't need to put anything here since the specific failure will output the message
+        flash("Invalid Password");
     }
-}
 }
 
 ?>
