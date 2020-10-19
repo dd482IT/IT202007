@@ -63,6 +63,7 @@ if (isset($_POST["saved"])) {
             $newUsername = $username;
         }
     }
+    
     if ($isValid) {
         //pull password from DB 
         $stmt = $db->prepare("SELECT password from Users WHERE id = :id LIMIT 1");//added
@@ -73,8 +74,10 @@ if (isset($_POST["saved"])) {
         
 
         if ($r && password_verify($_POST["original"], $password_hash_from_db)) {
-             $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
+
+            $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
             $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);//addded && and after - 
+
             if (!empty($_POST["password"]) && !empty($_POST["confirm"] && !empty($_POST["original"]))) {
                 if ($_POST["password"] == $_POST["confirm"]) {
                     $password = $_POST["password"];
@@ -96,7 +99,7 @@ if (isset($_POST["saved"])) {
         }
         //password is optional, so check if it's even set6
         //if so, then check if it's a valid reset request
-//fetch/select fresh data in case anything changed
+        //fetch/select fresh data in case anything changed
         $stmt = $db->prepare("SELECT email, username from Users WHERE id = :id LIMIT 1");
         $stmt->execute([":id" => get_user_id()]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -112,7 +115,7 @@ if (isset($_POST["saved"])) {
         //else for $isValid, though don't need to put anything here since the specific failure will output the message
     }
 }
-
+}
 
 ?>
 <div class="profile">
