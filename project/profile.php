@@ -64,9 +64,31 @@ if (isset($_POST["saved"])) {
         }
     }
     if ($isValid) {
-        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
-        $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);
-        if ($r) {
+        //pull password from DB 
+        $stmt = $db->prepare("SELECT password from Users WHERE id = :id LIMIT 1");//added
+        $r = $stmt->execute([":id" => get_user_id()]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC); //added 
+        $password_hash_from_db = $result["password"]; //added
+
+        
+
+        if ($r && password_verify($_POST["original"], $password_hash_from_db)) {
+             $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
+            $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);//addded && and after - 
+            if (!empty($_POST["password"]) && !empty($_POST["confirm"] && !empty($_POST["original"]))) {
+                if ($_POST["password"] == $_POST["confirm"]) {
+                    $password = $_POST["password"];
+                    $hash = password_hash($password, PASSWORD_BCRYPT);
+                    $stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
+                    $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
+                    if ($r) {
+                        flash("Reset Password");
+                    }
+                    else {
+                        flash("Error resetting password");
+                    }
+                    //this one we'll do separate
+                }
             flash("Updated profile");
         }
         else {
@@ -74,21 +96,6 @@ if (isset($_POST["saved"])) {
         }
         //password is optional, so check if it's even set6
         //if so, then check if it's a valid reset request
-        if (!empty($_POST["password"]) && !empty($_POST["confirm"] && !empty($_POST["original"]))) {
-            if ($_POST["password"] == $_POST["confirm"]) {
-                $password = $_POST["password"];
-                $hash = password_hash($password, PASSWORD_BCRYPT);
-                //this one we'll do separate
-                $stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
-                $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
-                if ($r) {
-                    flash("Reset Password");
-                }
-                else {
-                    flash("Error resetting password");
-                }
-            }
-        }
 //fetch/select fresh data in case anything changed
         $stmt = $db->prepare("SELECT email, username from Users WHERE id = :id LIMIT 1");
         $stmt->execute([":id" => get_user_id()]);
@@ -118,8 +125,8 @@ if (isset($_POST["saved"])) {
         <label for="username">Username</label>
         <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
         <!-- DO NOT PRELOAD PASSWORD-->
-        <label for="ogpw">Current Password</label>
-        <input type="password" name="original"/>
+        <label for="ogpw">Current Password</label> <!-- Added by dam -->
+        <input type="password" name="original" id="ogpw" /> <!-- Added by dam -->
         <label for="pw">New Password</label>
         <input type="password" name="password"/>
         <label for="cpw">Confirm Password</label>
