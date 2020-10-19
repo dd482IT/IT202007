@@ -116,9 +116,8 @@ if (isset($_POST["saved"])) {
     }
     else {
         flash("Invalid Password");
-    }
+        }
 }
-
 ?>
 <div class="profile">
     <form method="POST">
