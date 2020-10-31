@@ -45,7 +45,7 @@ function init() {
         console.log(drawables);
         resetBall();
         attachKeyListeners();
-        loop = window.setInterval(gameLoop, 16); //16ms
+        loop = window.setInterval(gameLoop, 12); //16ms
         canvas.focus();
     }
 }
@@ -175,7 +175,8 @@ function clampToCanvas(paddle) {
 function moveBall() {
     // Move the ball
     ball.x += ball.sX;
-    ball.y += ball.sY;                     //added by dan 
+    ball.y += ball.sY; 
+    ball.c = rainbow();                    //added by dan 
     // Bounce the ball off the top/bottom
     if (ball.y < 0 || ball.y + ball.h > canvas.height) {
         ball.sY *= -1;
@@ -195,15 +196,14 @@ function checkPaddleCollision() {
         }
     }
 }
-function checkScore() {
-    // Score if the ball goes past a paddle
+function checkScore() { //rename this checkhearts 
     if (ball.x < leftPaddle.x) {
         rightScore++;
-        resetBall();
+        resetBall(); //remove this add health -- 
         ball.sX *= -1;
     } else if (ball.x + ball.w > rightPaddle.x + rightPaddle.w) {
         leftScore++;
-        resetBall();
+        resetBall(); //remove this add health -- 
         ball.sX *= -1;
     }
 }
@@ -228,14 +228,50 @@ function rainbow()
     return colors[random];
 }
 
+function powerHit(){
+    //allows user to hold space and send a faster ball 
+}
+
+// Show the menu    
+function menu() {
+  erase();
+  // Show the menu
+  context.fillStyle = '#000000';
+  context.font = '24px Arial';
+  context.textAlign = 'center';
+  context.fillText('PONG', canvas.width / 2, canvas.height / 4);
+  context.font = '18px Arial';
+  context.fillText('Click to Start', canvas.width / 2, canvas.height / 3);
+  context.font = '14px Arial';
+  context.textAlign = 'left';
+  context.fillText('Player 1: W (up) and S (down)', 5, (canvas.height / 3) * 2);
+  context.textAlign = 'right';
+  context.fillText('Player 2: UP (up) and DOWN (down)', canvas.width - 5, (canvas.height / 3) * 2);
+  // Start the game on a click
+  canvas.addEventListener('click', startGame);
+}
+
+// Start the game
+function startGame() {
+	// Don't accept any more clicks
+  canvas.removeEventListener('click', startGame);
+  // Put the ball in place
+  resetBall();
+  // Kick off the game loop
+  draw();
+}
+
+
+
 function gameLoop() {
+    menu()
     erase();
     movePaddle();
     doAI();
     moveBall();
     checkPaddleCollision();
     checkScore();
-    drawScores();
+    //drawScores();
     //draw stuff
     for (let i = 0; i < drawables.length; i++) {
         drawables[i].draw();
@@ -244,7 +280,7 @@ function gameLoop() {
 </script>
 </head>
 <body onload="init();">
-	<a href="http://bencentra.com/2017-07-11-basic-html5-canvas-games.html">Collection of Canvas based games by Ben Centra</a>
+    <a href="http://bencentra.com/2017-07-11-basic-html5-canvas-games.html">Collection of Canvas based games by Ben Centra</a>
 	<main>
 		<canvas id="board" width="600px" height="600px" style="border: 1px solid black;">
 		
