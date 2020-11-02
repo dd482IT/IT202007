@@ -27,7 +27,6 @@ if(isset($_POST["save"])){
     $r = $stmt->execute([
         ":account_type"=> $account_type,
         ":user" => $user,
-
     ]);
 
     if($r){
