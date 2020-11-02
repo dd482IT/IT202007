@@ -13,6 +13,7 @@
     <option value = "checking">checking</option>
     <option value =  "saving">saving</option>
     <option value = "loan">loan</option>
+    <option value = "world">world</option>
   </select>
 	<input type="submit" name="save" value="Create"/>
 </form>
