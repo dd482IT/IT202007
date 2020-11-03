@@ -23,7 +23,6 @@ var UP = 38;
 var DOWN = 40;
 var SPACE = 32;
 var P = 80;  //added by dan  
-//ctx.drawImage(myGif.image,0,0);
 
 // Keep track of pressed keys
 var keys = {
@@ -34,10 +33,7 @@ var keys = {
     SPACE: false,
     P: false //added by dan 
 };
-
-// Keep track of the score
-//https://stackoverflow.com/questions/43814422/how-to-pause-simple-canvas-game-made-with-js-and-html5
-if(true){
+if(!paused){
     var leftScore = 0;
     var rightScore = 0;
     function init() {
@@ -46,9 +42,13 @@ if(true){
             context = canvas.getContext("2d");
             leftPaddle = makeRect(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#BC0000');
             rightPaddle = makeRect(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
+            middlePaddle = makeRect(canvas.width/2 - 15, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#000000');
+            middlePaddle2 = makeRect(canvas.width/2 - 15, canvas.height/2, paddleWidth, paddleHeight, 5, '#000000');
+            middlePaddle3 = makeRect(canvas.width/2 - 15, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#000000');
             ball = makeRect(0, 0, ballSize, ballSize, ballSpeed, rainbow());
             drawables.push(leftPaddle);
             drawables.push(rightPaddle);
+            drawables.push(middlePaddle);
             drawables.push(ball);
             console.log(drawables);
             resetBall();
@@ -57,6 +57,7 @@ if(true){
             canvas.focus();
         }
     }
+
     function resetBall() {
         ball.x = canvas.width / 2 - ball.w / 2;
         ball.y = canvas.height / 2 - ball.w / 2;
@@ -134,9 +135,6 @@ if(true){
             if (e.keyCode === SPACE ) {
                 keys.SPACE = true;
             }
-            if(e.keyCode === P){
-                keys.P = true; 
-            }
             console.log(keys);
         });
         window.addEventListener('keyup', function (e) {
@@ -157,7 +155,7 @@ if(true){
                 keys.SPACE = false;
             }
             if(e.keyCode === P){
-                keys.P = false;
+                paused = !paused; 
             }
             console.log(keys);
         });
@@ -212,11 +210,11 @@ if(true){
         //
     }
 
-    function pause(){
-        if(keys.P){
-            pauseToggle();
-        }
+    function moveMiddle() 
+    {  
+        clampToCanvas(middlePaddle);
     }
+
     function clampToCanvas(paddle) {
         if (paddle.y < 0) {
             paddle.y = 0;
@@ -245,6 +243,11 @@ if(true){
         }
         if (ball.y + ball.h / 2 >= rightPaddle.y && ball.y + ball.h / 2 <= rightPaddle.y + rightPaddle.h) {
             if (ball.x + ball.w >= rightPaddle.x) {
+                bounceBall();
+            }
+        }
+        if (ball.y + ball.h / 2 >= middlePaddle.y && ball.y + ball.h / 2 <= middlePaddle.y + middlePaddle.h) {
+            if (ball.x + ball.w >= middlePaddle.x) {
                 bounceBall();
             }
         }
@@ -279,15 +282,21 @@ if(true){
         colors = ['#0000FF','#FF0000', '#800080', '#FFFF00', '#008000', '#FF00FF'];
         let random = Math.floor(Math.random() * colors.length); //added by dan 
         return colors[random];
+
     }
 
         function gameLoop() {
                 erase();
+                if(!paused){
                 movePaddle();
+                moveMiddle();
                 doAI();
                 moveBall();
                 checkPaddleCollision();
                 checkScore();
+                }else{
+                    context.fillText("Zibri", (canvas.width / 2) - 17, (canvas.height / 2) + 8);
+                }
                 //drawScores();
                 //draw stuff
                 for (let i = 0; i < drawables.length; i++) {
