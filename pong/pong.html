@@ -184,6 +184,7 @@ if(!paused){
                 rightPaddle.y -= rightPaddle.s;
             }
         }
+        
         clampToCanvas(rightPaddle);
     }
     function movePaddle() {
@@ -212,6 +213,7 @@ if(!paused){
 
     function moveMiddle() 
     {  
+        
         clampToCanvas(middlePaddle);
     }
 
@@ -246,7 +248,7 @@ if(!paused){
                 bounceBall();
             }
         }
-        if (ball.y + ball.h / 2 >= middlePaddle.y && ball.y + ball.h / 2 <= middlePaddle.y + middlePaddle.h) {
+        if (ball.y + ball.h / 2 >= middlePaddle.y && ball.y + ball.h / 2 <= middlePaddle.y - 5 + middlePaddle.h - 5) {
             if (ball.x + ball.w >= middlePaddle.x) {
                 bounceBall();
             }
