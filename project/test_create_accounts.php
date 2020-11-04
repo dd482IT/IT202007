@@ -25,13 +25,13 @@
 if(isset($_POST["save"])){
     $account_type = $_POST["account_type"]; 
     $user= get_user_id();
-    $balance = $_POST["post"];
+    $balance = $_POST["POST"];
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO Accounts (account_type, user_id, balance) VALUES(:account_type, :user, :balance");
     $r = $stmt->execute([
         ":account_type"=> $account_type,
         ":user" => $user,
-        ":balance" => $balnce
+        ":balance" => $balance
     ]);
 
     if($r){
