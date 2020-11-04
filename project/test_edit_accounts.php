@@ -24,21 +24,21 @@ if(isset($_POST["save"])){
       $user = get_user_id();
       if(isset($id)){
         $stmt = $db->prepare("UPDATE Accounts set account_number=:account_number, account_type=:account_type, balance=:balance where id=:id");
+        $r = $stmt->execute([
+          ":account_number"=> $account_number,
+          ":account_type"=>$account_type,
+          ":balance"=>$balance,
+          ":id"=>$id
+        ]);
+  
+        if($r){
+          flash("Updated successfully with id: " . $id);
+        }
+        else{
+          $e = $stmt->errorInfo();
+          flash("Error updating: " . var_export($e, true));
+        }  
       }
-      $r = $stmt->execute([
-        ":account_number"=> $account_number,
-        ":account_type"=>$account_type,
-        ":balance"=>$balance,
-        ":id"=>$id
-      ]);
-
-      if($r){
-        flash("Updated successfully with id: " . $id);
-      }
-      else{
-        $e = $stmt->errorInfo();
-        flash("Error updating: " . var_export($e, true));
-      }  
 }
 ?>
 <!-- ----------------------------------------------------------------------------------------------------------- -->
