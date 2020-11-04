@@ -8,7 +8,7 @@
 ?>
 
 <form method="POST">
-  <label>Account_Type</label>
+  <label>Account Type</label>
   <select name="account_type">
     <option value = "checking">checking</option>
     <option value =  "saving">saving</option>
@@ -16,7 +16,7 @@
     <option value = "world">world</option>
   </select>
   <label>Balance</label>
-  <input type="number" min="5.00" name="Balance" value="<?php echo $result["balnce"];?>" />
+  <input type="number" min="5.00" name="balance" value="<?php echo $result["balnce"];?>" />
 	<input type="submit" name="save" value="Create"/>
 </form>
 
@@ -25,7 +25,7 @@
 if(isset($_POST["save"])){
     $account_type = $_POST["account_type"]; 
     $user= get_user_id();
-    $balance = $_POST["POST"];
+    $balance = $_POST["balance"];
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO Accounts (account_type, user_id, balance) VALUES(:account_type, :user, :balance");
     $r = $stmt->execute([
