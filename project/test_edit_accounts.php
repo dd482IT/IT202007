@@ -58,11 +58,10 @@ if(isset($id)){
   <input type="number" name="account_number" value="<?php echo $result["account_number"];?>"/>
   <label>Account Type</label>
   <select name="account_type" value="<?php echo $result["account_type"];?>">
-		<option value="0" <?php echo ($result["account_type"] == "0"?'selected="selected"':'');?>>checking</option>
-                <option value="1" <?php echo ($result["account_type"] == "1"?'selected="selected"':'');?>>checking</option>
-                <option value="2" <?php echo ($result["account_type"] == "2"?'selected="selected"':'');?>>saving</option>
-                <option value="3" <?php echo ($result["account_type"] == "3"?'selected="selected"':'');?>>loan</option>
-                <option value="4" <?php echo ($result["account_type"] == "4"?'selected="selected"':'');?>>world</option>
+		            <option value="checking" <?php echo ($result["account_type"] == "0"?'selected="selected"':'');?>>checking</option>
+                <option value="saving" <?php echo ($result["account_type"] == "2"?'selected="selected"':'');?>>saving</option>
+                <option value="loan" <?php echo ($result["account_type"] == "3"?'selected="selected"':'');?>>loan</option>
+                <option value="world" <?php echo ($result["account_type"] == "4"?'selected="selected"':'');?>>world</option>
 	</select>
   <label>Balance</label> 
   <input type="number" min="5.00" name="balance" value="<?php echo $result["balnce"];?>" />
