@@ -55,15 +55,15 @@ if(isset($id)){
 <!-- ----------------------------------------------------------------------------------------------------------- -->
 <form method="POST">
   <label>Account Number</label>
-  <input type="number" placeholder="account_number" value="<?php echo $result["account_number"];?>"/>
+  <input type="number" name="account_number" value="<?php echo $result["account_number"];?>"/>
   <label>Account Type</label>
-    <select account_type="account_type" value="<?php echo $result["account_type"];?>">
+    <select name="account_type" value="<?php echo $result["account_type"];?>">
       <option value = "checking"<?php echo ($result["account_type"] == "checking"?'selected="selected"':'');?>>checking</option>
       <option value = "saving"<?php echo ($result["account_type"] == "saving"?'selected="selected"':'');?>>saving</option>
       <option value = "loan"<?php echo ($result["account_type"] == "loan"?'selected="selected"':'');?>>loan</option> 
     </select>
   <label>Balance</label> 
-  <input type="number" min="5.00" name="Balance" value="<?php echo $result["balnce"];?>" />
+  <input type="number" min="5.00" name="balance" value="<?php echo $result["balnce"];?>" />
   <input type="submit" name="save" value="Update"/>
 </form>
 <!-- ----------------------------------------------------------------------------------------------------------- -->
