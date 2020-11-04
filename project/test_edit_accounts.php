@@ -21,14 +21,15 @@ if(isset($_POST["save"])){
       $account_type = $_POST["account_type"]; //not added to form 
       $balance = $_POST["balance"];
       $db = getDB();
-
+      $user = get_user_id();
       if(isset($id)){
-        $stmt = $db->prepare("UPDATE Accounts set account_number=:account_number, account_type=:account_type, balance=:balance ");
+        $stmt = $db->prepare("UPDATE Accounts set account_number=:account_number, account_type=:account_type, balance=:balance where id=:id");
       }
       $r = $stmt->execute([
         ":account_number"=> $account_number,
         ":account_type"=>$account_type,
-        ":balance"=>$balance
+        ":balance"=>$balance,
+        ":id"=>$id
       ]);
 
       if($r){
