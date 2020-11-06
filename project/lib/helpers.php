@@ -76,9 +76,7 @@ function getMessages() {
 }
 
 function getType(){
-
-
-
+    return null; 
 }
 
 //end flash
