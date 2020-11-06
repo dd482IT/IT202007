@@ -77,16 +77,16 @@ function getMessages() {
 
 /*function getType($n) {
     switch ($n) {
-        case 0:
+        case "checking":
             echo "Checking";
             break;
-        case 1:
+        case "saving":
             echo "Saving";
             break;
-        case 2:
+        case "loan":
             echo "Loan";
             break;
-        case 3:
+        case "world:
             echo "World";
             break;
         default:
