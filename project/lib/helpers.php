@@ -75,5 +75,25 @@ function getMessages() {
     return array();
 }
 
+function getType($n) {
+    switch ($n) {
+        case 0:
+            echo "Checking";
+            break;
+        case 1:
+            echo "Saving";
+            break;
+        case 2:
+            echo "Loan";
+            break;
+        case 3:
+            echo "World";
+            break;
+        default:
+            echo "Unsupported state: " . safer_echo($n);
+            break;
+    }
+}
+
 //end flash
 ?>
