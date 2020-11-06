@@ -75,7 +75,7 @@ function getMessages() {
     return array();
 }
 
-function getType($n) {
+/*function getType($n) {
     switch ($n) {
         case 0:
             echo "Checking";
@@ -94,6 +94,6 @@ function getType($n) {
             break;
     }
 }
-
+*/
 //end flash
 ?>
