@@ -75,5 +75,11 @@ function getMessages() {
     return array();
 }
 
+function getType(){
+
+
+
+}
+
 //end flash
 ?>
