@@ -75,7 +75,7 @@ function getMessages() {
     return array();
 }
 
-/*function getType($n) {
+function getType($n) {
     switch ($n) {
         case "checking":
             echo "Checking";
@@ -86,7 +86,7 @@ function getMessages() {
         case "loan":
             echo "Loan";
             break;
-        case "world:
+        case "world":
             echo "World";
             break;
         default:
@@ -94,6 +94,6 @@ function getMessages() {
             break;
     }
 }
-*/
+
 //end flash
 ?>
