@@ -38,7 +38,7 @@ if(isset($id)){
         <div class="card-body">
             <div>
                 <p>Stats</p>
-                <div>Account Type: <?php getType($result["account_type"]); ?></div>
+                <div>Account Type: <?php getAccount($result["account_type"]); ?></div>
                 <div>Balance: <?php safer_echo($result["balance"]); ?> - <?php safer_echo($result["balance"]); ?></div>
                 <div>Owned by: <?php safer_echo($result["username"]); ?></div>
             </div>
