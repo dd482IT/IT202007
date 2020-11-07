@@ -75,8 +75,9 @@ function getMessages() {
     return array();
 }
 
-/*
-function getType($n) {
+
+function getAccount()
+{
     switch ($n) {
         case "checking":
             echo "Checking";
@@ -93,8 +94,8 @@ function getType($n) {
         default:
             echo "Unsupported state: " . safer_echo($n);
             break;
-    }
+        }
+
 }
-*/
 //end flash
 ?>
