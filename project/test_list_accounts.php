@@ -12,12 +12,15 @@ $results = [];
 
 if (isset($_POST["query"])) {
     $query = $_POST["query"];
+    echo $query;
 }
 
 if(isset($_POST["search"]) && !empty($query)){
   $db = getDB();
   $stmt = $db->prepare("SELECT id, account_number, account_type, balance, user_id FROM Accounts WHERE account_number like :q LIMIT 10");
-  $r = $stmt->execute([":q" => "%query%"]);
+  $r = $stmt->execute([":q" => "%$query%"]);
+
+
 
   if($r){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -28,8 +31,8 @@ if(isset($_POST["search"]) && !empty($query)){
     flash("There was a problem fetching the results"); 
   }
 
-
 }
+echo empty(0);
 
 ?>
 <form method="POST">
