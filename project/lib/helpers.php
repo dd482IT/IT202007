@@ -76,7 +76,7 @@ function getMessages() {
 }
 
 
-function getAccount()
+function getAccountType()
 {
     switch ($n) {
         case "checking":
