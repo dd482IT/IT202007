@@ -41,7 +41,7 @@ if(!has_role("Admin")){
         $user = get_user_id();
         $db = getDB();
         $stmt = $db ->prepare("INSERT INTO Transactions (account_number, account_type, act_src_id, act_dest_id, amount, action_type, user_id) 
-        VALUES (:account_number, :account_type, :s_id, :d_id, :amount, :action, :user)");
+        VALUES (:account_number, :account_type, :s_id, :d_id, :amount, :action_type, :user)"); // :user?
           $r = $stmt->execute([
             ":account_number" => $name, 
             ":account_type" => $account_type,
