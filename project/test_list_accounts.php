@@ -21,6 +21,7 @@ if(isset($_POST["search"]) && !empty($query)){
 
   if($r){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    var_export($results,true);
   }
   else{
     flash("There was a problem fetching the results"); 
