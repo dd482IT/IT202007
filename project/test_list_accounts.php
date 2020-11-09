@@ -44,19 +44,19 @@ elseif(empty($results)){
                 <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>
-                        <div><?php safer_echo($results["account_number"]); ?></div>
+                        <div><?php safer_echo($r["account_number"]); ?></div>
                     </div>
                     <div>
                         <div>Account Type:</div>
-                        <div><?php getAccountType($results["account_type"]); ?></div>
+                        <div><?php getAccountType($r["account_type"]); ?></div>
                     </div>
                     <div>
                         <div>Balance:</div>
-                        <div><?php safer_echo($results["balance"]); ?></div>
+                        <div><?php safer_echo($r["balance"]); ?></div>
                     </div>
                     <div>
                         <div>Owner Id:</div>
-                        <div><?php safer_echo($results["id"]); ?></div>
+                        <div><?php safer_echo($r["id"]); ?></div>
                     </div>
                     <div>
                         <a type="button" href="test_edit_accounts.php?id=<?php safer_echo($results['id']); ?>">Edit</a>
