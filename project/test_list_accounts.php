@@ -17,10 +17,10 @@ if (isset($_POST["query"])) {
 if(isset($_POST["search"]) && !empty($query)){
   $db = getDB();
   $stmt = $db->prepare("SELECT id, account_number, account_type, balance, user_id FROM Accounts WHERE account_number like : q LIMIT 10");
-  $results = $stmt->execute([":q" => "%query%"]);
+  $r = $stmt->execute([":q" => "%query%"]);
 
-  if($results){
-    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  if($r){
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
   else{
     flash("There was a problem fetching the results"); 
@@ -38,29 +38,29 @@ elseif(empty($results)){
     <input type="submit" value="Search" name="search"/>
 </form>
 <div class="results">
-    <?php if (count($r) > 0): ?>
+    <?php if (count($results) > 0): ?>
         <div class="list-group">
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>
-                        <div><?php safer_echo($r["account_number"]); ?></div>
+                        <div><?php safer_echo($results["account_number"]); ?></div>
                     </div>
                     <div>
                         <div>Account Type:</div>
-                        <div><?php getAccountType($r["account_type"]); ?></div>
+                        <div><?php getAccountType($results["account_type"]); ?></div>
                     </div>
                     <div>
                         <div>Balance:</div>
-                        <div><?php safer_echo($r["balance"]); ?></div>
+                        <div><?php safer_echo($results["balance"]); ?></div>
                     </div>
                     <div>
                         <div>Owner Id:</div>
-                        <div><?php safer_echo($r["id"]); ?></div>
+                        <div><?php safer_echo($results["id"]); ?></div>
                     </div>
                     <div>
-                        <a type="button" href="test_edit_accounts.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
-                        <a type="button" href="test_view_accounts.php?id=<?php safer_echo($r['id']); ?>">View</a>
+                        <a type="button" href="test_edit_accounts.php?id=<?php safer_echo($results['id']); ?>">Edit</a>
+                        <a type="button" href="test_view_accounts.php?id=<?php safer_echo($results['id']); ?>">View</a>
                     </div>
                 </div>
             <?php endforeach; ?>
