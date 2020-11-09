@@ -26,17 +26,14 @@ if (isset($_POST["save"])) {
     $action  = $_POST["action"];
     $user = get_user_id();
     $db = getDB();
-    if (isset($id)) {
+    if (isset($id)) { //balance and trasnaction type
         $stmt = $db->prepare("UPDATE Transactions set account_number=:account_number, Transaction.id=:transaction_id, 
         act_src_id=:s_id, act_dest_id=:d_id, action_type=:action where id=:id"); //check proper ID
         $r = $stmt->execute([
-            ":account_number" => $account_number,
-            ":Transaction.id" => $transaction,
-            ":source" => $source,
-            ":destination" => $d_id,
             ":amount" => $amount,
             ":action" => $action, 
-            ":id" => $id
+            //need transaction type
+            ":id" => $transaction
         ]);
         if ($r) {
             flash("Updated successfully with id: " . $id);
@@ -61,11 +58,7 @@ if (isset($id)) {
     $r = $stmt->execute([":id" => $id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }
-//get eggs for dropdown
-$db = getDB();
-$stmt = $db->prepare("SELECT id,name from TRANSACTIONS LIMIT 10");
-$r = $stmt->execute();
-$eggs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
     <h3>Edit Transaction</h3>
     <form method="POST">
@@ -78,7 +71,7 @@ $eggs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <option value="<?php safer_echo($transaction["id"]); ?>" <?php echo ($result["transaction_id"] == $transaction["id"] ? 'selected="selected"' : ''); ?>
                 ><?php safer_echo($transaction["transaction_id"]); ?></option>
             <?php endforeach; ?>
-        </select>
+        </select> <--! read only field -->
         <label>Account Type</label>
         <input type="account_type" name="account_type" value="<?php echo $result["account_type"]; ?>"/>
         <label>Source ID</label>

@@ -40,6 +40,14 @@ if(!has_role("Admin")){
         $action  = $_POST["action"];
         $user = get_user_id();
         $db = getDB();
+        $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM TRANSACTIONS WHERE Transactions.act_src_id = :id");
+            $r = $stmt->execute([
+                ":id" => $source
+            ]);
+            $results = $stmt->fetch(PDO::FETCH_ASSOC);
+            $source_total = $results["Total"];
+            // do same thing for dest total
+                
         $stmt = $db ->prepare("INSERT INTO Transactions (account_number, account_type, act_src_id, act_dest_id, amount, action_type, user_id) 
         VALUES (:account_number, :account_type, :s_id, :d_id, :amount, :action_type, :user)"); // :user?
           $r = $stmt->execute([
