@@ -28,7 +28,7 @@ if(isset($_POST["search"]) && !empty($query)){
 
 
 }
-else{
+elseif(empty($query)){
     flash("Results is empty");
 }
 
