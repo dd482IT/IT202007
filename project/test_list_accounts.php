@@ -28,9 +28,6 @@ if(isset($_POST["search"]) && !empty($query)){
 
 
 }
-elseif(empty($results)){
-    flash("Results is empty");
-}
 
 ?>
 <form method="POST">
@@ -59,8 +56,8 @@ elseif(empty($results)){
                         <div><?php safer_echo($r["id"]); ?></div>
                     </div>
                     <div>
-                        <a type="button" href="test_edit_accounts.php?id=<?php safer_echo($results['id']); ?>">Edit</a>
-                        <a type="button" href="test_view_accounts.php?id=<?php safer_echo($results['id']); ?>">View</a>
+                        <a type="button" href="test_edit_accounts.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
+                        <a type="button" href="test_view_accounts.php?id=<?php safer_echo($r['id']); ?>">View</a>
                     </div>
                 </div>
             <?php endforeach; ?>
