@@ -40,7 +40,7 @@ if(isset($_POST["search"]) && !empty($query)){
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
                     <div>
-                        <div>Name:</div>
+                        <div>Account Number:</div>
                         <div><?php safer_echo($r["account_number"]); ?></div>
                     </div>
                     <div>
