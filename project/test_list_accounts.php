@@ -30,6 +30,7 @@ if(isset($_POST["search"]) && !empty($query)){
 }
 else{
     flash("Results is empty");
+}
 
 ?>
 <form method="POST">
