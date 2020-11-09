@@ -12,7 +12,7 @@ $results = [];
 
 if (isset($_POST["query"])) {
     $query = $_POST["query"];
-    echo $query;
+    
 }
 
 if(isset($_POST["search"]) && !empty($query)){
@@ -24,8 +24,6 @@ if(isset($_POST["search"]) && !empty($query)){
 
   if($r){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $v = var_export($results,true);
-    echo $v;
   }
   else{
     flash("There was a problem fetching the results"); 
