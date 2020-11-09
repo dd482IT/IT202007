@@ -25,7 +25,7 @@ if (isset($_POST["search"]) && !empty($query)) {
     }
 }
 ?>
-<h3>List Incubators</h3>
+<h3>List Transcations</h3>
 <form method="POST">
     <input name="query" placeholder="Search" value="<?php safer_echo($query); ?>"/>
     <input type="submit" value="Search" name="search"/>
@@ -45,7 +45,7 @@ if (isset($_POST["search"]) && !empty($query)) {
                     </div>
                     <div>
                         <div>Owner:</div>
-                        <div><?php safer_echo($r["username"]); ?></div>
+                        <div><?php safer_echo($r["username"]); ?></div> <!-- Check this-->
                     </div>
                     <div>
                         <a type="button" href="test_edit_incubator.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
