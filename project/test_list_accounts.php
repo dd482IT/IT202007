@@ -17,7 +17,7 @@ if (isset($_POST["query"])) {
 if(isset($_POST["search"]) && !empty($query)){
   $db = getDB();
   $stmt = $db->prepare("SELECT id, account_number, account_type, balance, user_id FROM Accounts WHERE account_number like : q LIMIT 10");
-  $results = $stmt->execute([":q" => "%query%"]);
+  $results = $stmt->execute([":q" => "%query%"];
 
   if($results){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -48,7 +48,7 @@ elseif(empty($results)){
                     </div>
                     <div>
                         <div>Account Type:</div>
-                        <div><?php getAccount($results["account_type"]); ?></div>
+                        <div><?php safer_echo($results["account_type"]); ?></div>
                     </div>
                     <div>
                         <div>Balance:</div>
