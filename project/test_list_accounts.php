@@ -30,7 +30,6 @@ if(isset($_POST["search"]) && !empty($query)){
   }
 
 }
-echo empty(0);
 
 ?>
 <form method="POST">
