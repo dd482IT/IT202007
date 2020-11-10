@@ -19,7 +19,11 @@ if (isset($_GET["id"])) {
 $result = [];
 if(isset($id)){
   $db = getDB();
+<<<<<<< HEAD
   $stmt = $db->prepare("SELECT Accounts.id, account_number, account_type, balance, user_id, Users.username FROM Accounts JOIN Users on Accounts.user_id = User.id where Accounts.id = :id");
+=======
+  $stmt = $db->prepare("SELECT Accounts.id, account_number, account_type, balance, user_id, Users.username FROM Accounts JOIN Users on Accounts.user_id = Users.id where Accounts.id = :id");
+>>>>>>> 36e0c0e2f932b489695fa58e72685dd700b71ead
   $r = $stmt->execute([":id" => $id]);
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
   if(!$result){
@@ -38,8 +42,13 @@ if(isset($id)){
         <div class="card-body">
             <div>
                 <p>Stats</p>
+<<<<<<< HEAD
                 <div>Account Type: <?php getAccount($result["account_type"]); ?></div> <!-- CHANGE -->
                 <div>Balance: <?php safer_echo($result["balance"]); ?> - <?php safer_echo($result["balance"]); ?></div>
+=======
+                <div>Account Type: <?php safer_echo($result["account_type"]); ?></div>
+                <div>Balance: <?php safer_echo($result["balance"]);?>><div>
+>>>>>>> 36e0c0e2f932b489695fa58e72685dd700b71ead
                 <div>Owned by: <?php safer_echo($result["username"]); ?></div>
             </div>
         </div>
