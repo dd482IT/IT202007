@@ -5,15 +5,24 @@ if(!has_role("Admin")){
     flash("You dont have permission to access this page");
     die(header("Location: login.php"));
 }
-
 ?>
 
-    <h3>Create Transaciton</h3> 
+<?php
+$accounts = getDropDown();
+?>
+
+    <h3>Create Transaction</h3> 
     <form method="POST"> 
         <label>Account Number</label>
             <input name="account_number" placeholder="00000000"> <!-- Check-->
-        <label>Account Type</label> 
-            <input name="account_type" placeholder="checking">
+        <label>Select Your Account </label> 
+        <select>
+            <?php foreach($items as $index=>$row):?>
+                <option value="<?php echo $index;?>">
+                    <?php echo $row['accs'];?>
+                </option>
+            <?php endforeach;?>
+        </select>
         <label>Source ID</label placeholder="0">
             <input type="number" name="s_id">
         <label>Destination ID </label>
@@ -26,12 +35,14 @@ if(!has_role("Admin")){
             <option value =  "transfer">transfer</option>
             <option value = "withdraw">withdraw</option>
         </select>
+
         <input type ="submit" name="save" value="create"/>
     </form> 
 
 
 <?php
     if(isset($_POST["save"])){
+        $accounts;
         $account_number = $_POST["account_number"];
         $account_type = $_POST["account_type"];
         $source = $_POST["s_id"];
@@ -46,8 +57,8 @@ if(!has_role("Admin")){
             ]);
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $source_total = $results["Total"];
+            $destination_total = $results["Total"];
             // do same thing for dest total
-               
             
 
 

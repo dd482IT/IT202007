@@ -97,5 +97,43 @@ function getAccountType()
         }
 
 }
+
+function getDropDown(){
+    $user = get_user_id();
+    $db = getDB();
+    $stmt = $db->prepare("SELECT account_number as accs FROM Accounts WHERE Accounts.user_id = :user_id");
+    $r = $stmt->execute();
+
+    if($r){
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $results; 
+    }
+    else{
+     flash("There was a problem fetching the accounts");
+    }
+
+}
+/*
+function doBankAction($source, $destination, $amount, $type)
+{
+    switch($type){
+        case "deposit":
+            
+
+        case "withdraw":
+
+        case "transfer":
+
+
+
+
+    }
+
+*/
+
+
+
+
+}
 //end flash
 ?>
