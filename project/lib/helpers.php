@@ -129,12 +129,8 @@ function doBankAction($source, $destination, $amount, $type)
 
 
     }
-
+}
 */
 
-
-
-
-}
 //end flash
 ?>
