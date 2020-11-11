@@ -16,13 +16,6 @@ $accounts = getDropDown();
         <label>Account Number</label>
             <input name="account_number" placeholder="00000000"> <!-- Check-->
         <label>Select Your Account </label> 
-        <select>
-            <?php foreach($items as $index=>$row):?>
-                <option value="<?php echo $index;?>">
-                    <?php echo $row['accs'];?>
-                </option>
-            <?php endforeach;?>
-        </select>
         <label>Source ID</label placeholder="0">
             <input type="number" name="s_id">
         <label>Destination ID </label>
