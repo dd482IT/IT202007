@@ -8,7 +8,7 @@ if(!has_role("Admin")){
 ?>
 
 <?php
-//$accounts = getDropDown();
+$accounts = getDropDown();
 ?>
 
     <h3>Create Transaction</h3> 
