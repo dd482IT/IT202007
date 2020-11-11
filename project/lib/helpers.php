@@ -98,7 +98,7 @@ function getAccountType()
 
 }
 
-
+/*
 function getDropDown(){
     $user = get_user_id();
     $db = getDB();
@@ -114,7 +114,7 @@ function getDropDown(){
     }
 
 }
-/*
+
 function doBankAction($source, $destination, $amount, $type)
 {
     switch($type){
