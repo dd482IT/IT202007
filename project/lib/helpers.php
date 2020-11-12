@@ -102,7 +102,7 @@ function getAccountType()
 function getDropDown(){
     $user = get_user_id();
     $db = getDB();
-    $stmt = $db->prepare("SELECT account_number as accs FROM Accounts WHERE Accounts.user_id = :user_id");
+    $stmt = $db->prepare("SELECT account_number as accs FROM Accounts WHERE Accounts.user_id = $user");
     $r = $stmt->execute();
 
     if($r){
@@ -114,23 +114,56 @@ function getDropDown(){
     }
 
 }
-/*
-function doBankAction($source, $destination, $amount, $type)
+
+function doBankAction($acc1, $acc2, $amount, $action)
 {
-    switch($type){
-        case "deposit":
+    $db = getDB();
+    $user = get_user_id();
+
+    $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM TRANSACTIONS WHERE Transactions.act_src_id = :id");
+            $r = $stmt->execute([
+                ":id" => $acc1
+            ]);
+            $results = $stmt->fetch(PDO::FETCH_ASSOC);
+            $source_total = $results["Total"];
+
+    $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM TRANSACTIONS WHERE Transactions.dest_src_id = :id");
+            $r = $stmt->execute([
+                ":id" => $acc2
+            ]);
+            $results = $stmt->fetch(PDO::FETCH_ASSOC);
+            $destination_total = $results["Total"];
+
+
+     $destination_total = $results["Total"];
+
+    $stmt = $db ->prepare("INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, expected_total) 
+        VALUES (:account_type, :s_id, :d_id, :amount, :action_type, :expected_total) (:account_number2, :s_id2, :d_id2, :amount2, :expected_total2)" );
+        //since this is called in create then it doesnt need to be called here
             
-
-        case "withdraw":
-
-        case "transfer":
-
-
-
-
-    }
+                $r = $stmt->execute([
+                    //first half 
+                    "s_id" => $acc1,
+                    "d_id" => $acc2,
+                    "amount" => $amount,
+                    "action_type" => $action,
+                    ":expected_total" => $source_total,
+                    //second half
+                    "s_id2" => $acc2,
+                    "d_id2" => $acc1,
+                    "amount2" => ($amount*-1),
+                    "action_type" => $action,
+                    ":expected_total2" => $destination_total,
+                ]);
+                if ($r) {
+                    flash("Created successfully with id: " . $db->lastInsertId());
+                }
+                else {
+                    $e = $stmt->errorInfo();
+                    flash("Error creating: " . var_export($e, true));
+                }
+        
 }
-*/
-
 //end flash
+
 ?>
