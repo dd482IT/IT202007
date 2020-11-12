@@ -122,15 +122,16 @@ function doBankAction($acc1, $acc2, $amount, $action)
     $db = getDB();
     $user = get_user_id();
 
+        /*
     $stmt=$db->prepare("SELECT id from Accounts where account_number = '000000000000'");
     $results = $stmt->fetch(PDO::FETCH_ASSOC);
     $world_id = $results["id"];
-
+    */
 
 
     $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
-                ":id" => $world_id
+                ":id" => $acc1
             ]);
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $source_total = $results["Total"]; // ERROR HERE 
@@ -146,7 +147,7 @@ function doBankAction($acc1, $acc2, $amount, $action)
 
     $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
-                ":id" => $world_id
+                ":id" => $acc2
             ]);
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $destination_total = $results["Total"]; // ERROR HERE 
