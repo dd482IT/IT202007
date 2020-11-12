@@ -122,14 +122,14 @@ function doBankAction($acc1, $acc2, $amount, $action)
     $db = getDB();
     $user = get_user_id();
 
-    $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM TRANSACTIONS WHERE Transactions.act_src_id = :id");
+    $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
                 ":id" => $acc1
             ]);
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $source_total = $results["Total"]; // ERROR HERE 
 
-    $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM TRANSACTIONS WHERE Transactions.dest_src_id = :id");
+    $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
                 ":id" => $acc2
             ]);
