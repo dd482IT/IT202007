@@ -15,18 +15,21 @@ $accounts = getDropDown();
     <form method="POST">      
 
         <label>Source Account</label placeholder="0">
+            <select>
             <?php foreach($accounts as $index=>$row):?>
                 <option name="s_id" value="<?php echo $index;?>">
                 <?php echo $row["accs"];?>
                 </option>
             <?php endforeach;?>
+            </select>
         <label>Destination Account </label>
+            <select>
             <?php foreach($accounts as $index=>$row):?>
                 <option name="d_id" value="<?php echo $index;?>">
                 <?php echo $row["accs"];?>
                 </option>
             <?php endforeach;?>
-
+            </select>
         <label>Amount</label> 
         <input type="number" min="1.00" name="amount">
         <label>Action</label> 
