@@ -54,8 +54,9 @@ $accounts = getDropDown();
         $db = getDB();
         
         $stmt=$db->prepare("SELECT id FROM Accounts WHERE account_number = '000000000000'");
-        $results = $stmt->fetch(PDO::FETCH_ASSOC);
-        $world_id = $results["id"];
+        $results = $stmt->execute();
+        $r = $stmt->fetch(PDO::FETCH_ASSOC);
+        $world_id = $r["id"];
 
         switch($action){
             case "deposit":
