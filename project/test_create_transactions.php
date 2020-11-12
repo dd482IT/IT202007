@@ -53,7 +53,7 @@ $accounts = getDropDown();
         $user = get_user_id();
         $db = getDB();
         
-        $stmt=$db->prepare("SELECT id from Accounts where account_number = '000000000000'");
+        $stmt=$db->prepare("SELECT id FROM Accounts WHERE account_number = '000000000000'");
         $results = $stmt->fetch(PDO::FETCH_ASSOC);
         $world_id = $results["id"];
 
@@ -66,7 +66,7 @@ $accounts = getDropDown();
                 doBankAction($source, $world_id, ($amount * -1), $action);
             break;
             case "transfer":
-                doBankAction($source,$destination,($amount*-1), $action);
+                doBankAction($source,$destination,($amount *-1), $action);
             break;
         }
         
