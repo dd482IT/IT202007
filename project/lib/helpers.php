@@ -128,7 +128,14 @@ function doBankAction($acc1, $acc2, $amount, $action)
             ]);
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $source_total = $results["Total"]; // ERROR HERE 
-            safer_echo($source_total);
+        
+            if ($source_total) {
+                flash("Created successfully with id: " . $db->lastInsertId());
+            }
+            else {
+                $e = $stmt->errorInfo();
+                flash("Error getting source total: " . var_export($e, true));
+            }
 
 
     $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
@@ -137,7 +144,14 @@ function doBankAction($acc1, $acc2, $amount, $action)
             ]);
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $destination_total = $results["Total"]; // ERROR HERE 
-            safer_echo($destination_total);
+
+            if ($destination_total) {
+                flash("Created successfully with id: " . $db->lastInsertId());
+            }
+            else {
+                $e = $stmt->errorInfo();
+                flash("Error getting destination total: " . var_export($e, true));
+            }
 
 
     $stmt = $db ->prepare("INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, expected_total) 
