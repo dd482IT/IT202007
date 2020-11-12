@@ -16,17 +16,17 @@ $accounts = getDropDown();
 
         <label>Source Account</label placeholder="0">
             <select name="s_id">
-            <?php foreach($accounts as $index=>$row):?>
-                <option value="<?php echo $index;?>">
-                <?php echo $row["accs"];?>
+            <?php foreach($accounts as $row):?>
+                <option value="<?php echo $row["id"];?>"> 
+                <?php echo $row["account_number"];?>
                 </option>
             <?php endforeach;?>
             </select>
         <label>Destination Account </label>
             <select name="d_id">
-            <?php foreach($accounts as $index=>$row):?>
-                <option value="<?php echo $index;?>">
-                <?php echo $row["accs"];?>
+            <?php foreach($accounts as $row):?>
+                <option value="<?php echo $row["id"];?>">
+                <?php echo $row["account_number"];?>
                 </option>
             <?php endforeach;?>
             </select>

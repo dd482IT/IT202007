@@ -102,7 +102,7 @@ function getAccountType()
 function getDropDown(){
     $user = get_user_id();
     $db = getDB();
-    $stmt = $db->prepare("SELECT account_number as accs FROM Accounts WHERE Accounts.user_id = :id");
+    $stmt = $db->prepare("SELECT id, account_number FROM Accounts WHERE Accounts.user_id = :id");
     $r = $stmt->execute([
         ":id"=>$user
     ]);  
@@ -122,9 +122,15 @@ function doBankAction($acc1, $acc2, $amount, $action)
     $db = getDB();
     $user = get_user_id();
 
+    $stmt=$db->prepare("SELECT id from Accounts where account_number = '000000000000'");
+    $results = $stmt->fetch(PDO::FETCH_ASSOC);
+    $world_id = $results["id"];
+
+
+
     $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
-                ":id" => $acc1
+                ":id" => $world_id
             ]);
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $source_total = $results["Total"]; // ERROR HERE 
@@ -140,7 +146,7 @@ function doBankAction($acc1, $acc2, $amount, $action)
 
     $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
-                ":id" => $acc2
+                ":id" => $world_id
             ]);
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $destination_total = $results["Total"]; // ERROR HERE 
