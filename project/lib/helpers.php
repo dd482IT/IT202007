@@ -127,18 +127,18 @@ function doBankAction($acc1, $acc2, $amount, $action)
                 ":id" => $acc1
             ]);
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
-            $source_total = $results["Total"];
+            $source_total = $results["Total"]; // ERROR HERE 
 
     $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM TRANSACTIONS WHERE Transactions.dest_src_id = :id");
             $r = $stmt->execute([
                 ":id" => $acc2
             ]);
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
-            $destination_total = $results["Total"];
+            $destination_total = $results["Total"]; // ERROR HERE 
 
 
     $stmt = $db ->prepare("INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, expected_total) 
-        VALUES (:s_id, :d_id, :amount, :action_type, :expected_total) (:s_id2, :d_id2, :amount2, action_type, :expected_total2)" );
+        VALUES (:s_id, :d_id, :amount, :action_type, :expected_total) (:s_id2, :d_id2, :amount2, :action_type, :expected_total2)" );
         //since this is called in create then it doesnt need to be called here
             
                 $r = $stmt->execute([
