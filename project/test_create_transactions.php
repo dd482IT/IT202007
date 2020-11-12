@@ -9,7 +9,6 @@ if(!has_role("Admin")){
 
 <?php
 $accounts = getDropDown();
-echo $accounts;
 ?>
 
     <h3>Create Transaction</h3> 
@@ -18,13 +17,13 @@ echo $accounts;
         <label>Source Account</label placeholder="0">
             <?php foreach($accounts as $index=>$row):?>
                 <option name="s_id" value="<?php echo $index;?>">
-                <?php echo $row;?>
+                <?php echo $row["accs"];?>
                 </option>
             <?php endforeach;?>
         <label>Destination Account </label>
             <?php foreach($accounts as $index=>$row):?>
                 <option name="d_id" value="<?php echo $index;?>">
-                <?php echo $row?>
+                <?php echo $row["accs"];?>
                 </option>
             <?php endforeach;?>
 

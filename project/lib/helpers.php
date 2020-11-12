@@ -102,8 +102,10 @@ function getAccountType()
 function getDropDown(){
     $user = get_user_id();
     $db = getDB();
-    $stmt = $db->prepare("SELECT account_number as accs FROM Accounts WHERE Accounts.user_id = $user");
-    $r = $stmt->execute();
+    $stmt = $db->prepare("SELECT account_number as accs FROM Accounts WHERE Accounts.user_id = :id");
+    $r = $stmt->execute([
+        ":id"=>$user
+    ]);  
 
     if($r){
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
