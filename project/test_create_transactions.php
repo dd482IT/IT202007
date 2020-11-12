@@ -46,21 +46,24 @@ $accounts = getDropDown();
 <?php
     if(isset($_POST["save"])){
         //$account_type = $_POST["account_type"];
-        $world = "000000000000";
         $source = $_POST["s_id"]; //ACCOUNT 1 
         $destination = $_POST["d_id"]; //ACCOUNT 2 
         $amount = $_POST["amount"];
         $action  = $_POST["action"];// WITHDRAWAL, DESPOIT, TRANSFER
         $user = get_user_id();
         $db = getDB();
-        flash("This is the id . $source");
+        
+        $stmt=$db->prepare("SELECT id from Accounts where account_number = '000000000000'");
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+        $world_id = $results["id"];
 
         switch($action){
             case "deposit":
-                doBankAction($world, $source, ($amount * -1), $action);
+                
+                doBankAction($world_id, $source, ($amount * -1), $action);
             break;
             case "withdrawl":
-                doBankAction($source, $world, ($amount * -1), $action);
+                doBankAction($source, $world_id, ($amount * -1), $action);
             break;
             case "transfer":
                 doBankAction($source,$destination,($amount*-1), $action);
