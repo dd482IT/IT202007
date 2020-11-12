@@ -15,17 +15,17 @@ $accounts = getDropDown();
     <form method="POST">      
 
         <label>Source Account</label placeholder="0">
-            <select>
+            <select name="s_id">
             <?php foreach($accounts as $index=>$row):?>
-                <option name="s_id" value="<?php echo $index;?>">
+                <option value="<?php echo $index;?>">
                 <?php echo $row["accs"];?>
                 </option>
             <?php endforeach;?>
             </select>
         <label>Destination Account </label>
-            <select>
+            <select name="d_id">
             <?php foreach($accounts as $index=>$row):?>
-                <option name="d_id" value="<?php echo $index;?>">
+                <option value="<?php echo $index;?>">
                 <?php echo $row["accs"];?>
                 </option>
             <?php endforeach;?>
@@ -36,7 +36,7 @@ $accounts = getDropDown();
         <select name="action" placeholder="withdraw">
             <option value ="deposit">desposit</option>
             <option value ="transfer">transfer</option>
-            <option value ="withdraw">withdraw</option>
+            <option value ="withdrawl">withdraw</option>
         </select>
 
         <input type ="submit" name="save" value="create"/>
@@ -66,22 +66,22 @@ $accounts = getDropDown();
         VALUES (:account_number, :account_type, :s_id, :d_id, :amount, :action_type, :expected_total :user) (:account_number2, :account_type2, :s_id2, :d_id2, :amount2, :action_type2, :expected_total2 :user2)" ); //missing values of other account or world in this case
         */
 
-        switch($type){
+        switch($action){
             case "deposit":
-                doBankAction($world, $source, ($amount * -1), $type);
+                doBankAction($world, $source, ($amount * -1), $action);
             break;
             case "withdrawl":
-                doBankAction($source, $world, ($amount * -1), $type);
+                doBankAction($source, $world, ($amount * -1), $action);
             break;
             case "transfer":
-                doBankAction($source,$destination,($amount*-1), $type);
+                doBankAction($source,$destination,($amount*-1), $action);
             break;
         }
         
 
 
         
-
+        /*
         if ($r) {
             flash("Created successfully with id: " . $db->lastInsertId());
         }
@@ -89,7 +89,7 @@ $accounts = getDropDown();
             $e = $stmt->errorInfo();
             flash("Error creating: " . var_export($e, true));
         }
-
+        */
           
     }
    
