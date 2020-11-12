@@ -136,7 +136,8 @@ function doBankAction($acc1, $acc2, $amount, $action)
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $source_total = $results["Total"]; // ERROR HERE 
         
-            if ($source_total) {
+            if ($source_total == null) {
+                $source_total = 0;
                 flash("Created successfully with id: " . $db->lastInsertId());
             }
             else {
@@ -152,7 +153,8 @@ function doBankAction($acc1, $acc2, $amount, $action)
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $destination_total = $results["Total"]; // ERROR HERE 
 
-            if ($destination_total) {
+            if ($destination_total == null) {
+                $destination_total == 0;
                 flash("Created successfully with id: " . $db->lastInsertId());
             }
             else {
