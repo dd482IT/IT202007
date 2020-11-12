@@ -60,7 +60,6 @@ $accounts = getDropDown();
 
         switch($action){
             case "deposit":
-                
                 doBankAction($world_id, $source, ($amount * -1), $action);
             break;
             case "withdrawl":

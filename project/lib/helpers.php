@@ -121,7 +121,7 @@ function doBankAction($acc1, $acc2, $amount, $action)
 {
     $db = getDB();
     $user = get_user_id();
-    
+
     $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
                 ":id" => $acc1
@@ -129,8 +129,7 @@ function doBankAction($acc1, $acc2, $amount, $action)
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $source_total = $results["Total"]; // ERROR HERE 
         
-            if ($source_total == null) {
-                $source_total = 0;
+            if ($source_total) {
                 flash("Created successfully with id: " . $db->lastInsertId());
             }
             else {
@@ -146,8 +145,7 @@ function doBankAction($acc1, $acc2, $amount, $action)
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $destination_total = $results["Total"]; // ERROR HERE 
 
-            if ($destination_total == null) {
-                $destination_total == 0;
+            if ($destination_total) {
                 flash("Created successfully with id: " . $db->lastInsertId());
             }
             else {
