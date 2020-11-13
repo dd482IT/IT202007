@@ -7,9 +7,7 @@ if(!has_role("Admin")){
 }
 ?>
 
-<?php
-$accounts = getDropDown();
-?>
+
 
     <h3>Create Transaction</h3> 
     <form method="POST">      
@@ -69,19 +67,6 @@ $accounts = getDropDown();
                 doBankAction($source,$destination,($amount *-1), $action);
             break;
         }
-        
-
-
-        
-        /*
-        if ($r) {
-            flash("Created successfully with id: " . $db->lastInsertId());
-        }
-        else {
-            $e = $stmt->errorInfo();
-            flash("Error creating: " . var_export($e, true));
-        }
-        */
           
     }
    

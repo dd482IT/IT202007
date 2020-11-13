@@ -14,10 +14,14 @@ if (isset($_GET["id"])) {
 ?>
 
 <?php
+$accounts = getDropDown();
+?>
+
+<?php
 $result = [];
 if (isset($id)) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT Transactions.id,act_src_id,act_dest_id, amount, Users.username, A1.account_number as sourceAccount, A2.account_number as destAccount FROM  Transactions JOIN Users on Transactions.user_id = Users.id JOIN Accounts AS A1 ON A1.id = Transactions.act_src_id JOIN Accounts as A2 ON A2.id = Transactions.act_dest_id where Transcation.id = :id");
+    $stmt = $db->prepare("SELECT Transactions.id, act_src_id,act_dest_id, amount, Users.username, A1.account_number as sourceAccount, A2.account_number as destAccount FROM  Transactions JOIN Users on Transactions.user_id = Users.id JOIN Accounts AS A1 ON A1.id = Transactions.act_src_id JOIN Accounts as A2 ON A2.id = Transactions.act_dest_id where Transcation.id = :id");
     $r = $stmt->execute([":id" => $id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$result) {
@@ -37,10 +41,9 @@ if (isset($id)) {
         <div class="card-body">
             <div>
                 <p>Stats</p> <!-- match with SELECT ^^^^^^ -->
-                <div>Account Type: <?php safer_echo($result["account_type"]); ?></div>
-                <div>Transaction Type: <?php safer_echo($result["action"]); ?> - <?php safer_echo($result["mod_max"]); ?></div>
-                <div>Transaction: <?php safer_echo($result["transaction"]); ?></div>
-                <div>Owned by: <?php safer_echo($result["username"]); ?></div>
+                <div>
+                    Account Type: <?php safer_echo($result["account_type"]); ?>
+            </div>
             </div>
         </div>
     </div>

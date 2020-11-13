@@ -13,9 +13,13 @@ $results = [];
 if (isset($_POST["query"])) {
     $query = $_POST["query"];
 }
+?>
+
+<?php
 if (isset($_POST["search"]) && !empty($query)) {
+    $accounts = getDropDown();
     $db = getDB();
-    $stmt = $db->prepare("SELECT Transactions.id, Accounts.account_number as Accounts, Users.username from Transactions as Transactions JOIN Users on Account.user_id = Users.id LEFT JOIN Accounts as Account on Transactions.id = Accounts.id WHERE Transactions.id like :q LIMIT 10");
+    $stmt = $db->prepare("SELECT Transactions.act_src_id, Users.username from Transactions as Transactions JOIN Users on Transactions.act_src_id = Users.id LEFT JOIN Accounts on Transactions.act_src_id = Accounts.id WHERE Transactions.act_src_id like :q LIMIT 10");
     $r = $stmt->execute([":q" => "%$query%"]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -25,6 +29,8 @@ if (isset($_POST["search"]) && !empty($query)) {
     }
 }
 ?>
+
+
 <h3>List Transcations</h3>
 <form method="POST">
     <input name="query" placeholder="Search" value="<?php safer_echo($query); ?>"/>

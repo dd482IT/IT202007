@@ -32,7 +32,7 @@ if (isset($_POST["save"])) {
         $r = $stmt->execute([
             ":amount" => $amount,
             ":action" => $action, 
-            //need transaction type
+        
             ":id" => $transaction
         ]);
         if ($r) {
