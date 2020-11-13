@@ -122,7 +122,7 @@ function doBankAction($acc1, $acc2, $amount, $action)
     $db = getDB();
     $user = get_user_id();
 
-    $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
+    $stmt = $db ->prepare("SELECT NVL(SUM(AMOUNT),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
                 ":id" => $acc1
             ]);
@@ -138,7 +138,7 @@ function doBankAction($acc1, $acc2, $amount, $action)
             }
 
 
-    $stmt = $db ->prepare("SELECT SUM(AMOUNT) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
+    $stmt = $db ->prepare("SELECT NVL(SUM(AMOUNT),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
                 ":id" => $acc2
             ]);
