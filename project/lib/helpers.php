@@ -160,15 +160,15 @@ function doBankAction($acc1, $acc2, $amount, $action)
             
                 $r = $stmt->execute([
                     //first half 
-                    "s_id" => $acc1,
-                    "d_id" => $acc2,
-                    "amount" => $amount,
-                    "action_type" => $action,
+                    ":s_id" => $acc1,
+                    ":d_id" => $acc2,
+                    ":amount" => $amount,
+                    ":action_type" => $action,
                     ":expected_total" => $source_total,
                     //second half
-                    "s_id2" => $acc2,
-                    "d_id2" => $acc1,
-                    "amount2" => ($amount*-1),
+                    ":s_id2" => $acc2,
+                    ":d_id2" => $acc1,
+                    ":amount2" => ($amount*-1),
                     "action_type" => $action,
                     ":expected_total2" => $destination_total
                 ]);
