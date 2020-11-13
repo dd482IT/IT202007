@@ -51,7 +51,7 @@ if (isset($_POST["search"]) && !empty($query)) {
                 <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>
-                        <div><?php safer_echo($r["Transactions.act_src_id"]); ?></div>
+                        <div><?php safer_echo($r["id"]); ?></div>
                     </div>
                     <div>
                         <div>Owner:</div>
