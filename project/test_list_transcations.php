@@ -54,11 +54,23 @@ if (isset($_POST["search"]) && !empty($query)) {
                 <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>
-                        <div><?php safer_echo($r["act_src_id"]); ?></div>
+                        <div><?php safer_echo($r["account_number"]); ?></div>
                     </div> 
                     <div>
                         <div>Action Type:</div>
                         <div><?php safer_echo($r["action_type"]); ?></div>
+                    </div>
+                    <div>
+                        <div>Source:</div>
+                        <div><?php safer_echo($r["act_src_id"]); ?></div>
+                    </div>
+                    <div>
+                        <div>Destination:</div>
+                        <div><?php safer_echo($r["act_dest_id"]); ?></div>
+                    </div>
+                    <div>
+                        <div>amount:</div>
+                        <div><?php safer_echo($r["amount"]); ?></div>
                     </div>
                     <div>
                         <a type="button" href="test_edit_transactions.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
