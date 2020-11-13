@@ -47,6 +47,7 @@ if (isset($_POST["search"]) && !empty($query)) {
 <div class="results">
     <?php if (count($results) > 0): ?>
         <div class="list-group">
+            <?php echo var_export($results, true); ?>
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
                     <div>
