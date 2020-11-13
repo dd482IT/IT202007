@@ -27,7 +27,7 @@ if (isset($_POST["search"]) && !empty($query)) {
        
 
 
-    $stmt = $db->prepare("SELECT * FROM `Transactions` WHERE act_src_id = :q LIMIT 10");
+    $stmt = $db->prepare("SELECT * FROM `Transactions` JOIN `Accounts` ON Transactions.act_src_id = Accounts.id WHERE act_src_id = :q LIMIT 10");
     $r = $stmt->execute([":q" => "$query"]);
     if ($r) {
         $results2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
