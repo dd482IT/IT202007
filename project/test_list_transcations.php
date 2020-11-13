@@ -10,6 +10,7 @@ if (!has_role("Admin")) {
 <?php
 $query = "";
 $results = [];
+$results2 = [];
 if (isset($_POST["query"])) {
     $query = $_POST["query"];
 }
@@ -28,7 +29,6 @@ if (isset($_POST["search"]) && !empty($query)) {
 
     $stmt = $db->prepare("SELECT Transactions.act_src_id as id, Users.username as username FROM Transactions as Transactions JOIN Users on Transactions.user_id = Users.id LEFT JOIN Accounts on Transactions.act_src_id = Accounts.id WHERE Transactions.act_src_id like :q LIMIT 10");
     $r = $stmt->execute([":q" => "$query"]);
-    $results2 = [];
     if ($r) {
         $results2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
         flash("Results are successfull");
