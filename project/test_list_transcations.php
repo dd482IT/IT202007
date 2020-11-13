@@ -47,9 +47,9 @@ if (isset($_POST["search"]) && !empty($query)) {
     <input type="submit" value="Search" name="search"/>
 </form>
 <div class="results">
-    <?php if (count($results2) > 0): var_export($results, true); ?>
+    <?php if (count($results2) > 0): ?>
         <div class="list-group">
-            
+            <?php var_export($results, true)?>
             <?php foreach ($results2 as $r): ?>
                 <div class="list-group-item">
                     <div>
