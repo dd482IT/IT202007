@@ -74,7 +74,7 @@ if (isset($_POST["search"]) && !empty($query)) {
                     </div>
                     <div>
                         <div>Transaction ID:</div>
-                        <div><?php safer_echo($r["Transaction.id"]); ?></div>
+                        <div><?php safer_echo($r["id"]); ?></div>
                     </div>
                     <div>
                         <a type="button" href="test_edit_transactions.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
