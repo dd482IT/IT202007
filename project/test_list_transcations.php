@@ -49,6 +49,7 @@ if (isset($_POST["search"]) && !empty($query)) {
 <div class="results">
     <?php if (count($results2) > 0): ?>
         <div class="list-group">
+            <?php safer_echo($results2, true); ?>
             <?php foreach ($results2 as $r): ?>
                 <div class="list-group-item">
                     <div>
