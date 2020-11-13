@@ -26,7 +26,7 @@ if (isset($_POST["search"]) && !empty($query)) {
        
 
 
-    $stmt = $db->prepare("SELECT Transactions.act_src_id, Users.username as username FROM Transactions as Transactions JOIN Users on Transactions.act_src_id = Users.id LEFT JOIN Accounts on Transactions.act_src_id = Accounts.id WHERE Transactions.act_src_id like :q LIMIT 10");
+    $stmt = $db->prepare("SELECT Transactions.act_src_id, Users.username as username FROM Transactions as Transactions JOIN Users on Transactions.user_id = Users.id LEFT JOIN Accounts on Transactions.act_src_id = Accounts.id WHERE Transactions.act_src_id like :q LIMIT 10");
     $r = $stmt->execute([":q" => "$query"]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -58,8 +58,8 @@ if (isset($_POST["search"]) && !empty($query)) {
                         <div><?php safer_echo($r["username"]); ?></div> <!-- Check this-->
                     </div>
                     <div>
-                        <a type="button" href="test_edit_incubator.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
-                        <a type="button" href="test_view_incubator.php?id=<?php safer_echo($r['id']); ?>">View</a>
+                        <a type="button" href="test_edit_transactions.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
+                        <a type="button" href="test_view_transactions.php?id=<?php safer_echo($r['id']); ?>">View</a>
                     </div>
                 </div>
             <?php endforeach; ?>
