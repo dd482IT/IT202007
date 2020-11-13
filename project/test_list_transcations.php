@@ -72,6 +72,10 @@ if (isset($_POST["search"]) && !empty($query)) {
                         <div><?php safer_echo($r["amount"]); ?></div>
                     </div>
                     <div>
+                        <div>Transaction ID:</div>
+                        <div><?php safer_echo($r["id"]); ?></div>
+                    </div>
+                    <div>
                         <a type="button" href="test_edit_transactions.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
                         <a type="button" href="test_view_transactions.php?id=<?php safer_echo($r['id']); ?>">View</a>
                     </div>
