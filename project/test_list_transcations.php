@@ -29,7 +29,7 @@ if (isset($_POST["search"]) && !empty($query)) {
     $stmt = $db->prepare("SELECT Transactions.act_src_id as id, Users.username as username FROM Transactions as Transactions JOIN Users on Transactions.user_id = Users.id LEFT JOIN Accounts on Transactions.act_src_id = Accounts.id WHERE Transactions.act_src_id like :q LIMIT 10");
     $r = $stmt->execute([":q" => "$query"]);
     if ($r) {
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $results2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
         flash("Results are successfull");
     }
     else {
@@ -45,10 +45,10 @@ if (isset($_POST["search"]) && !empty($query)) {
     <input type="submit" value="Search" name="search"/>
 </form>
 <div class="results">
-    <?php if (count($results) > 0): ?>
+    <?php if (count($results2) > 0): ?>
         <div class="list-group">
-            <?php echo var_export($results, true); ?>
-            <?php foreach ($results as $r): ?>
+            <?php echo var_export($results2, true); ?>
+            <?php foreach ($results2 as $r): ?>
                 <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>
