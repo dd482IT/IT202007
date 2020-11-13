@@ -47,20 +47,22 @@ if (isset($_POST["search"]) && !empty($query)) {
 <div class="results">
     <?php if (count($results) > 0): ?>
         <div class="list-group">
+            <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>
-                        <div><?php safer_echo($results["Transactions.act_src_id"]); ?></div>
+                        <div><?php safer_echo($r["Transactions.act_src_id"]); ?></div>
                     </div>
                     <div>
                         <div>Owner:</div>
-                        <div><?php safer_echo($results["username"]); ?></div> <!-- Check this-->
+                        <div><?php safer_echo($r["username"]); ?></div> <!-- Check this-->
                     </div>
                     <div>
                         <a type="button" href="test_edit_transactions.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
                         <a type="button" href="test_view_transactions.php?id=<?php safer_echo($r['id']); ?>">View</a>
                     </div>
                 </div>
+            <?php endforeach; ?>
         </div>
     <?php else: ?>
         <p>No results</p>
