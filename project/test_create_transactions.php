@@ -6,7 +6,9 @@ if(!has_role("Admin")){
     die(header("Location: login.php"));
 }
 ?>
-
+<?php
+$accounts = getDropDown();
+?>
 
 
     <h3>Create Transaction</h3> 
