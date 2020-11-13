@@ -57,9 +57,7 @@ $accounts = getDropDown();
 ?>
     <h3>Edit Transaction</h3>
     <form method="POST">
-        <label>Transaction</label>
-        <button name="transaction_id" value="<?php echo $link=$_GET['id'];?>" >
-        <input type="number" name="amount" value="<?php echo $result["amount"]; ?>"/>
+        <label name="transaction_id" value="<?php echo $link=$_GET['id'];?>" >>Transaction</label>
     </form>
 
 
