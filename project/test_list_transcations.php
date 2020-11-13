@@ -19,10 +19,10 @@ if (isset($_POST["query"])) {
 <?php
 if (isset($_POST["search"]) && !empty($query)) {
     $db = getDB();
-    $stmt=$db->prepare("SELECT id FROM Accounts WHERE account_number like :q");
+    $stmt=$db->prepare("SELECT id as acc_id FROM Accounts WHERE account_number like :q");
         $r = $stmt->execute([":q" => "$query"]);
         $results = $stmt->fetch(PDO::FETCH_ASSOC);
-        $query = $results["id"]; 
+        $query = $results["acc_id"]; 
         
        
 
