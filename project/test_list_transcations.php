@@ -23,6 +23,7 @@ if (isset($_POST["search"]) && !empty($query)) {
     $r = $stmt->execute([":q" => "%$query%"]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        flash("Results are successfull");
     }
     else {
         flash("There was a problem fetching the results " . var_export($stmt->errorInfo(), true));
