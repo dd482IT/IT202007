@@ -20,16 +20,14 @@ if (isset($_POST["search"]) && !empty($query)) {
     $db = getDB();
     $stmt=$db->prepare("SELECT id FROM Accounts WHERE account_number like :q");
         $r = $stmt->execute([":q" => "$query"]);
-        if($r){
-            $results = $stmt->fetch(PDO::FETCH_ASSOC);
-            $query = $results["id"]; 
-            safer_echo($query);
-        }
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+        $query = $results["id"]; 
+        
        
 
 
     $stmt = $db->prepare("SELECT Transactions.act_src_id, Users.username as username FROM Transactions as Transactions JOIN Users on Transactions.act_src_id = Users.id LEFT JOIN Accounts on Transactions.act_src_id = Accounts.id WHERE Transactions.act_src_id like :q LIMIT 10");
-    $r = $stmt->execute([":q" => "%$query%"]);
+    $r = $stmt->execute([":q" => "$query"]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         flash("Results are successfull");
