@@ -169,7 +169,7 @@ function doBankAction($acc1, $acc2, $amount, $action)
                     ":s_id2" => $acc2,
                     ":d_id2" => $acc1,
                     ":amount2" => ($amount*-1),
-                    "action_type" => $action,
+                    ":action_type" => $action,
                     ":expected_total2" => $destination_total
                 ]);
                 if ($r) {
