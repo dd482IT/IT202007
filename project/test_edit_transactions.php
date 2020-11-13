@@ -57,10 +57,8 @@ $accounts = getDropDown();
 ?>
     <h3>Edit Transaction</h3>
     <form method="POST">
-        <label>Transaction ID</label>
         <div>
-            <div>Transaction ID:</div>
-            <div><?php safer_echo($_GET['id']); ?></div>
+            <div>Transaction ID: <?php safer_echo($_GET['id']);?> </div>
         </div>
     </form>
 
