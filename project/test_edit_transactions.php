@@ -58,24 +58,7 @@ $accounts = getDropDown();
     <h3>Edit Transaction</h3>
     <form method="POST">
         <label>Transaction</label>
-        <input type="number" name="transaction_id" value="<?php echo $link=$_GET['id'];?>" >
-        <label>Source Account</label>
-            <select name="s_id">
-                <?php foreach($accounts as $row):?>
-                    <option value="<?php echo $row["id"];?>"> 
-                    <?php echo $row["account_number"];?>
-                    </option>
-                <?php endforeach;?>
-            </select>
-        <label>Destination Account</label>
-            <select name="d_id">
-                <?php foreach($accounts as $row):?>
-                    <option value="<?php echo $row["id"];?>">
-                    <?php echo $row["account_number"];?>
-                    </option>
-                <?php endforeach;?>
-            </select>      
-        <label>Amount</label> 
+        <button name="transaction_id" value="<?php echo $link=$_GET['id'];?>" >
         <input type="number" name="amount" value="<?php echo $result["amount"]; ?>"/>
     </form>
 
