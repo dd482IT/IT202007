@@ -31,6 +31,7 @@ if (isset($_POST["search"]) && !empty($query)) {
     $r = $stmt->execute([":q" => "$query"]);
     if ($r) {
         $results2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $results=[];
         flash("Results are successfull");
     }
     else {
