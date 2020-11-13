@@ -17,15 +17,13 @@ if (isset($_POST["query"])) {
 
 <?php
 if (isset($_POST["search"]) && !empty($query)) {
-
+    $db = getDB();
     $stmt=$db->prepare("SELECT id FROM Accounts WHERE account_number like :q");
         $results = $stmt->execute([":q" => $query]);
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
         $query = $r["id"]; 
         safer_echo($query);
-        
-    $accounts = getDropDown();
-    $db = getDB();
+
     $stmt = $db->prepare("SELECT Transactions.act_src_id, Users.username as username FROM Transactions as Transactions JOIN Users on Transactions.act_src_id = Users.id LEFT JOIN Accounts on Transactions.act_src_id = Accounts.id WHERE Transactions.act_src_id like :q LIMIT 10");
     $r = $stmt->execute([":q" => "%$query%"]);
     if ($r) {
