@@ -60,10 +60,13 @@ if (isset($id)) {
 }
 
 ?>
+<?php
+$accounts = getDropDown();
+?>
     <h3>Edit Transaction</h3>
     <form method="POST">
         <label>Account Number</label>
-        <input name="account_number" placeholder="00000000" value="<?php echo $result["account_number"]; ?>"/>
+        <input name="account_number" value="<?php echo $result["account_number"]; ?>"/>
         <label>Transaction</label>
         <select name="transaction_id" value="<?php echo $result["transaction_id"];?>" >
             <option value="-1">None</option>
@@ -71,13 +74,23 @@ if (isset($id)) {
                 <option value="<?php safer_echo($transaction["id"]); ?>" <?php echo ($result["transaction_id"] == $transaction["id"] ? 'selected="selected"' : ''); ?>
                 ><?php safer_echo($transaction["transaction_id"]); ?></option>
             <?php endforeach; ?>
-        </select> <--! read only field -->
-        <label>Account Type</label>
-        <input type="account_type" name="account_type" value="<?php echo $result["account_type"]; ?>"/>
-        <label>Source ID</label>
-        <input type="number" min="1" name="s_id" value="<?php echo $result["s_id"]; ?>"/>
-        <label>Destination ID</label>
-        <input type="number" name="d_id" value="<?php echo $result["d_id"]; ?>"/>
+        </select> 
+        <label>Source Account</label>
+            <select name="s_id">
+                <?php foreach($accounts as $row):?>
+                    <option value="<?php echo $row["id"];?>"> 
+                    <?php echo $row["account_number"];?>
+                    </option>
+                <?php endforeach;?>
+            </select>
+        <label>Destination Account</label>
+            <select name="d_id">
+                <?php foreach($accounts as $row):?>
+                    <option value="<?php echo $row["id"];?>">
+                    <?php echo $row["account_number"];?>
+                    </option>
+                <?php endforeach;?>
+            </select>      
         <label>Amount</label> 
         <input type="number" name="amount" value="<?php echo $result["amount"]; ?>"/>
         <label>Action</label> 
