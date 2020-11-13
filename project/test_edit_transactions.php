@@ -58,7 +58,7 @@ $accounts = getDropDown();
     <h3>Edit Transaction</h3>
     <form method="POST">
         <label>Transaction</label>
-        <input type="number" name="transaction_id" value="<?php echo $result["transaction_id"];?>" >
+        <input type="number" name="transaction_id" value="<?php echo $link=$_GET['id'];?>" >
         <label>Source Account</label>
             <select name="s_id">
                 <?php foreach($accounts as $row):?>
