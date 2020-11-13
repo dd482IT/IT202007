@@ -79,8 +79,8 @@ if (isset($_POST["search"]) && !empty($query)) {
                         <div><?php safer_echo($r["tranID"]); ?></div>
                     </div>
                     <div>
-                        <a type="button" href="test_edit_transactions.php?id=tranID<?php safer_echo($r['id']); ?>">Edit</a>
-                        <a type="button" href="test_view_transactions.php?id=tranID<?php safer_echo($r['id']); ?>">View</a>
+                        <a type="button" href="test_edit_transactions.php?id=<?php safer_echo($r['tranID']); ?>">Edit</a>
+                        <a type="button" href="test_view_transactions.php?id=<?php safer_echo($r['tranID']); ?>">View</a>
                     </div>
                 </div>
             <?php endforeach; ?>
