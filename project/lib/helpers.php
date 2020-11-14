@@ -164,13 +164,13 @@ function doBankAction($acc1, $acc2, $amount, $action)
                     ":d_id" => $acc2,
                     ":amount" => $amount,
                     ":action_type" => $action,
-                    ":expected_total" => $source_total,
+                    ":expected_total" => $source_total + $amount,
                     //second half
                     ":s_id2" => $acc2,
                     ":d_id2" => $acc1,
                     ":amount2" => ($amount*-1),
                     ":action_type2" => $action,
-                    ":expected_total2" => $destination_total
+                    ":expected_total2" => $destination_total - $amount
                 ]);
                 if ($r) {
                     flash("Created successfully with id: " . $db->lastInsertId());

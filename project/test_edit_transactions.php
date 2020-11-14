@@ -18,12 +18,12 @@ if (isset($_POST["save"])) {
     if($transaction <= 0){
         $transaction = null; 
     }
-    
+    $amount = $_POST("amount");
     $user = get_user_id();
     $db = getDB();
+
     if (isset($id)) { //balance and trasnaction type
-        $stmt = $db->prepare("UPDATE Transactions set account_number=:account_number, Transaction.id=:transaction_id, 
-        act_src_id=:s_id, act_dest_id=:d_id, action_type=:action where id=:id"); //check proper ID
+        $stmt = $db->prepare("UPDATE Transactions set amount where id=:id"); //check proper ID
         $r = $stmt->execute([
             ":amount" => $amount,
         ]);
@@ -52,14 +52,13 @@ if (isset($id)) {
 }
 
 ?>
-<?php
-$accounts = getDropDown();
-?>
     <h3>Edit Transaction</h3>
     <form method="POST">
         <div>
             <div>Transaction ID: <?php safer_echo($_GET['id']);?> </div>
         </div>
+        <label> Amount Change </label> 
+        <input type="number" min="5.00" name="amount" value="<?php echo $result["amount"];?>" />
     </form>
 
 
