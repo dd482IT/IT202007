@@ -1,2 +1,4 @@
 myprivatecreds.*
 config.php
+.bash_profile*
+*.bash_file

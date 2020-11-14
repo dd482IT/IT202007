@@ -97,5 +97,90 @@ function getAccountType()
         }
 
 }
+
+
+function getDropDown(){
+    $user = get_user_id();
+    $db = getDB();
+    $stmt = $db->prepare("SELECT id, account_number FROM Accounts WHERE Accounts.user_id = :id");
+    $r = $stmt->execute([
+        ":id"=>$user
+    ]);  
+
+    if($r){
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $results; 
+    }
+    else{
+     flash("There was a problem fetching the accounts");
+    }
+
+}
+
+function doBankAction($acc1, $acc2, $amount, $action)
+{
+    $db = getDB();
+    $user = get_user_id();
+
+    $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
+            $r = $stmt->execute([
+                ":id" => $acc1
+            ]);
+            $results = $stmt->fetch(PDO::FETCH_ASSOC);
+            $source_total = $results["Total"]; // ERROR HERE 
+        
+            if ($source_total) {
+                flash("Created successfully with id: " . $db->lastInsertId());
+            }
+            else {
+                $e = $stmt->errorInfo();
+                flash("Error getting source total: " . var_export($e, true));
+            }
+
+
+    $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
+            $r = $stmt->execute([
+                ":id" => $acc2
+            ]);
+            $results = $stmt->fetch(PDO::FETCH_ASSOC);
+            $destination_total = $results["Total"]; // ERROR HERE 
+
+            if ($destination_total) {
+                flash("Created successfully with id: " . $db->lastInsertId());
+            }
+            else {
+                $e = $stmt->errorInfo();
+                flash("Error getting destination total: " . var_export($e, true));
+            }
+
+
+    $stmt = $db ->prepare("INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, expected_total)
+        VALUES (:s_id, :d_id, :amount, :action_type, :expected_total), (:s_id2, :d_id2, :amount2, :action_type2, :expected_total2)" );
+        //since this is called in create then it doesnt need to be called here
+            
+                $r = $stmt->execute([
+                    //first half 
+                    ":s_id" => $acc1,
+                    ":d_id" => $acc2,
+                    ":amount" => $amount,
+                    ":action_type" => $action,
+                    ":expected_total" => $source_total + $amount,
+                    //second half
+                    ":s_id2" => $acc2,
+                    ":d_id2" => $acc1,
+                    ":amount2" => ($amount*-1),
+                    ":action_type2" => $action,
+                    ":expected_total2" => $destination_total - $amount
+                ]);
+                if ($r) {
+                    flash("Created successfully with id: " . $db->lastInsertId());
+                }
+                else {
+                    $e = $stmt->errorInfo();
+                    flash("Error creating: " . var_export($e, true));
+                }
+        
+}
 //end flash
+
 ?>
