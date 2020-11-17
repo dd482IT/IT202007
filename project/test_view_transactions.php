@@ -8,9 +8,14 @@ if (!has_role("Admin")) {
 ?>
 <?php
 //we'll put this at the top so both php block have access to it
-if (isset($_GET["tranID"])) {
-    $id = $_GET["tranID"];
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
 }
+if (isset($_GET["tranID"])) {
+    $tranID = $_GET["tranID"];
+}
+
+
 ?>
 
 <?php
@@ -22,7 +27,7 @@ $result = [];
 if (isset($id)) {
     $db = getDB();
     $stmt = $db->prepare("SELECT`Transactions`.`act_src_id` AS `id`, `Transactions`.`act_dest_id` as `did`, `amount`, `action_type` FROM `Transactions` WHERE `id` = id");
-    $r = $stmt->execute([":id" => $id]);
+    $r = $stmt->execute([":id" => $$tranID]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$result) {
         $e = $stmt->errorInfo();
