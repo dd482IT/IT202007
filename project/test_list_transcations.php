@@ -23,7 +23,7 @@ if (isset($_POST["search"]) && !empty($query)) {
         $r = $stmt->execute([":q" => "%$query%"]);
         $results = $stmt->fetch(PDO::FETCH_ASSOC);
         $query = $results["acc_id"]; 
-        echo var_export($query, true)
+        echo var_export($query, true);
 
 
     //$stmt = $db->prepare("SELECT * FROM `Transactions` JOIN `Accounts` ON Transactions.act_src_id = Accounts.id WHERE act_src_id = :q LIMIT 10");
