@@ -181,11 +181,31 @@ function doBankAction($acc1, $acc2, $amount, $action)
                 }
         
 }
-
+/*
 function accountNumberGenerator(){
-    $number = mt_rand(100000000000,999999999999);
-    echo $number;
-}
+    $i = 0;
+    $max = 100;
+    $db = getDB();
+    $user = get_user_id();
+    while($i < $max){
+        $account_number =(string)rand(100000000000,999999999999);
+        $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, balance, user_id) VALUES(:account_number, :account_type, :balance, :user)");
+        $r = $stmt->execute([
+            ":account_number" => $account_number,
+            ":account_type"=> $account_type,
+            ":user" => $user,
+            ":balance" => $balance
+        ]);
+    
+        if($r){
+          flash("Created successfully with id: " . $db->lastInsertId());
+        }
+        else{
+          $e = $stmt->errorInfo();
+          flash("Error creating: " . var_export($e, true));
+        }
+    }
+*/
 //found on https://stackoverflow.com/questions/53047057/how-to-use-php-to-generate-random-10-digit-number-that-begins-with-the-same-two
 //end flash
 
