@@ -3,7 +3,7 @@
 <?php
 if(!has_role("Admin")){
     flash("You dont have permission to access this page");
-    die(header(getURL("login.php")));
+    die(header(getURL("Location: login.php")));
 }
 ?>
 <?php
