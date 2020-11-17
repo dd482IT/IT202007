@@ -33,15 +33,13 @@ if(isset($id)){
 <?php if (isset($result) && !empty($result)): ?>
     <div class="card">
         <div class="card-title">
-            <?php safer_echo($result["account_number"]); ?>
         </div>
         <div class="card-body">
             <div>
-                <p>Stats</p>
+                <p><b>Information</b></p>
+                <div> Account Number: <?php safer_echo($result["account_number"]); ?></div> 
                 <div>Account Type: <?php safer_echo($result["account_type"]); ?></div> <!-- CHANGE -->
                 <div>Balance: <?php safer_echo($result["balance"]); ?></div>
-                <div>Account Type: <?php safer_echo($result["account_type"]); ?></div>
-                <div>Balance: <?php safer_echo($result["balance"]);?>><div>
             </div>
         </div>
     </div>
