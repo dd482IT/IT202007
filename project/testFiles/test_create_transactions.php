@@ -1,9 +1,9 @@
-<?php require_once(__DIR__ . getURL("partials/nav.php")); ?>
+<?php require_once(__DIR__ . "/partials/nav.php"); ?>
 
 <?php
 if(!has_role("Admin")){
     flash("You dont have permission to access this page");
-    die(header(getURL("Location: login.php")));
+    die(header("Location: login.php"));
 }
 ?>
 <?php
@@ -75,4 +75,4 @@ $accounts = getDropDown();
 
 
 ?>
-<?php require(__DIR__ . getURL("partials/flash.php"));
+<?php require(__DIR__ . "/partials/flash.php");
