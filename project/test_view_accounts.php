@@ -19,7 +19,7 @@ if (isset($_GET["id"])) {
 $result = [];
 if(isset($id)){
   $db = getDB();
-  $stmt = $db->prepare("SELECT Accounts.id, account_number, account_type, balance, user_id, Users.username FROM Accounts JOIN Users on Accounts.user_id = User.id where Accounts.id = :id");
+  $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id FROM Accounts WHERE Users JOIN on Accounts.user_id = User.id where Accounts.id = :id");
   $r = $stmt->execute([":id" => $id]);
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
   if(!$result){

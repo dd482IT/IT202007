@@ -181,6 +181,12 @@ function doBankAction($acc1, $acc2, $amount, $action)
                 }
         
 }
+
+function accountNumberGenerator(){
+    $number = mt_rand(100000000000,999999999999);
+    echo $number;
+}
+//found on https://stackoverflow.com/questions/53047057/how-to-use-php-to-generate-random-10-digit-number-that-begins-with-the-same-two
 //end flash
 
 ?>
