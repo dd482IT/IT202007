@@ -31,7 +31,7 @@ if (isset($id)) {
 
     $stmt2 = $db->prepare("SELECT account_number FROM Accounts WHERE Accounts.id = id");
     $r2 = $stmt2->execute([":id" => $id]);
-    $result2 = $stmt->fetch(PDO::FETCH_ASSOC);
+    $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
     if (!$result2) {
         $e = $stmt->errorInfo();
         flash($e[2]);
@@ -50,7 +50,7 @@ if (isset($id)) {
                 <p><b>Information</b></p> <!-- match with SELECT ^^^^^^ -->
                 <div>Account Number <?php safer_echo($result2["account_number"]); ?> </div>
                 <div>Amount <?php safer_echo($result["amount"]); ?></div>
-                <div>Action Type <?php safer_echo($result["amount"]); ?> </div>
+                <div>Action Type <?php safer_echo($result["action_type"]); ?> </div>
             </div>
         </div>
     </div>
