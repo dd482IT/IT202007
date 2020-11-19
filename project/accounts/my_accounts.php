@@ -1,4 +1,4 @@
-<?php require_once(__DIR__ . "/../partials/nav.php"); ?> b
+<?php require_once(__DIR__ . "/../partials/nav.php"); ?>
 <?php
 $query = "";
 $results = [];
