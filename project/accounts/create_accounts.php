@@ -10,8 +10,6 @@
 ?>
 
 <form method="POST">
-  <label> Account Number </label>
-  <input type="number" name="account_number" value="<?php echo $result["account_number"];?>" />
   <label>Account Type</label>
   <select name="account_type">
     <option value = "checking">checking</option>
@@ -33,7 +31,7 @@ if(isset($_POST["save"])){
     $user= get_user_id();
     $balance = $_POST["balance"];
     $db = getDB();
-    
+
   while($i < $max){
     $account_number = (String)rand(100000000000,999999999999);
     $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id, balance) VALUES(:account_number, :account_type, :user, :balance)");
@@ -46,6 +44,7 @@ if(isset($_POST["save"])){
 
     if($r){
       flash("Created successfully with id: " . $db->lastInsertId());
+      break;
     }
     else{
       $e = $stmt->errorInfo();
