@@ -25,13 +25,17 @@
 </form>
 
 <?php 
-
+$i = 0; 
+$max = 100; 
 if(isset($_POST["save"])){
-    $account_number = $_POST["account_number"];
+    $account_number;
     $account_type = $_POST["account_type"]; 
     $user= get_user_id();
     $balance = $_POST["balance"];
     $db = getDB();
+    
+  while($i < $max){
+    $account_number = (String)rand(100000000000,999999999999);
     $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id, balance) VALUES(:account_number, :account_type, :user, :balance)");
     $r = $stmt->execute([
         ":account_number" => $account_number,
@@ -47,8 +51,9 @@ if(isset($_POST["save"])){
       $e = $stmt->errorInfo();
       flash("Error creating: " . var_export($e, true));
     }
-
-}   
-
+    $i++;
+  }  
+  //header("location: list_account.php"); 
+}
 ?> 
 <?php require(__DIR__ . "/../partials/flash.php");
