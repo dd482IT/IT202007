@@ -15,8 +15,6 @@ if(isset($_POST["search"]) && !empty($query)){
   $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id FROM Accounts WHERE id = :q LIMIT 5");
   $r = $stmt->execute([":q" => $id]);
 
-
-
   if($r){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
@@ -36,6 +34,10 @@ if(isset($_POST["search"]) && !empty($query)){
         <div class="list-group">
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
+                    <div>
+                          <div>This is the ID</div>
+                          <div><?php echo safer_echo($id, true);?></div>
+                    </div>
                     <div>
                         <div>Account Number:</div>
                         <div><?php safer_echo($r["account_number"]); ?></div>
