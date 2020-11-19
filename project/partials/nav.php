@@ -20,7 +20,6 @@ require_once(__DIR__ . "/../lib/helpers.php");
         <li><a href="<?php echo getURL("profile.php");?>">Profile</a></li>
         <li><a href="<?php echo getURL("logout.php");?>">Logout</a></li>
         <li><a href="<?php echo getURL("accounts/create_accounts.php");?>">Create Account</a></li>
-        <li><a href="<?php echo getURL("testFiles/test_list_transcations.php");?>">View Transaction</a></li>
     <?php endif; ?>
 </ul>
 </nav>
