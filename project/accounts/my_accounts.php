@@ -25,13 +25,13 @@ $results = [];
 <form method="POST">
 </form>
 <div class="results">
+    <div>This is the ID</div>
+    <div><?php echo safer_echo($id, true);?></div>
     <?php if (count($results) > 0): ?>
         <div class="list-group">
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
                     <div>
-                          <div>This is the ID</div>
-                          <div><?php echo safer_echo($id, true);?></div>
                     </div>
                     <div>
                         <div>Account Number:</div>
