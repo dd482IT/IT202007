@@ -10,10 +10,9 @@ $results = [];
   }
 ?>
 <?php
-if(isset($_POST["search"]) && !empty($query)){
   $db = getDB();
   $user = get_user_id();
-  $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id as id FROM Accounts WHERE id = :q LIMIT 5");
+  $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id as id FROM Accounts WHERE id =:q LIMIT 5");
   $r = $stmt->execute([":q" => $user]);
 
   if($r){
@@ -22,9 +21,6 @@ if(isset($_POST["search"]) && !empty($query)){
   else{
     flash("There was a problem fetching the results"); 
   }
-
-}
-
 ?>
 <form method="POST">
     <input name="query" placeholder="Search" value="<?php safer_echo($query); ?>"/>
