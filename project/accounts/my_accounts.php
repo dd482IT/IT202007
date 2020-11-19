@@ -23,8 +23,6 @@ $results = [];
   }
 ?>
 <form method="POST">
-    <input name="query" placeholder="Search" value="<?php safer_echo($query); ?>"/>
-    <input type="submit" value="Search" name="search"/>
 </form>
 <div class="results">
     <?php if (count($results) > 0): ?>
