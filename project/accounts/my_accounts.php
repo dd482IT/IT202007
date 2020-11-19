@@ -12,8 +12,9 @@ $results = [];
 <?php
 if(isset($_POST["search"]) && !empty($query)){
   $db = getDB();
-  $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id FROM Accounts WHERE id = :q LIMIT 5");
-  $r = $stmt->execute([":q" => $id]);
+  $user = get_user_id();
+  $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id as id FROM Accounts WHERE id = :q LIMIT 5");
+  $r = $stmt->execute([":q" => $user]);
 
   if($r){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
