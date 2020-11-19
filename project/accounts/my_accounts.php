@@ -5,14 +5,14 @@ $results = [];
 //we'll put this at the top so both php block have access to it
   if(isset($_GET["id"])){
     $id = $_GET["id"];
-    echo var_export("This is the get id + " . $id, true);
+    //echo var_export("This is the get id + " . $id, true);
 
   }
 ?>
 <?php
 if(isset($_POST["search"]) && !empty($query)){
   $db = getDB();
-  $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id FROM Accounts WHERE user_id = :q LIMIT 5");
+  $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id FROM Accounts WHERE id = :q LIMIT 5");
   $r = $stmt->execute([":q" => $id]);
 
 
