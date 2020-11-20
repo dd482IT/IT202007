@@ -5,7 +5,7 @@
   if(isset($user)){
   $results = [];
   $db = getDB();
-  $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id FROM Accounts WHERE id = :q LIMIT 5");
+  $stmt = $db->prepare("SELECT account_number, account_type, balance FROM Accounts WHERE Accounts.user_id = :q LIMIT 5");
   $r = $stmt->execute([":q" => $user]);
     if($r){
       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
