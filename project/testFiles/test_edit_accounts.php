@@ -64,7 +64,7 @@ if(isset($id)){
                 <option value="world" <?php echo ($result["account_type"] == "4"?'selected="selected"':'');?>>world</option>
 	</select>
   <label>Balance</label> 
-  <input type="number" min="5.00" name="balance" value="<?php echo $result["balnce"];?>" />
+  <input type="number" min="5.00" name="balance" value="<?php echo $result["balance"];?>" />
   <input type="submit" name="save" value="Update"/>
 </form>
 <!-- ----------------------------------------------------------------------------------------------------------- -->
