@@ -5,9 +5,12 @@ $query = "";
 $results = [];
 $results2 = [];
 
-if(isset($_GET["id"])){
+if(isset($_GET["id"])){ // ASK PROFFESOR 
   $user = $_GET["id"];
   safer_echo($user);
+}
+else{
+  safer_echo("The id was not pulled");
 }
 ?>
 
