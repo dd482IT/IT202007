@@ -1,20 +1,21 @@
 <?php require_once(__DIR__ . "/../partials/nav.php"); ?>
+
 <?php
   $user = get_user_id();
   if(isset($user)){
   $results = [];
   $db = getDB();
-  $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id as id FROM Accounts WHERE id =:q LIMIT 5");
+  $stmt = $db->prepare("SELECT account_number, account_type, balance, account_id as id FROM Accounts WHERE id =:q LIMIT 5");
   $r = $stmt->execute([":q" => $user]);
-  if($r){
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
-  else{
-    flash("There was a problem fetching the results"); 
+    if($r){
+      $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    else{
+      flash("There was a problem fetching the results"); 
+    }
   }
 ?>
-}
-<?php if (isset($results) && !empty($results)): ?>
+
 <div class="results">
     <div>This is the ID</div>
     <div><?php echo safer_echo($user, true);?></div>
@@ -22,8 +23,6 @@
         <div class="list-group">
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
-                    <div>
-                    </div>
                     <div>
                         <div>Account Number:</div>
                         <div><?php safer_echo($r["account_number"]); ?></div>
@@ -51,5 +50,4 @@
         <p>No results</p>
     <?php endif; ?>
 </div>
-</form>
 <?php require(__DIR__ . "/../partials/flash.php");
