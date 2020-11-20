@@ -36,7 +36,7 @@
                         <div><?php safer_echo($r["balance"]); ?></div>
                     </div>
                     <div>
-                        <a type="button" href="<?php echo getURL("accounts/my_transactions.php")?>"?id=<?php safer_echo($r['UserID']); ?>">View Transaction History</a>
+                        <a type="button" href="<?php echo getURL("accounts/my_transactions.php")?>"?id=<?php safer_echo($r['UserID']); ?>">View Transaction History</a> <!-- ASK PROFESSOR->
                     </div>
                 </div>
             <?php endforeach; ?>
