@@ -1,15 +1,6 @@
 <?php require_once(__DIR__ . "/../partials/nav.php"); ?>
 <?php
-$query = "";
-$results = [];
-//we'll put this at the top so both php block have access to it
-  if(isset($_GET["id"])){
-    $id = $_GET["id"];
-    //echo var_export("This is the get id + " . $id, true);
-
-  }
-?>
-<?php
+  $results = [];
   $db = getDB();
   $user = get_user_id();
   $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id as id FROM Accounts WHERE id =:q LIMIT 5");
