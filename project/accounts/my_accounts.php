@@ -17,27 +17,21 @@
 ?>
 
 <div class="results">
-    <div>This is the ID</div>
-    <div><?php echo safer_echo($user, true);?></div>
     <?php if (count($results) > 0): ?>
         <div class="list-group">
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
                     <div>
-                        <div>Account Number:</div>
+                        <div><strong>Account Number:</strong></div>
                         <div><?php safer_echo($r["account_number"]); ?></div>
                     </div>
                     <div>
-                        <div>Account Type:</div>
+                        <div><strong>Account Type:</strong></div>
                         <div><?php safer_echo($r["account_type"]); ?></div>
                     </div>
                     <div>
-                        <div>Balance:</div>
+                        <div><strong>Balance:</strong></div>
                         <div><?php safer_echo($r["balance"]); ?></div>
-                    </div>
-                    <div>
-                        <div>Owner Id:</div>
-                        <div><?php safer_echo($r["id"]); ?></div>
                     </div>
                     <div>
                         <a type="button" href="test_edit_accounts.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
