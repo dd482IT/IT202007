@@ -5,8 +5,8 @@ $query = "";
 $results = [];
 $results2 = [];
 
-if(isset($_GET["AccID"])){
-  $user = $_GET["AccID"];
+if(isset($_GET["UserID"])){
+  $user = $_GET["UserID"];
 }
 ?>
 
