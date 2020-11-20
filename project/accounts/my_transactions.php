@@ -5,9 +5,8 @@ $query = "";
 $results = [];
 $results2 = [];
 
-if(isset($_GET["id"])){
-  $id = $_GET["id"];
-  echo var_export("This is the get id + " . $id, true);
+if(isset($_GET["AccID"])){
+  $user = $_GET["AccID"];
 }
 ?>
 
@@ -15,7 +14,7 @@ if(isset($_GET["id"])){
 if (isset($id) && !empty($id)) {
     $db = getDB();
     $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, id as tranID FROM Transactions WHERE act_src_id =:q");
-    $r = $stmt->execute([ ":q" => $id]);
+    $r = $stmt->execute([ ":q" => $user]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         flash("Results are successfull");
