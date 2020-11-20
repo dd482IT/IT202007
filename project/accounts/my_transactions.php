@@ -11,7 +11,7 @@ if(isset($_GET["AccID"])){
 ?>
 
 <?php
-if (isset($id) && !empty($id)) {
+if (isset($user) && !empty($user)) {
     $db = getDB();
     $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, id as tranID FROM Transactions WHERE act_src_id =:q");
     $r = $stmt->execute([ ":q" => $user]);
