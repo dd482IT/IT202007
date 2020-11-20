@@ -7,6 +7,7 @@ $results2 = [];
 
 if(isset($_GET["UserID"])){
   $user = $_GET["UserID"];
+  echo safer_echo($user);
 }
 ?>
 
