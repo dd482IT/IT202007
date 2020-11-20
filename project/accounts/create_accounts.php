@@ -52,7 +52,7 @@ if(isset($_POST["save"])){
     }
     $i++;
   }  
-  header("Location: " . getURL("/accounts/my_accounts.php"));
+  header("Location: " . getURL("accounts/my_accounts.php"));
 }
 ?> 
 <?php require(__DIR__ . "/../partials/flash.php");
