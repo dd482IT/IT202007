@@ -17,7 +17,7 @@ else{
 <?php
 if (isset($user) && !empty($user)) {
     $db = getDB();
-    $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, id as tranID FROM Transactions WHERE act_src_id =:q");
+    $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.user_id = :q");
     $r = $stmt->execute([ ":q" => $user]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
