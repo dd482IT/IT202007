@@ -30,15 +30,17 @@ $accounts = getDropDown();
                 }
             }
         </script> 
-        <select name="d_id" id="transfer">
+        <div id="transfer">
             <label>Destination Account </label>
+            <select name="d_id">
                 <?php foreach($accounts as $row):?>
                     <option value="<?php echo $row["id"];?>">
                     <?php echo $row["account_number"];?>
                     </option>
                 <?php endforeach;?>
-        </select>
-
+            </select>
+        </div>
+        
         <label>Amount</label> 
         <input type="number" min="1.00" name="amount">
         <label>Action</label> 
