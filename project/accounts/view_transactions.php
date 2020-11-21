@@ -14,7 +14,8 @@ $accounts = getDropDown();
 $result = [];
 if (isset($id)) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT`Transactions`.`act_src_id` AS `id`, `Transactions`.`act_dest_id` as `did`, `amount`, `action_type` FROM `Transactions` WHERE `id` = id");
+    $user = get_user_id();
+    $stmt = $db->prepare("SELECT Transactions.id as tranID `Transactions`.`act_src_id` AS `id`, `Transactions`.`act_dest_id` as `did`, `amount`, `action_type` FROM `Transactions` WHERE tranID = id");
     $r = $stmt->execute([":id" => $tranID]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$result) {
@@ -23,7 +24,7 @@ if (isset($id)) {
     }
 
     $stmt2 = $db->prepare("SELECT account_number FROM Accounts WHERE Accounts.id = id");
-    $r2 = $stmt2->execute([":id" => $id]);
+    $r2 = $stmt2->execute([":id" => $user]);
     $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
     if (!$result2) {
         $e = $stmt->errorInfo();
@@ -41,7 +42,6 @@ if (isset($id)) {
         <div class="card-body">
             <div>
                 <p><b>Information</b></p> <!-- match with SELECT ^^^^^^ -->
-                <div>Account Number: <?php safer_echo($result2["account_number"]); ?> </div>
                 <div>Amount:<?php safer_echo($result["amount"]); ?></div>
                 <div>Action: Type <?php safer_echo($result["action_type"]); ?> </div>
             </div>
