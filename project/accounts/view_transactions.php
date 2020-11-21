@@ -9,7 +9,7 @@ if (isset($_GET["id"])) {
 
 <?php
 $result = [];
-if (isset($id)) {
+if (isset($tranID)) {
     $db = getDB();
     $user = get_user_id();
     $stmt = $db->prepare("SELECT Transactions.id as tranID, act_src_id, act_dest_id, amount, action_type FROM Transactions WHERE Transactions.id = :q");
