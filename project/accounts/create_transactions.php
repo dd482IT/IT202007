@@ -19,18 +19,30 @@ $accounts = getDropDown();
                 </option>
             <?php endforeach;?>
             </select>
-        <label>Destination Account </label>
-            <select name="d_id">
-            <?php foreach($accounts as $row):?>
-                <option value="<?php echo $row["id"];?>">
-                <?php echo $row["account_number"];?>
-                </option>
-            <?php endforeach;?>
-            </select>
+
+        <script>
+            function showTransferForm(){
+                if(document.getElementById('type') == "transfer"){
+                    document.getElementById('transfer').style.display='block';
+                }else{
+                    document.getElementById('transfer').style.display='none';
+                    document.getElementById('transfer').disabled = true; 
+                }
+            }
+        </script> 
+        <select name="d_id" id="transfer" disabled>
+            <label>Destination Account </label>
+                <?php foreach($accounts as $row):?>
+                    <option value="<?php echo $row["id"];?>">
+                    <?php echo $row["account_number"];?>
+                    </option>
+                <?php endforeach;?>
+        </select>
+
         <label>Amount</label> 
         <input type="number" min="1.00" name="amount">
         <label>Action</label> 
-        <select name="action" placeholder="withdraw">
+        <select name="action" id="type" placeholder="withdraw" onclick="showTransferForm()">
             <option value ="deposit">desposit</option>
             <option value ="transfer">transfer</option>
             <option value ="withdrawl">withdraw</option>
