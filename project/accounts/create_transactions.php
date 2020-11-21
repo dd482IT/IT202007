@@ -30,7 +30,7 @@ $accounts = getDropDown();
                 }
             }
         </script> 
-        <select name="d_id" id="transfer" disabled>
+        <select name="d_id" id="transfer">
             <label>Destination Account </label>
                 <?php foreach($accounts as $row):?>
                     <option value="<?php echo $row["id"];?>">
