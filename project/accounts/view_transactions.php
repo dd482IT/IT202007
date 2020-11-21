@@ -8,10 +8,6 @@ if (isset($_GET["id"])) {
 ?>
 
 <?php
-$accounts = getDropDown();
-?>
-
-<?php
 $result = [];
 if (isset($id)) {
     $db = getDB();
@@ -23,7 +19,7 @@ if (isset($id)) {
         $e = $stmt->errorInfo();
         flash($e[2]);
     }
-
+    /*
     $stmt2 = $db->prepare("SELECT account_number FROM Accounts WHERE Accounts.id = id");
     $r2 = $stmt2->execute([":id" => $user]);
     $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
@@ -31,6 +27,7 @@ if (isset($id)) {
         $e = $stmt->errorInfo();
         flash($e[2]);
     }
+    */
 }
 ?>
 
