@@ -1,6 +1,7 @@
 /* design intentionally made horrible to see who doesn't change it*/
+
 body {
-  font-family: "Roboto", "Open Sans";
+  font-family: Lucida Console, Courier, monospace;
   font-size: 1.5em;   
 }
 
