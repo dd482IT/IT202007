@@ -16,8 +16,8 @@ $result = [];
 if (isset($id)) {
     $db = getDB();
     $user = get_user_id();
-    $stmt = $db->prepare("SELECT Transactions.id as tranID, `Transactions`.`act_src_id`, `Transactions`.`act_dest_id`, `amount`, `action_type` FROM `Transactions` WHERE Transactions.id = id");
-    $r = $stmt->execute([":id" => $tranID]);
+    $stmt = $db->prepare("SELECT Transactions.id as tranID, act_src_id, act_dest_id, amount, action_type FROM Transactions WHERE Transactions.id = :q");
+    $r = $stmt->execute([":q" => $tranID]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$result) {
         $e = $stmt->errorInfo();
