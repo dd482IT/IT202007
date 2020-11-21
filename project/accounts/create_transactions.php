@@ -19,7 +19,6 @@ $accounts = getDropDown();
                 </option>
             <?php endforeach;?>
             </select>
-
         <script>
             function showTransferForm(){
                 if(document.getElementById('type').value == "transfer"){

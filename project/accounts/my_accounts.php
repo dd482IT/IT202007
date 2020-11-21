@@ -7,7 +7,7 @@
   if(isset($user)){
   $results = [];
   $db = getDB();
-  $stmt = $db->prepare("SELECT Accounts.user_id as UserID, account_number, account_type, balance FROM Accounts WHERE Accounts.user_id = :q LIMIT 5");
+  $stmt = $db->prepare("SELECT Accounts.user_id as UserID, Accounts.id as AccID account_number, account_type, balance FROM Accounts WHERE Accounts.user_id = :q LIMIT 5");
   $r = $stmt->execute([":q" => $user]);
     if($r){
       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -36,7 +36,7 @@
                         <div><?php safer_echo($r["balance"]); ?></div>
                     </div>
                     <div>
-                        <a type="button" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["UserID"]); ?>">View Transaction History</a>
+                        <a type="button" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["AccID"]); ?>">View Transaction History</a>
                     </div>
                 </div>
             <?php endforeach; ?>
