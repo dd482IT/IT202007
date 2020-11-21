@@ -24,13 +24,14 @@ $accounts = getDropDown();
             function showTransferForm(){
                 if(document.getElementById('type') == "transfer"){
                     document.getElementById('transfer').style.display='block';
+                    document.getElementById('transfer').disabled = false; 
                 }else{
                     document.getElementById('transfer').style.display='none';
                     document.getElementById('transfer').disabled = true; 
                 }
             }
         </script> 
-        <div id="transfer">
+        <div id="transfer" disabled>
             <label>Destination Account </label>
             <select name="d_id">
                 <?php foreach($accounts as $row):?>
@@ -40,7 +41,7 @@ $accounts = getDropDown();
                 <?php endforeach;?>
             </select>
         </div>
-        
+
         <label>Amount</label> 
         <input type="number" min="1.00" name="amount">
         <label>Action</label> 
