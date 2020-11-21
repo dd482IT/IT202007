@@ -23,7 +23,7 @@ if (isset($user) && !empty($user)) {
         flash("Results are successfull");
     }
     else {
-        flash("There was a problem fetching the results " . var_export($stmt->errorInfo(), true));
+        flash("There was a problem listing your transactions");
         echo var_export($stmt->errorInfo(), true);
     }
 }

@@ -13,7 +13,7 @@
       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     else{
-      flash("There was a problem fetching the results"); 
+      flash("There was a problem listing your accounts"); 
     }
   }
 ?>

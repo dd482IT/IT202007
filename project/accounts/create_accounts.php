@@ -48,7 +48,7 @@ if(isset($_POST["save"])){
     }
     else{
       $e = $stmt->errorInfo();
-      flash("Error creating: " . var_export($e, true));
+      flash("Error creating your account");
     }
     $i++;
   }  
