@@ -3,6 +3,7 @@
 //we'll put this at the top so both php block have access to it
 if (isset($_GET["id"])) {
     $tranID = $_GET["id"];
+    safer_echo($tranID);
 }
 ?>
 
