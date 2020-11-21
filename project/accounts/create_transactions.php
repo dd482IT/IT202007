@@ -22,7 +22,7 @@ $accounts = getDropDown();
 
         <script>
             function showTransferForm(){
-                if(document.getElementById('type') == "transfer"){
+                if(document.getElementById('type').value == "transfer"){
                     document.getElementById('transfer').style.display='block';
                     document.getElementById('transfer').disabled = false; 
                 }else{
