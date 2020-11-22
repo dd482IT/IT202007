@@ -190,6 +190,25 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
                 }
         
 }
+
+
+function openAccount($account_number, $balance){
+    $db = getDB();
+    $user = get_user_id();
+
+    $stmt = $db ->prepare("SELECT Account.id as accID FROM Accounts WHERE account_number = :q");
+    $r = $stmt->execute([":q" => $account_number]);
+    $r = $stmt->fetch(PDO::FETCH_ASSOC);
+    $accID = $r("accID");
+
+    $stmt2=$db->prepare("SELECT id FROM Accounts WHERE account_number = '000000000000'");
+    $results2 = $stmt2->execute();
+    $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+    $world_id = $r2["id"];
+    $action = "deposit";
+    $memo = "Opening Account";
+    doBankAction($accID, $world_id, ($balance * -1), $action, $memo);
+}
 /*
 function accountNumberGenerator(){
     $i = 0;

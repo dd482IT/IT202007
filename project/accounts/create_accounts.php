@@ -31,6 +31,7 @@ if(isset($_POST["save"])){
     $user= get_user_id();
     $balance = $_POST["balance"];
     $db = getDB();
+        
 
   while($i < $max){
     $account_number = (String)rand(100000000000,999999999999);
@@ -44,7 +45,7 @@ if(isset($_POST["save"])){
 
     if($r){
       flash("Created successfully with id: " . $db->lastInsertId());
-      
+      openAccount($account_number, $balance);
       break;
     }
     else{
