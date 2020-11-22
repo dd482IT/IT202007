@@ -76,22 +76,26 @@ $accounts = getDropDown();
         $results2 = $stmt2->execute(["q"=> $source]);
         $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
         $balance = $r2["balance"];
+
+        if(!isset($memo) & empty($memo)){
+            $memo = null;
+        }
         
 
         switch($action){
             case "deposit":
-                doBankAction($world_id, $source, ($amount * -1), $action);
+                doBankAction($world_id, $source, ($amount * -1), $action, $memo);
             break;
             case "withdrawl":
                 if($amount <= $balance){
-                doBankAction($source, $world_id, ($amount * -1), $action);
+                doBankAction($source, $world_id, ($amount * -1), $action, $memo);
                 }
                 elseif($amount > $balance){
                     flash("Balance Too Low");
                 }
             break;
             case "transfer":
-                doBankAction($source,$destination,($amount *-1), $action);
+                doBankAction($source,$destination,($amount *-1), $action, $memo);
             break;
         }
           

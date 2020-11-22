@@ -128,9 +128,6 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
 {
     $db = getDB();
     $user = get_user_id();
-    if(!isset($memo) & isempty($memo)){
-        $memo = null;
-    }
 
     $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
