@@ -129,6 +129,19 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
     $db = getDB();
     $user = get_user_id();
 
+    $stmt2=$db->prepare("SELECT balance FROM Accounts WHERE Accounts.id = :q");
+    $results2 = $stmt2->execute([":q"=> $acc1]);
+    $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+    $balanceAcc1 = $r2["balance"];
+
+    $acc1NewBalance = $balanceAcc1 + $amount;
+
+    $stmt3=$db->prepare("SELECT balance FROM Accounts WHERE Accounts.id = :q");
+    $results3 = $stmt3->execute([":q"=> $acc2]);
+    $r3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+    $balanceAcc2 = $r3["balance"];
+    $acc2NewBalance = $balanceAcc2 + ($amount*-1);
+
     $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
                 ":id" => $acc1
@@ -172,17 +185,24 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
                     ":amount" => $amount,
                     ":action_type" => $action,
                     ":memo" => $memo,
-                    ":expected_total" => $source_total + $amount,
+                    ":expected_total" => $acc1NewBalance,
                     //second half
                     ":s_id2" => $acc2,
                     ":d_id2" => $acc1,
                     ":amount2" => ($amount*-1),
                     ":action_type2" => $action,
                     ":memo2" => $memo,
-                    ":expected_total2" => $destination_total - $amount
+                    ":expected_total2" => $acc2NewBalance
                 ]);
                 if ($r) {
                     flash("Transaction Complete!");
+
+                    $stmt4=$db->prepare("UPDATE `Accounts` SET `balance` = :x WHERE id = :q");
+                    $results4 = $stmt4->execute([":q"=> $acc1, ":x" => $acc1NewBalance]);
+
+                    $stmt4=$db->prepare("UPDATE `Accounts` SET `balance` = :x WHERE id = :q");
+                    $results4 = $stmt4->execute([":q"=> $acc2, ":x" => $acc2NewBalance]);
+                    
                 }
                 else {
                     $e = $stmt->errorInfo();
