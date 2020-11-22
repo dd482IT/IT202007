@@ -228,6 +228,10 @@ function openAccount($account_number, $balance){
     $action = "deposit";
     $memo = "Opening Account";
 
+    if($r){
+        flash("Created successfully with id: ");
+    }
+
     return doBankAction($accID, $world_id, ($balance * -1), $action, $memo);
 }
 /*
