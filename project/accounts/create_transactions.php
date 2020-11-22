@@ -63,25 +63,30 @@ $accounts = getDropDown();
         $action  = $_POST["action"];// WITHDRAWAL, DESPOIT, TRANSFER
         $user = get_user_id();
         $db = getDB();
-        safer_echo($source);
+
         $stmt=$db->prepare("SELECT id FROM Accounts WHERE account_number = '000000000000'");
         $results = $stmt->execute();
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
         $world_id = $r["id"];
         
-        /*
+        
         $stmt=$db->prepare("SELECT balance FROM Accounts WHERE Account.id = :q");
         $results = $stmt->execute(["q"=> $source]);
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
-        $world_id = $r["id"];
-        */
+        $balance = $r["balance"];
+        
 
         switch($action){
             case "deposit":
                 doBankAction($world_id, $source, ($amount * -1), $action);
             break;
             case "withdrawl":
+                if($amount <= $balance){
                 doBankAction($source, $world_id, ($amount * -1), $action);
+                }
+                elseif($amount > $balance){
+                    flash("Balance Too Low");
+                }
             break;
             case "transfer":
                 doBankAction($source,$destination,($amount *-1), $action);
