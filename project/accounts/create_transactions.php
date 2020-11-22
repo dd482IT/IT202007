@@ -78,7 +78,7 @@ $accounts = getDropDown();
         $balance = $r2["balance"];
 
         if(!isset($memo) & empty($memo)){
-            $memo = null;
+            $memo = "empty";
         }
         
 

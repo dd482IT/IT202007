@@ -162,7 +162,7 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
 
 
     $stmt = $db ->prepare("INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, memo, expected_total)
-        VALUES (:s_id, :d_id, :amount, :action_type, :memo, :expected_total), (:s_id2, :d_id2, :amount2, :action_type2, memo2, :expected_total2)" );
+        VALUES (:s_id, :d_id, :amount, :action_type, :memo, :expected_total), (:s_id2, :d_id2, :amount2, :action_type2, :memo2, :expected_total2)" );
         //since this is called in create then it doesnt need to be called here
             
                 $r = $stmt->execute([
