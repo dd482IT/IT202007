@@ -124,10 +124,13 @@ function getDropDown(){
 
 }
 
-function doBankAction($acc1, $acc2, $amount, $action)
+function doBankAction($acc1, $acc2, $amount, $action, $memo)
 {
     $db = getDB();
     $user = get_user_id();
+    if(!isset($memo) & isempty($memo)){
+        $memo = null;
+    }
 
     $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
             $r = $stmt->execute([
@@ -161,8 +164,8 @@ function doBankAction($acc1, $acc2, $amount, $action)
             }
 
 
-    $stmt = $db ->prepare("INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, expected_total)
-        VALUES (:s_id, :d_id, :amount, :action_type, :expected_total), (:s_id2, :d_id2, :amount2, :action_type2, :expected_total2)" );
+    $stmt = $db ->prepare("INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, memo, expected_total)
+        VALUES (:s_id, :d_id, :amount, :action_type, :memo, :expected_total), (:s_id2, :d_id2, :amount2, :action_type2, memo2, :expected_total2)" );
         //since this is called in create then it doesnt need to be called here
             
                 $r = $stmt->execute([
@@ -171,12 +174,14 @@ function doBankAction($acc1, $acc2, $amount, $action)
                     ":d_id" => $acc2,
                     ":amount" => $amount,
                     ":action_type" => $action,
+                    ":memo" => $memo,
                     ":expected_total" => $source_total + $amount,
                     //second half
                     ":s_id2" => $acc2,
                     ":d_id2" => $acc1,
                     ":amount2" => ($amount*-1),
                     ":action_type2" => $action,
+                    ":memo2" => $memo,
                     ":expected_total2" => $destination_total - $amount
                 ]);
                 if ($r) {

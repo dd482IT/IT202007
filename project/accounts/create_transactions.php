@@ -49,7 +49,8 @@ $accounts = getDropDown();
             <option value ="deposit">desposit</option>
             <option value ="withdrawl">withdraw</option>
         </select>
-
+        <label>Memo</label>
+        <input type="text" name="memo">
         <input type ="submit" name="save" value="create"/>
     </form> 
 
@@ -61,6 +62,7 @@ $accounts = getDropDown();
         $destination = $_POST["d_id"]; //ACCOUNT 2 
         $amount = $_POST["amount"];
         $action  = $_POST["action"];// WITHDRAWAL, DESPOIT, TRANSFER
+        $memo = $_POST["memo"];
         $user = get_user_id();
         $db = getDB();
 
