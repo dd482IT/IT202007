@@ -63,11 +63,18 @@ $accounts = getDropDown();
         $action  = $_POST["action"];// WITHDRAWAL, DESPOIT, TRANSFER
         $user = get_user_id();
         $db = getDB();
-        
+        safer_echo($source);
         $stmt=$db->prepare("SELECT id FROM Accounts WHERE account_number = '000000000000'");
         $results = $stmt->execute();
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
         $world_id = $r["id"];
+        
+        /*
+        $stmt=$db->prepare("SELECT balance FROM Accounts WHERE Account.id = :q");
+        $results = $stmt->execute(["q"=> $source]);
+        $r = $stmt->fetch(PDO::FETCH_ASSOC);
+        $world_id = $r["id"];
+        */
 
         switch($action){
             case "deposit":

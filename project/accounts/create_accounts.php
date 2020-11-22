@@ -44,6 +44,7 @@ if(isset($_POST["save"])){
 
     if($r){
       flash("Created successfully with id: " . $db->lastInsertId());
+      
       break;
     }
     else{
