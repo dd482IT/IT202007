@@ -77,7 +77,7 @@ $accounts = getDropDown();
         $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
         $balance = $r2["balance"];
 
-        if(!isset($memo) & empty($memo)){
+        if(!isset($memo) && empty($memo)){
             $memo = "empty";
         }
         
