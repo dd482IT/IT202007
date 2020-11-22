@@ -154,7 +154,6 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
 
             if ($destination_total) {
                 flash("Check 2 Successfull");
-                break;
             }
             else {
                 $e = $stmt->errorInfo();
