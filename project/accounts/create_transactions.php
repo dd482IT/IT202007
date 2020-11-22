@@ -70,10 +70,10 @@ $accounts = getDropDown();
         $world_id = $r["id"];
         
         
-        $stmt=$db->prepare("SELECT balance FROM Accounts WHERE Account.id = :q");
-        $results = $stmt->execute(["q"=> $source]);
-        $r = $stmt->fetch(PDO::FETCH_ASSOC);
-        $balance = $r["balance"];
+        $stmt2=$db->prepare("SELECT balance FROM Accounts WHERE Account.id = :q");
+        $results2 = $stmt2->execute(["q"=> $source]);
+        $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+        $balance = $r2["balance"];
         
 
         switch($action){
