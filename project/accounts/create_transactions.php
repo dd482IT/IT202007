@@ -72,7 +72,7 @@ $accounts = getDropDown();
         $world_id = $r["id"];
         
         
-        $stmt2=$db->prepare("SELECT balance FROM Accounts WHERE Account.id = :q");
+        $stmt2=$db->prepare("SELECT balance FROM Accounts WHERE Accounts.id = :q");
         $results2 = $stmt2->execute(["q"=> $source]);
         $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
         $balance = $r2["balance"];

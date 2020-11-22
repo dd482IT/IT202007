@@ -137,7 +137,7 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
             $source_total = $results["Total"]; // ERROR HERE 
         
             if ($source_total) {
-                flash("Created successfully with id: " . $db->lastInsertId());
+                continue;
             }
             else {
                 $e = $stmt->errorInfo();
@@ -153,7 +153,7 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
             $destination_total = $results["Total"]; // ERROR HERE 
 
             if ($destination_total) {
-                flash("Created successfully with id: " . $db->lastInsertId());
+                continue;
             }
             else {
                 $e = $stmt->errorInfo();
@@ -182,11 +182,11 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
                     ":expected_total2" => $destination_total - $amount
                 ]);
                 if ($r) {
-                    flash("Created successfully with id: " . $db->lastInsertId());
+                    flash("Transaction Completed: " . $db->lastInsertId());
                 }
                 else {
                     $e = $stmt->errorInfo();
-                    flash("Error creating: " . var_export($e, true));
+                    flash("Transaction Error, Please Contact Support: " . var_export($e, true));
                 }
         
 }
