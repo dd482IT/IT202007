@@ -142,37 +142,6 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
     $balanceAcc2 = $r3["balance"];
     $acc2NewBalance = $balanceAcc2 + ($amount*-1);
 
-    $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
-            $r = $stmt->execute([
-                ":id" => $acc1
-            ]);
-            $results = $stmt->fetch(PDO::FETCH_ASSOC);
-            $source_total = $results["Total"]; // ERROR HERE 
-        
-            if ($source_total) {
-                flash("Check 1 Successfull");
-            }
-            else {
-                $e = $stmt->errorInfo();
-                flash("Error getting source total: " . var_export($e, true));
-            }
-
-
-    $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
-            $r = $stmt->execute([
-                ":id" => $acc2
-            ]);
-            $results = $stmt->fetch(PDO::FETCH_ASSOC);
-            $destination_total = $results["Total"]; // ERROR HERE 
-
-            if ($destination_total) {
-                flash("Check 2 Successfull");
-            }
-            else {
-                $e = $stmt->errorInfo();
-                flash("Error getting destination total: " . var_export($e, true));
-            }
-
 
     $stmt = $db ->prepare("INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, memo, expected_total)
         VALUES (:s_id, :d_id, :amount, :action_type, :memo, :expected_total), (:s_id2, :d_id2, :amount2, :action_type2, :memo2, :expected_total2)" );
@@ -197,17 +166,48 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
                 if ($r) {
                     flash("Transaction Complete!");
 
-                    $stmt4=$db->prepare("UPDATE `Accounts` SET `balance` = :x WHERE id = :q");
-                    $results4 = $stmt4->execute([":q"=> $acc1, ":x" => $acc1NewBalance]);
+                    $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
+                    $r = $stmt->execute([
+                            ":id" => $acc1
+                    ]);
+                    $results = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $source_total = $results["Total"]; // ERROR HERE 
+                
+                    if ($source_total) {
+                        flash("Check 1 Successfull");
+                    }
+                    else {
+                        $e = $stmt->errorInfo();
+                        flash("Error getting source total: " . var_export($e, true));
+                    }
 
-                    $stmt4=$db->prepare("UPDATE `Accounts` SET `balance` = :x WHERE id = :q");
-                    $results4 = $stmt4->execute([":q"=> $acc2, ":x" => $acc2NewBalance]);
-                    
-                }
-                else {
-                    $e = $stmt->errorInfo();
-                    flash("Error creating: " . var_export($e, true));
-                }
+
+                     $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
+                    $r = $stmt->execute([
+                        ":id" => $acc2
+                    ]);
+                    $results = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $destination_total = $results["Total"]; // ERROR HERE 
+
+                    if ($destination_total) {
+                        flash("Check 2 Successfull");
+                    }
+                    else {
+                        $e = $stmt->errorInfo();
+                        flash("Error getting destination total: " . var_export($e, true));
+                    }
+
+                            $stmt4=$db->prepare("UPDATE `Accounts` SET `balance` = :x WHERE id = :q");
+                            $results4 = $stmt4->execute([":q"=> $acc1, ":x" => $source_total]);
+
+                            $stmt4=$db->prepare("UPDATE `Accounts` SET `balance` = :x WHERE id = :q");
+                            $results4 = $stmt4->execute([":q"=> $acc2, ":x" => $destination_total]);
+                            
+                        }
+                        else {
+                            $e = $stmt->errorInfo();
+                            flash("Error creating: " . var_export($e, true));
+                        }
         
 }
 
