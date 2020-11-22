@@ -207,7 +207,8 @@ function openAccount($account_number, $balance){
     $world_id = $r2["id"];
     $action = "deposit";
     $memo = "Opening Account";
-    doBankAction($accID, $world_id, ($balance * -1), $action, $memo);
+
+    return doBankAction($accID, $world_id, ($balance * -1), $action, $memo);
 }
 /*
 function accountNumberGenerator(){
