@@ -196,10 +196,10 @@ function openAccount($account_number, $balance){
     $db = getDB();
     $user = get_user_id();
 
-    $stmt = $db ->prepare("SELECT Accounts.id as accID FROM Accounts WHERE account_number = :q");
+    $stmt = $db ->prepare("SELECT id as accID FROM Accounts WHERE account_number = :q");
     $results = $stmt->execute([":q" => $account_number]);
     $r = $stmt->fetch(PDO::FETCH_ASSOC);
-    $accID = $r("accID");
+    $accID = $r["accID"];
 
     $stmt2=$db->prepare("SELECT id FROM Accounts WHERE account_number = '000000000000'");
     $results2 = $stmt2->execute();
