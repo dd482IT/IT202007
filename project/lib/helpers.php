@@ -132,14 +132,14 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
     $stmt2 = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :q");
     $results2 = $stmt2->execute([":q"=> $acc1]);
     $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-    $balanceAcc1 = $r2["balance"];
+    $balanceAcc1 = $r2["Total"];
 
     $acc1NewBalance = $balanceAcc1 + $amount;
 
     $stmt3 = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :q");
     $results3 = $stmt3->execute([":q"=> $acc2]);
     $r3 = $stmt3->fetch(PDO::FETCH_ASSOC);
-    $balanceAcc2 = $r3["balance"];
+    $balanceAcc2 = $r3["Total"];
     $acc2NewBalance = $balanceAcc2 + ($amount*-1);
 
 
