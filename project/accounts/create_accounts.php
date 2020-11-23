@@ -35,12 +35,11 @@ if(isset($_POST["save"])){
 
   while($i < $max){
     $account_number = (String)rand(100000000000,999999999999);
-    $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id, balance) VALUES(:account_number, :account_type, :user, :balance)");
+    $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id) VALUES(:account_number, :account_type, :user)");
     $r = $stmt->execute([
         ":account_number" => $account_number,
         ":account_type"=> $account_type,
-        ":user" => $user,
-        ":balance" => $balance
+        ":user" => $user
     ]);
 
     if($r){

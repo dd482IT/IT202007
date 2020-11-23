@@ -129,14 +129,14 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
     $db = getDB();
     $user = get_user_id();
 
-    $stmt2=$db->prepare("SELECT balance FROM Accounts WHERE Accounts.id = :q");
+    $stmt2 = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :q");
     $results2 = $stmt2->execute([":q"=> $acc1]);
     $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
     $balanceAcc1 = $r2["balance"];
 
     $acc1NewBalance = $balanceAcc1 + $amount;
 
-    $stmt3=$db->prepare("SELECT balance FROM Accounts WHERE Accounts.id = :q");
+    $stmt3 = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :q");
     $results3 = $stmt3->execute([":q"=> $acc2]);
     $r3 = $stmt3->fetch(PDO::FETCH_ASSOC);
     $balanceAcc2 = $r3["balance"];
@@ -182,7 +182,7 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
                     }
 
 
-                     $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
+                    $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
                     $r = $stmt->execute([
                         ":id" => $acc2
                     ]);
