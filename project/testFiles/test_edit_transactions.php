@@ -3,8 +3,7 @@
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
     flash("You don't have permission to access this page");
-    die(header("Location: login.php"));
-}
+    die(header("Location: " . getURL("login.php")));
 ?>
 <?php
 //we'll put this at the top so both php block have access to it
@@ -50,7 +49,7 @@ if (isset($id)) {
     $r = $stmt->execute([":id" => $id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }
-
+}
 ?>
     <h3>Edit Transaction</h3>
     <form method="POST">
@@ -62,4 +61,4 @@ if (isset($id)) {
     </form>
 
 
-<?php require(__DIR__ . "/partials/flash.php");
+ <?php require(__DIR__ . "/../partials/flash.php");

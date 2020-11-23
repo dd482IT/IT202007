@@ -1,10 +1,10 @@
 
-<?php require_once(__DIR__ . "/partials/nav.php"); ?>
+<?php require_once(__DIR__ . "/../partials/nav.php"); ?>
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
     flash("You don't have permission to access this page");
-    die(header("Location: login.php"));
+    die(header("Location: " . getURL("login.php")));
 }
 ?>
 <?php
@@ -23,12 +23,11 @@ if (isset($_POST["search"]) && !empty($query)) {
         $r = $stmt->execute([":q" => "%$query%"]);
         $results = $stmt->fetch(PDO::FETCH_ASSOC);
         $query = $results["acc_id"]; 
-        
-       
+        echo var_export($query, true);
 
 
     //$stmt = $db->prepare("SELECT * FROM `Transactions` JOIN `Accounts` ON Transactions.act_src_id = Accounts.id WHERE act_src_id = :q LIMIT 10");
-    $stmt = $db->prepare("SELECT account_number, action_type, act_src_id, act_dest_id, amount, Transactions.id as tranID FROM `Transactions` JOIN `Accounts` ON Transactions.act_src_id = Accounts.id WHERE act_src_id");
+    $stmt = $db->prepare("SELECT account_number, action_type, act_src_id, act_dest_id, amount, Transactions.id as tranID FROM `Transactions` JOIN `Accounts` ON Transactions.act_src_id = Accounts.id WHERE act_src_id = :q AND `Transactions`.`act_src_id` =:q");
     $r = $stmt->execute([":q" => "$query"]);
     if ($r) {
         $results2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -89,3 +88,4 @@ if (isset($_POST["search"]) && !empty($query)) {
         <p>No results</p>
     <?php endif; ?>
 </div>
+<?php require(__DIR__ . "/../partials/flash.php");

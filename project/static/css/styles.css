@@ -1,7 +1,12 @@
 /* design intentionally made horrible to see who doesn't change it*/
+
 body {
-  font-family: Sans-seifs;
+  font-family: Lucida Console, Courier, monospace;
   font-size: 1.5em;   
+}
+
+.monospace {
+  font-family: "Lucida Console", Courier, monospace;
 }
 
 ul[class="nav"]{

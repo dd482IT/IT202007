@@ -32,6 +32,13 @@ function get_username() {
     return "";
 }
 
+function getURL($path) {
+    if (substr($path, 0, 1) == "/") {
+        return $path;
+    }
+    return $_SERVER["CONTEXT_PREFIX"] . "/IT202007/project/$path";
+}
+
 function get_email() {
     if (is_logged_in() && isset($_SESSION["user"]["email"])) {
         return $_SESSION["user"]["email"];
@@ -117,45 +124,27 @@ function getDropDown(){
 
 }
 
-function doBankAction($acc1, $acc2, $amount, $action)
+function doBankAction($acc1, $acc2, $amount, $action, $memo)
 {
     $db = getDB();
     $user = get_user_id();
 
-    $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
-            $r = $stmt->execute([
-                ":id" => $acc1
-            ]);
-            $results = $stmt->fetch(PDO::FETCH_ASSOC);
-            $source_total = $results["Total"]; // ERROR HERE 
-        
-            if ($source_total) {
-                flash("Created successfully with id: " . $db->lastInsertId());
-            }
-            else {
-                $e = $stmt->errorInfo();
-                flash("Error getting source total: " . var_export($e, true));
-            }
+    $stmt2 = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :q");
+    $results2 = $stmt2->execute([":q"=> $acc1]);
+    $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+    $balanceAcc1 = $r2["Total"];
+
+    $acc1NewBalance = $balanceAcc1 + $amount;
+
+    $stmt3 = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :q");
+    $results3 = $stmt3->execute([":q"=> $acc2]);
+    $r3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+    $balanceAcc2 = $r3["Total"];
+    $acc2NewBalance = $balanceAcc2 + ($amount*-1);
 
 
-    $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
-            $r = $stmt->execute([
-                ":id" => $acc2
-            ]);
-            $results = $stmt->fetch(PDO::FETCH_ASSOC);
-            $destination_total = $results["Total"]; // ERROR HERE 
-
-            if ($destination_total) {
-                flash("Created successfully with id: " . $db->lastInsertId());
-            }
-            else {
-                $e = $stmt->errorInfo();
-                flash("Error getting destination total: " . var_export($e, true));
-            }
-
-
-    $stmt = $db ->prepare("INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, expected_total)
-        VALUES (:s_id, :d_id, :amount, :action_type, :expected_total), (:s_id2, :d_id2, :amount2, :action_type2, :expected_total2)" );
+    $stmt = $db ->prepare("INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, memo, expected_total)
+        VALUES (:s_id, :d_id, :amount, :action_type, :memo, :expected_total), (:s_id2, :d_id2, :amount2, :action_type2, :memo2, :expected_total2)" );
         //since this is called in create then it doesnt need to be called here
             
                 $r = $stmt->execute([
@@ -164,28 +153,112 @@ function doBankAction($acc1, $acc2, $amount, $action)
                     ":d_id" => $acc2,
                     ":amount" => $amount,
                     ":action_type" => $action,
-                    ":expected_total" => $source_total + $amount,
+                    ":memo" => $memo,
+                    ":expected_total" => $acc1NewBalance,
                     //second half
                     ":s_id2" => $acc2,
                     ":d_id2" => $acc1,
                     ":amount2" => ($amount*-1),
                     ":action_type2" => $action,
-                    ":expected_total2" => $destination_total - $amount
+                    ":memo2" => $memo,
+                    ":expected_total2" => $acc2NewBalance
                 ]);
                 if ($r) {
-                    flash("Created successfully with id: " . $db->lastInsertId());
-                }
-                else {
-                    $e = $stmt->errorInfo();
-                    flash("Error creating: " . var_export($e, true));
-                }
+                    flash("Transaction Complete!");
+
+                    $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
+                    $r = $stmt->execute([
+                            ":id" => $acc1
+                    ]);
+                    $results = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $source_total = $results["Total"]; // ERROR HERE 
+                
+                    if ($source_total) {
+                        flash("Check 1 Successfull");
+                    }
+                    else {
+                        $e = $stmt->errorInfo();
+                        flash("Error getting source total: " . var_export($e, true));
+                    }
+
+
+                    $stmt = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :id");
+                    $r = $stmt->execute([
+                        ":id" => $acc2
+                    ]);
+                    $results = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $destination_total = $results["Total"]; // ERROR HERE 
+
+                    if ($destination_total) {
+                        flash("Check 2 Successfull");
+                    }
+                    else {
+                        $e = $stmt->errorInfo();
+                        flash("Error getting destination total: " . var_export($e, true));
+                    }
+
+                            $stmt4=$db->prepare("UPDATE `Accounts` SET `balance` = :x WHERE id = :q");
+                            $results4 = $stmt4->execute([":q"=> $acc1, ":x" => $source_total]);
+
+                            $stmt4=$db->prepare("UPDATE `Accounts` SET `balance` = :x WHERE id = :q");
+                            $results4 = $stmt4->execute([":q"=> $acc2, ":x" => $destination_total]);
+                            
+                        }
+                        else {
+                            $e = $stmt->errorInfo();
+                            flash("Error creating: " . var_export($e, true));
+                        }
         
 }
 
-function accountNumberGenerator(){
-    $number = mt_rand(100000000000,999999999999);
-    echo $number;
+
+function openAccount($account_number, $balance){
+    $db = getDB();
+    $user = get_user_id();
+
+    $stmt = $db ->prepare("SELECT id as accID FROM Accounts WHERE account_number = :q");
+    $results = $stmt->execute([":q" => $account_number]);
+    $r = $stmt->fetch(PDO::FETCH_ASSOC);
+    $accID = $r["accID"];
+
+    $stmt2=$db->prepare("SELECT id FROM Accounts WHERE account_number = '000000000000'");
+    $results2 = $stmt2->execute();
+    $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+    $world_id = $r2["id"];
+    $action = "deposit";
+    $memo = "Opening Account";
+
+    if($r){
+        flash("Created successfully with id: ");
+    }
+
+    return doBankAction($world_id, $accID, ($balance * -1), $action, $memo);
 }
+/*
+function accountNumberGenerator(){
+    $i = 0;
+    $max = 100;
+    $db = getDB();
+    $user = get_user_id();
+    while($i < $max){
+        $account_number =(string)rand(100000000000,999999999999);
+        $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, balance, user_id) VALUES(:account_number, :account_type, :balance, :user)");
+        $r = $stmt->execute([
+            ":account_number" => $account_number,
+            ":account_type"=> $account_type,
+            ":user" => $user,
+            ":balance" => $balance
+        ]);
+    
+        if($r){
+          flash("Created successfully with id: " . $db->lastInsertId());
+        }
+        else{
+          $e = $stmt->errorInfo();
+          flash("Error creating: " . var_export($e, true));
+        }
+    }
+*/
 //found on https://stackoverflow.com/questions/53047057/how-to-use-php-to-generate-random-10-digit-number-that-begins-with-the-same-two
 //end flash
 

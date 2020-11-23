@@ -1,9 +1,9 @@
-<?php require_once(__DIR__ . "/partials/nav.php"); ?>
+<?php require_once(__DIR__ . "/../partials/nav.php"); ?>
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
     flash("You don't have permission to access this page");
-    die(header("Location: login.php"));
+    die(header("Location: " . getURL("login.php")));
 }
 ?>
 
@@ -19,7 +19,7 @@ if (isset($_GET["id"])) {
 $result = [];
 if(isset($id)){
   $db = getDB();
-  $stmt = $db->prepare("SELECT account_number, account_type, balance, user_id FROM Accounts WHERE Users JOIN on Accounts.user_id = User.id where Accounts.id = :id");
+  $stmt = $db->prepare("SELECT account_number, account_type, balance FROM Accounts WHERE Accounts.id = :id");
   $r = $stmt->execute([":id" => $id]);
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
   if(!$result){
@@ -33,20 +33,17 @@ if(isset($id)){
 <?php if (isset($result) && !empty($result)): ?>
     <div class="card">
         <div class="card-title">
-            <?php safer_echo($result["account_number"]); ?>
         </div>
         <div class="card-body">
             <div>
-                <p>Stats</p>
+                <p><b>Information</b></p>
+                <div> Account Number: <?php safer_echo($result["account_number"]); ?></div> 
                 <div>Account Type: <?php safer_echo($result["account_type"]); ?></div> <!-- CHANGE -->
                 <div>Balance: <?php safer_echo($result["balance"]); ?></div>
-                <div>Account Type: <?php safer_echo($result["account_type"]); ?></div>
-                <div>Balance: <?php safer_echo($result["balance"]);?>><div>
-                <div>Owned by: <?php safer_echo($result["username"]); ?></div>
             </div>
         </div>
     </div>
 <?php else: ?>
     <p>Error looking up id...</p>
 <?php endif; ?>
-<?php require(__DIR__ . "/partials/flash.php");
+<?php require(__DIR__ . "/../partials/flash.php");

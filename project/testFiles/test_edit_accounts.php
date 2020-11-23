@@ -1,10 +1,10 @@
-<?php require_once(__DIR__ . "/partials/nav.php"); ?>
+<<?php require_once(__DIR__ . "/../partials/nav.php"); ?>
 <!-- ----------------------------------------------------------------------------------------------------------- -->
 <?php
 if (!has_role("Admin")) {
   //this will redirect to login and kill the rest of this script (prevent it from executing)
   flash("You don't have permission to access this page");
-  die(header("Location: login.php"));
+  die(header("Location: " . getURL("login.php")));
 }
 ?>
 <!-- ----------------------------------------------------------------------------------------------------------- -->
@@ -64,8 +64,8 @@ if(isset($id)){
                 <option value="world" <?php echo ($result["account_type"] == "4"?'selected="selected"':'');?>>world</option>
 	</select>
   <label>Balance</label> 
-  <input type="number" min="5.00" name="balance" value="<?php echo $result["balnce"];?>" />
+  <input type="number" min="5.00" name="balance" value="<?php echo $result["balance"];?>" />
   <input type="submit" name="save" value="Update"/>
 </form>
 <!-- ----------------------------------------------------------------------------------------------------------- -->
-<?php require(__DIR__ . "/partials/flash.php");
+<?php require(__DIR__ . "/../partials/flash.php");
