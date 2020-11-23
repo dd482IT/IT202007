@@ -232,7 +232,7 @@ function openAccount($account_number, $balance){
         flash("Created successfully with id: ");
     }
 
-    return doBankAction($accID, $world_id, ($balance * -1), $action, $memo);
+    return doBankAction($world_id, $accID, ($balance * -1), $action, $memo);
 }
 /*
 function accountNumberGenerator(){
