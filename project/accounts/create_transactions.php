@@ -9,7 +9,8 @@ $accounts = getDropDown();
 
 
     <h3 class="text-center"><strong>Create Transaction</strong></h3> 
-    <form align="center" method="POST">      
+    <form align="center" method="POST">   
+    <div>    
         <label>Source Account</label placeholder="0">
             <select name="s_id">
             <?php foreach($accounts as $row):?>
@@ -39,6 +40,7 @@ $accounts = getDropDown();
                 <?php endforeach;?>
             </select>
         </div>
+    </div> 
 
         <label>Amount</label> 
         <input type="number" min="1.00" name="amount">
