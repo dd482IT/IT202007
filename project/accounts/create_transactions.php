@@ -8,7 +8,7 @@ $accounts = getDropDown();
 ?>
 
 
-    <h3><strong>Create Transaction</strong></h3> 
+    <h3 class="text-center"><strong>Create Transaction</strong></h3> 
     <form align="center" method="POST">      
         <label>Source Account</label placeholder="0">
             <select name="s_id">
