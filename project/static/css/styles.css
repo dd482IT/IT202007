@@ -15,6 +15,7 @@ ul[class="nav"]{
   padding: 0;
   overflow: hidden;
   background-color: #40E0D0;
+  
 
 }
 
@@ -50,7 +51,7 @@ ul[class="nav"]{
      	 margin: auto;
         float: left; 
        padding: 10;
-       margin-top: 25px
+      
 	
 }
 
@@ -61,7 +62,7 @@ ul[class="nav"]{
          margin: auto;
         float: left; 
        padding: 10; 
-       margin-top: 25px
+    
 }
 
 .profile{
@@ -71,5 +72,5 @@ ul[class="nav"]{
          margin: auto;
         float: left; 
        padding: 10; 
-       margin-top: 25px
+  
 }
