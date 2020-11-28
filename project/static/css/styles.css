@@ -2,7 +2,7 @@
 
 body {
   font-family: Lucida Console, Courier, monospace;
-  font-size: 1.5em;   
+  font-size: 1.0em;   
 }
 
 .monospace {
@@ -15,7 +15,7 @@ ul[class="nav"]{
   padding: 0;
   overflow: hidden;
   background-color: #40E0D0;
-  
+
 }
 
 .nav > li {
@@ -35,7 +35,7 @@ ul[class="nav"]{
 }
 
 .register{ 
-	font-size: 1.5em;
+	font-size: 1.0em;
 	width: 200px;	
 	height: 200px;
 	 margin: auto;
@@ -44,29 +44,32 @@ ul[class="nav"]{
 }
 
 .login{
-	font-size: 1.5em;
+	font-size: 1.0em;
         width: 200px;   
         height: 200px;
      	 margin: auto;
         float: left; 
        padding: 10;
+       margin-top: 25px
 	
 }
 
 .home{
-	font-size: 1.5em;
+	font-size: 1.0em;
         width: 200px;   
         height: 200px;
          margin: auto;
         float: left; 
        padding: 10; 
+       margin-top: 25px
 }
 
 .profile{
-	font-size: 1.5em;
+	font-size: 1.0em;
         width: 200px;   
         height: 200px;
          margin: auto;
         float: left; 
        padding: 10; 
+       margin-top: 25px
 }
