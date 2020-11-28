@@ -52,7 +52,7 @@ $accounts = getDropDown();
         </select>
         <label>Memo</label>
         <input type="text" name="memo">
-        <input type ="submit" name="save" value="create"/>
+        <input class="btn btn-primary" type ="submit" name="save" value="create"/>
     <hr> 
     </form> 
 

@@ -5,7 +5,7 @@
         <input type="text" id="email" name="email" required/>
         <label for="p1">Password:</label>
         <input type="password" id="p1" name="password" required/>
-        <input type="submit" name="login" value="Login"/>
+        <input class="btn btn-primary" type="submit" name="login" value="Login"/>
     </form>
 </div>
 <?php

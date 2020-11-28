@@ -140,7 +140,7 @@
             <input type="password" name="password"/>
             <label for="cpw">Confirm Password</label>
             <input type="password" name="confirm"/>
-            <input type="submit" name="saved" value="Save Profile"/>
+            <input class="btn btn-primary" type="submit" name="saved" value="Save Profile"/>
         </form>
     </div>
     <?php require(__DIR__ . "/partials/flash.php");
