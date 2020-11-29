@@ -41,6 +41,14 @@ if (isset($user) && !empty($user)) {
         <input type="checkbox" id="Transfer" name="Transfer" value="Transfer">
         <label for="Transfer"> Transfer </label><br>
     </select> 
+    <label for="startDate">Start date:</label>
+    <input class ="startDate" type="date" id="startDate" name="trans-start"
+       value="2018-07-22"
+       min="2000-01-01" max="2099-12-31">
+    <label for="endDate">End date:</label>
+    <input type="date" id="endDate" name="trans-end"
+       value="2018-07-22"
+       min="2000-01-01" max="2099-12-31">
     <div class="results">
         <?php if (count($results) > 0): ?>
             <div class="list-group">
