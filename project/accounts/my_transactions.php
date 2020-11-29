@@ -33,6 +33,7 @@ if (isset($user) && !empty($user)) {
 <h3> <strong>List Transcations </strong></h3>
 <div class="filter">
     <h3> Filter </h3> 
+    <lable for="type_filter"> Action Type: </label> 
         <select class="type_filter" name="action" id="type_filter" placeholder="deposit">
                 <option value ="transfer">transfer</option>
                 <option value ="deposit">desposit</option>
@@ -46,6 +47,7 @@ if (isset($user) && !empty($user)) {
         <input type="date" id="endDate" name="trans-end"
         value="2018-07-22"
         min="2000-01-01" max="2099-12-31">
+        
     <div class="results">
         <?php if (count($results) > 0): ?>
             <div class="list-group">

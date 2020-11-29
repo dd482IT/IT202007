@@ -95,7 +95,12 @@ $accounts = getDropDown();
                 }
             break;
             case "transfer":
-                doBankAction($source,$destination,($amount *-1), $action, $memo);
+                if($amount <= $balance){
+                    doBankAction($source,$destination,($amount *-1), $action, $memo);
+                }
+                elseif($amount > $balance){
+                    flash("Balance Too Low");
+                }
             break;
         }
           
