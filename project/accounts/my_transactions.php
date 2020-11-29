@@ -30,25 +30,22 @@ if (isset($user) && !empty($user)) {
 ?>
 
 
-<h3>List Transcations</h3>
+<h3> <strong>List Transcations </strong></h3>
 <div class="filter">
     <h3> Filter </h3> 
-    <select>
-        <input type="checkbox" id="withdraw" name="withdraw" value="Withraw">
-        <label for="withdraw"> Withdraw</label><br>
-        <input type="checkbox" id="Deposit" name="Deposit" value="Deposit">
-        <label for="Deposit"> Deposit</label><br>
-        <input type="checkbox" id="Transfer" name="Transfer" value="Transfer">
-        <label for="Transfer"> Transfer </label><br>
-    </select> 
+        <select class="type_filter" name="action" id="type_filter" placeholder="deposit">
+                <option value ="transfer">transfer</option>
+                <option value ="deposit">desposit</option>
+                <option value ="withdrawl">withdraw</option>
+        </select> 
     <label for="startDate">Start date:</label>
-    <input class ="startDate" type="date" id="startDate" name="trans-start"
-       value="2018-07-22"
-       min="2000-01-01" max="2099-12-31">
+        <input class ="startDate" type="date" id="startDate" name="trans-start"
+        value="2018-07-22"
+        min="2000-01-01" max="2099-12-31">
     <label for="endDate">End date:</label>
-    <input type="date" id="endDate" name="trans-end"
-       value="2018-07-22"
-       min="2000-01-01" max="2099-12-31">
+        <input type="date" id="endDate" name="trans-end"
+        value="2018-07-22"
+        min="2000-01-01" max="2099-12-31">
     <div class="results">
         <?php if (count($results) > 0): ?>
             <div class="list-group">
