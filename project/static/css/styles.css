@@ -32,10 +32,11 @@ ul[class="nav"]{
 }
 
 .nav > li a:hover {
-  background-color: #40E0D0;
+  background-color: #0055ff;
 }
 
 .register{ 
+  padding-top: 20px;
 	font-size: 1.0em;
 	width: 200px;	
 	height: 200px;
