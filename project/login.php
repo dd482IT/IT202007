@@ -2,7 +2,7 @@
 <div class="login">
 
     <form class="login" method="POST">
-        <label class="login-label"> Login </label>
+        <label class="login-label"> <strong> Login </strong> </label>
         <label for="email">Email or Username:</label>
         <input type="text" id="email" name="email" required/>
         <label for="p1">Password:</label>
