@@ -46,11 +46,11 @@ ul[class="nav"]{
 
 .login{
 	font-size: 1.0em;
-        width: 200px;   
+        width: 80%;   
         height: 200px;
      	 margin: auto;
-        float: left; 
-       padding: 10;
+        float: right; 
+       padding-top: 20px;
       
 	
 }
