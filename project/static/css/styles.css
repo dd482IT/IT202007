@@ -32,7 +32,7 @@ ul[class="nav"]{
 }
 
 .nav > li a:hover {
-  background-color: #00CED1;
+  background-color: #0066ff;
 }
 
 .register{ 
@@ -42,6 +42,7 @@ ul[class="nav"]{
 	 margin: auto;
         float: left; 
        padding: 10; 	
+       text-align:center;
 }
 
 .login{
@@ -51,8 +52,17 @@ ul[class="nav"]{
      	 margin: auto;
         float: right; 
        padding-top: 20px;
+       text-align:center;
       
 	
+}
+
+.login input{
+  padding:10px;
+  width: 100%;
+  border: 1px #ccc solid;
+  border-radius:15px;
+
 }
 
 .home{
@@ -72,5 +82,6 @@ ul[class="nav"]{
          margin: auto;
         float: left; 
        padding: 10; 
+       text-align:center;
   
 }
