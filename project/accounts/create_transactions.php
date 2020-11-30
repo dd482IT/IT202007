@@ -10,7 +10,6 @@ $accounts = getDropDown();
 
     <h3>Create Transaction</h3> 
     <form method="POST">      
-
         <label>Source Account</label placeholder="0">
             <select name="s_id">
             <?php foreach($accounts as $row):?>
