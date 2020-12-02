@@ -17,6 +17,13 @@ else{
 if (isset($user) && !empty($user)) {
     $db = getDB();
     $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT 10");
+
+    if(isset($_POST["filter"])){
+        safer_echo("This Works");
+
+    }
+
+
     $r = $stmt->execute([ ":q" => $user]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,7 +36,7 @@ if (isset($user) && !empty($user)) {
 }
 ?>
 
-
+<form method="POST">
 <h3> <strong>List Transcations </strong></h3>
 <div class="filter">
     <h3> Filter </h3> 
@@ -47,7 +54,8 @@ if (isset($user) && !empty($user)) {
         <input type="date" id="endDate" name="trans-end"
         value="2018-07-22"
         min="2000-01-01" max="2099-12-31">
-        
+    <input type="submit" name="filter" value="Create"/>
+</form>
     <div class="results">
         <?php if (count($results) > 0): ?>
             <div class="list-group">
