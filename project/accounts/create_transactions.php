@@ -8,8 +8,13 @@ $accounts = getDropDown();
 ?>
 
 
+<<<<<<< HEAD
     <h3><strong>Create Transaction</strong></h3> 
     <form align="center" method="POST">      
+=======
+    <h3>Create Transaction</h3> 
+    <form method="POST">      
+>>>>>>> 72ee78cb32628fb4058040167cf1c0e3df755d0d
         <label>Source Account</label placeholder="0">
             <select name="s_id">
             <?php foreach($accounts as $row):?>
