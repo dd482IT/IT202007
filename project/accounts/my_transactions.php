@@ -16,17 +16,38 @@ else{
 <?php
 if (isset($user) && !empty($user)) {
     $db = getDB();
-    $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT 10");
+    //$stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT 10");
+    $r;
 
     if(isset($_POST["filter"])){
         $startDate = $_POST["trans-start"];
         $endDate = $_POST["trans-end"];
         $type = $_POST["action"];
-        safer_echo($startDate . $endDate . $type);
+        $params = [];
+        $query = "SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q";
+
+        if(!empty($type)){
+            $query .= " AND action_type = :x";
+            $params[":x"] = $type;
+        }
+
+        if(!empty($date) && !empty($endDate)){
+            $query .= " AND created BETWEEN :y AND :z";
+            $params[":y"] = $startDateype;
+            $params[":z"] = $endDate;
+        }
+        $params[":q"] = $user;
+        $query .= " LIMIT 10";
+        $stmt=$db->prepare($query);
+        $r = $stmt->execute($params);
+    }
+    else{
+        $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT 10");
+        $r = $stmt->execute([":q"=> $user]);
     }
 
 
-    $r = $stmt->execute([ ":q" => $user]);
+    //$r = $stmt->execute([ ":q" => $user]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         flash("Results are successfull");
