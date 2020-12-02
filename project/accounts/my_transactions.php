@@ -19,8 +19,10 @@ if (isset($user) && !empty($user)) {
     $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT 10");
 
     if(isset($_POST["filter"])){
-        safer_echo("This Works");
-
+        $startDate = $_POST["startDate"];
+        $endDate = $_POST["endDate"];
+        $type = $_POST["action"];
+        safer_echo($startDate . $endDate . $type);
     }
 
 
@@ -47,13 +49,9 @@ if (isset($user) && !empty($user)) {
                 <option value ="withdrawl">withdraw</option>
         </select> 
     <label for="startDate">Start date:</label>
-        <input class ="startDate" type="date" id="startDate" name="trans-start"
-        value="2018-07-22"
-        min="2000-01-01" max="2099-12-31">
+        <input class ="startDate" type="date" id="startDate" name="trans-start" value="2018-07-22" min="2000-01-01" max="2099-12-31">
     <label for="endDate">End date:</label>
-        <input type="date" id="endDate" name="trans-end"
-        value="2018-07-22"
-        min="2000-01-01" max="2099-12-31">
+        <input type="date" id="endDate" name="trans-end" value="2018-07-22" min="2000-01-01" max="2099-12-31">
     <input type="submit" name="filter" value="Create"/>
 </form>
     <div class="results">
