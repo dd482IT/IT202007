@@ -2,7 +2,7 @@
 
 body {
   font-family: Lucida Console, Courier, monospace;
-  font-size: 1.5em;   
+  font-size: 1.0em;   
 }
 
 .monospace {
@@ -14,7 +14,9 @@ ul[class="nav"]{
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #40E0D0;
+  background-color: #0066ff;
+  
+
 }
 
 .nav > li {
@@ -30,42 +32,56 @@ ul[class="nav"]{
 }
 
 .nav > li a:hover {
-  background-color: #00CED1;
+  background-color: #0055ff;
 }
 
 .register{ 
-	font-size: 1.5em;
+  padding-top: 20px;
+	font-size: 1.0em;
 	width: 200px;	
 	height: 200px;
 	 margin: auto;
         float: left; 
        padding: 10; 	
+       text-align:center;
 }
 
 .login{
-	font-size: 1.5em;
-        width: 200px;   
+	font-size: 1.0em;
+        width: 15%;   
         height: 200px;
-     	 margin: auto;
+     	 margin: 15px;
         float: left; 
-       padding: 10;
+       padding-top: 20px;
+       text-align:center;
+      
 	
 }
 
+.login input{
+  padding:10px;
+  border: 1px #ccc solid;
+  border-radius:15px;
+
+}
+
 .home{
-	font-size: 1.5em;
+	font-size: 1.0em;
         width: 200px;   
         height: 200px;
          margin: auto;
         float: left; 
        padding: 10; 
+    
 }
 
 .profile{
-	font-size: 1.5em;
+	font-size: 1.0em;
         width: 200px;   
         height: 200px;
          margin: auto;
         float: left; 
        padding: 10; 
+       text-align:center;
+  
 }

@@ -32,34 +32,34 @@ if (isset($user) && !empty($user)) {
 
 <h3>List Transcations</h3>
 <div class="results">
-    <?php if (count($results) > 0): ?>
-        <div class="list-group">
-            <?php foreach ($results as $r): ?>
-                <div class="list-group-item">
-                    <div>
-                        <div><strong>Action Type:</strong></div>
-                        <div><?php safer_echo($r["action_type"]); ?></div>
+        <?php if (count($results) > 0): ?>
+            <div class="list-group">
+                <?php foreach ($results as $r): ?>
+                    <div class="list-group-item">
+                        <div>
+                            <div><strong>Action Type:</strong></div>
+                            <div><?php safer_echo($r["action_type"]); ?></div>
+                        </div>
+                        <div>
+                            <div><strong>Source:</strong></div>
+                            <div><?php safer_echo($r["act_src_id"]); ?></div>
+                        </div>
+                        <div>
+                            <div><strong>Destination:</strong></div>
+                            <div><?php safer_echo($r["act_dest_id"]); ?></div>
+                        </div>
+                        <div>
+                            <div><strong>Amount:</strong></div>
+                            <div><?php safer_echo($r["amount"]); ?></div>
+                        </div>
+                        <div>
+                            <a type="button" href="<?php echo getURL("accounts/view_transactions.php?id=" . $r["tranID"]); ?>">More Details</a>
+                        </div>
                     </div>
-                    <div>
-                        <div><strong>Source:</strong></div>
-                        <div><?php safer_echo($r["act_src_id"]); ?></div>
-                    </div>
-                    <div>
-                        <div><strong>Destination:</strong></div>
-                        <div><?php safer_echo($r["act_dest_id"]); ?></div>
-                    </div>
-                    <div>
-                        <div><strong>Amount:</strong></div>
-                        <div><?php safer_echo($r["amount"]); ?></div>
-                    </div>
-                    <div>
-                        <a type="button" href="<?php echo getURL("accounts/view_transactions.php?id=" . $r["tranID"]); ?>">More Details</a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php else: ?>
-        <p>No results</p>
-    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p>No results</p>
+        <?php endif; ?>
 </div>
 <?php require(__DIR__ . "/../partials/flash.php");
