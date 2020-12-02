@@ -19,8 +19,8 @@ if (isset($user) && !empty($user)) {
     $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT 10");
 
     if(isset($_POST["filter"])){
-        $startDate = $_POST["startDate"];
-        $endDate = $_POST["endDate"];
+        $startDate = $_POST["trans-start"];
+        $endDate = $_POST["trans-end"];
         $type = $_POST["action"];
         safer_echo($startDate . $endDate . $type);
     }
@@ -54,6 +54,7 @@ if (isset($user) && !empty($user)) {
         <input type="date" id="endDate" name="trans-end" value="2018-07-22" min="2000-01-01" max="2099-12-31">
     <input type="submit" name="filter" value="Create"/>
 </form>
+
     <div class="results">
         <?php if (count($results) > 0): ?>
             <div class="list-group">
