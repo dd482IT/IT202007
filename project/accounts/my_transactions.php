@@ -35,7 +35,7 @@ if (isset($user) && !empty($user)) {
         <?php if (count($results) > 0): ?>
             <div class="list-group">
                 <?php foreach ($results as $r): ?>
-                    <div class="list-inline">
+                    <div class="list-group-item">
                         <div>
                             <div><strong>Action Type:</strong></div>
                             <div><?php safer_echo($r["action_type"]); ?></div>
