@@ -32,11 +32,10 @@ if (isset($user) && !empty($user)) {
 
 <h3>List Transcations</h3>
 <div class="results">
-    <div class ="inline-block">
         <?php if (count($results) > 0): ?>
             <div class="list-group">
                 <?php foreach ($results as $r): ?>
-                    <div class="list-group-item">
+                    <div class="list-inline">
                         <div>
                             <div><strong>Action Type:</strong></div>
                             <div><?php safer_echo($r["action_type"]); ?></div>
@@ -62,6 +61,5 @@ if (isset($user) && !empty($user)) {
         <?php else: ?>
             <p>No results</p>
         <?php endif; ?>
-    </div>
 </div>
 <?php require(__DIR__ . "/../partials/flash.php");
