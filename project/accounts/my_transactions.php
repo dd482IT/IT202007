@@ -30,6 +30,9 @@ if (isset($user) && !empty($user)) {
             $query .= " AND action_type = :x";
             $params[":x"] = $type;
         }
+        else{
+            break;
+        }
 
         if(!empty($date) && !empty($endDate)){
             $query .= " AND created BETWEEN :y AND :z";
@@ -68,6 +71,7 @@ if (isset($user) && !empty($user)) {
                 <option value ="transfer">transfer</option>
                 <option value ="deposit">desposit</option>
                 <option value ="withdrawl">withdraw</option>
+                <option value ="" >All</option>
         </select> 
     <label for="startDate">Start date:</label>
         <input class ="startDate" type="date" id="startDate" name="trans-start" value="2018-07-22" min="2000-01-01" max="2099-12-31">
