@@ -30,9 +30,6 @@ if (isset($user) && !empty($user)) {
             $query .= " AND action_type = :x";
             $params[":x"] = $type;
         }
-        else{
-            break;
-        }
 
         if(!empty($date) && !empty($endDate)){
             $query .= " AND created BETWEEN :y AND :z";
