@@ -64,7 +64,7 @@ if (isset($user) && !empty($user)) {
 <div class="filter">
     <h3> Filter </h3> 
     <lable for="type_filter"> Action Type: </label> 
-        <select class="type_filter" name="action" id="type_filter" placeholder="deposit">
+        <select class="type_filter" name="action" id="type_filter" selected="">
                 <option value ="transfer">transfer</option>
                 <option value ="deposit">desposit</option>
                 <option value ="withdrawl">withdraw</option>
