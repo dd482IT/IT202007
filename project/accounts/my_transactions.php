@@ -52,7 +52,7 @@ if (isset($user) && !empty($user)) {
     //$r = $stmt->execute([ ":q" => $user]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if(!empty($results)){
+        if($results != false){
             flash("Results are successfull");
         }
         else{
