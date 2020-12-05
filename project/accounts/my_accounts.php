@@ -44,7 +44,7 @@ if(isset($_GET["page"])){
     $stmt = $db->prepare("SELECT Accounts.user_id as UserID, Accounts.id as AccID, account_number, account_type, balance FROM Accounts WHERE Accounts.user_id = :q LIMIT :offset, :count");
     $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
     $stmt->bindValue(":count", $per_page, PDO::PARAM_INT);
-    $stmt->bindValue(":id", get_user_id());
+    $stmt->bindValue(":q", get_user_id());
     $stmt->execute();
     $e = $stmt->errorInfo();
     if($e[0] != "00000"){
