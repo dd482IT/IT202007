@@ -55,7 +55,7 @@ if(isset($_GET["page"])){
   }
 ?>
 <div class="container-fluid">
-    <h3>My Accounts</h3>
+    <h3> <strong>My Accounts</strong></h3>
     <div class="row">
     <div class="card-group">
 <?php if($results && count($results) > 0):?>
