@@ -73,6 +73,7 @@ if(isset($_GET["page"])){
                         <?php else:?>
                             Not Set
                         <?php endif; ?>
+                    <a type="button" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["AccID"]); ?>">View Transaction History</a>
                     </div>
                 </div>
             </div>

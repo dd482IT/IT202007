@@ -15,6 +15,16 @@ else{
 
 <?php
 if (isset($user) && !empty($user)) {
+    $page = 1;
+    $per_page = 10;
+    if(isset($_GET["page"])){
+    try {
+        $page = (int)$_GET["page"];
+    }
+    catch(Exception $e){
+        }
+    }   
+    
     $db = getDB();
     //$stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT 10");
     $r;
