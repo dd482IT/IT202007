@@ -64,11 +64,11 @@ if (isset($user) && !empty($user)) {
 <div class="filter">
     <h3> Filter </h3> 
     <lable for="type_filter"> Action Type: </label> 
-        <select class="type_filter" name="action" id="type_filter" selected="">
+        <select class="type_filter" name="action" id="type_filter" placeholder="">
                 <option value ="transfer">transfer</option>
                 <option value ="deposit">desposit</option>
                 <option value ="withdrawl">withdraw</option>
-                <option value ="" >All</option>
+                <option value ="" selected>All</option>
         </select> 
     <label for="startDate">Start date:</label>
         <input class ="startDate" type="date" id="startDate" name="trans-start" value="2018-07-22" min="2000-01-01" max="2099-12-31">
