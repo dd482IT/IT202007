@@ -64,12 +64,12 @@ if(isset($_GET["page"])){
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <div class="card-title">
-                       Account Number: <?php safer_echo($r["account_number"]);?>
+                        <strong>Account Number</strong>: <?php safer_echo($r["account_number"]);?>
                     </div>
                     <div class="card-text">
-                        <div>Current Balance: <?php safer_echo($r["balance"]); ?></div>
+                        <div> <strong>Current Balance: </strong> <?php safer_echo($r["balance"]); ?></div>
                         <?php if(isset($r["account_type"])):?>
-                            Account Type <?php safer_echo($r["account_type"]);?>
+                            <strong>Account Type</strong> <?php safer_echo($r["account_type"]);?>
                         <?php else:?>
                             Not Set
                         <?php endif; ?>
