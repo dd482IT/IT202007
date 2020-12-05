@@ -52,10 +52,12 @@ if (isset($user) && !empty($user)) {
     //$r = $stmt->execute([ ":q" => $user]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        flash("Results are successfull");
-    }
-    elseif(empty($r)){
-        flash("Date Invalid");
+        if(!empty($results)){
+            flash("Results are successfull");
+        }
+        else{
+            flash("Date is invalid");
+        }
     }
     else {
         flash("There was a problem listing your transactions");
