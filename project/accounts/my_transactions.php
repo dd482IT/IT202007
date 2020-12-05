@@ -42,9 +42,9 @@ if (isset($user) && !empty($user)) {
         $r = $stmt->execute($params);
     }
     else{
-        /*$stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT 10");
+        $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT 10");
         $r = $stmt->execute([":q"=> $user]);
-        */
+        
         flash("Date Not Valid");
     }
 
