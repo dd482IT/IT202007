@@ -33,9 +33,11 @@ if (isset($user) && !empty($user)) {
 
         if(!empty($date) && !empty($endDate)){
             $query .= " AND created BETWEEN :y AND :z";
-            $params[":y"] = $startDateype;
+            $params[":y"] = $startDate;
             $params[":z"] = $endDate;
         }
+
+
         $params[":q"] = $user;
         $query .= " LIMIT 10";
         $stmt=$db->prepare($query);
