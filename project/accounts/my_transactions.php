@@ -74,9 +74,9 @@ if (isset($user) && !empty($user)) {
                 <option value ="">All</option>
         </select> 
     <label for="startDate">Start date:</label>
-        <input class ="startDate" type="date" id="startDate" name="trans-start" value="2018-07-22" min="2000-01-01" max="2099-12-31">
+        <input class ="startDate" type="date" id="startDate" name="trans-start" min="2000-01-01" max="2099-12-31">
     <label for="endDate">End date:</label>
-        <input type="date" id="endDate" name="trans-end" value="2018-07-22" min="2000-01-01" max="2099-12-31">
+        <input type="date" id="endDate" name="trans-end" min="2000-01-01" max="2099-12-31">
     <input type="submit" name="filter" value="Create"/>
 </form>
 
