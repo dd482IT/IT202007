@@ -105,7 +105,7 @@ if (isset($accID) && !empty($accID)) {
 <div class="filter">
     <h3> Filter </h3> 
     <label for="type_filter"> Action Type: </label> 
-        <select class="form-control" name="action" id="type_filter" placeholder="">
+        <select name="action" id="type_filter" placeholder="">
                 <option value ="transfer">transfer</option>
                 <option value ="deposit" >desposit</option>
                 <option value ="withdrawl">withdraw</option>
