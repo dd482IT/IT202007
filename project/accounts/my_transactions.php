@@ -44,10 +44,7 @@ if (isset($accID) && !empty($accID)) {
         $startDate = $_POST["trans-start"];
         $endDate = $_POST["trans-end"];
         $type = $_POST["action_type"];
-        $action = "deposit";
-        if (isset($result["action_type"])){
-            $action = $result["action_type"];
-        }
+        $action = "desposit";
 
         $params = [];
         $query = "SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q";
