@@ -1,2 +1,2 @@
 ALTER TABLE Users
-    ADD COLUMN firstName varchar(18) default '' UNIQUE ;
+    ADD COLUMN firstName varchar(18) default '';
