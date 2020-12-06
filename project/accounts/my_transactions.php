@@ -7,6 +7,7 @@ $results2 = [];
 
 if(isset($_GET["id"])){ // ASK PROFFESOR 
   $user = $_GET["id"];
+  safer_echo($user);
 }
 else{
   safer_echo("The id was not pulled");
@@ -45,7 +46,7 @@ if (isset($user) && !empty($user)) {
         $endDate = $_POST["trans-end"];
         $type = $_POST["action"];
         $params = [];
-        $query = "SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q";
+        $query = "SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q";
 
         if(!empty($type)){
             $query .= " AND action_type = :x";
@@ -76,7 +77,7 @@ if (isset($user) && !empty($user)) {
         $r = $stmt->execute($params);
     }
     else{
-        $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT :offset, :count");
+        $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT :offset, :count");
         $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
         $stmt->bindValue(":count", $per_page, PDO::PARAM_INT);
         $stmt->bindValue(":q", $user);
