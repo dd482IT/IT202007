@@ -39,7 +39,6 @@ if (isset($accID) && !empty($accID)) {
     $r;
 
     if(isset($_POST["filter"])){
-        $results;
         $typeCheck = false;
         $dateCheck = false;
         $startDate = $_POST["trans-start"];
@@ -108,10 +107,10 @@ if (isset($accID) && !empty($accID)) {
     <label for="type_filter"> Action Type: </label> 
         <select name="action_type" value="<?php safer_echo($results["action_type"]); ?>">
                 <option value ="transfer" <?php safer_echo($results["action_type"] == "transfer" ? 'selected="selected"' : ''); ?>>transfer</option>
-                <option value ="deposit" >desposit</option>
-                <option value ="withdrawl">withdraw</option>
-                <option value="">All</option>
-        </select> 
+                <option value ="deposit" <?php safer_echo($results["action_type"] == "deposit" ? 'selected="selected"' : ''); ?>>desposit</option>
+                <option value ="withdrawl" <?php safer_echo($results["action_type"] == "withdrawl" ? 'selected="selected"' : ''); ?>>withdraw</option>
+                <option value="" <?php safer_echo($results["action_type"] == "" ? 'selected="selected"' : ''); ?>>All</option>
+        </select>
     <label for="startDate">Start date:</label>
         <input class ="startDate" type="date" id="startDate" name="trans-start" min="2000-01-01" max="2099-12-31">
     <label for="endDate">End date:</label>
