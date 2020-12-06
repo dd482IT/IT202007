@@ -46,6 +46,20 @@ function get_email() {
     return "";
 }
 
+function get_firstName() {
+    if (is_logged_in() && isset($_SESSION["user"]["firstName"])) {
+        return $_SESSION["user"]["firstName"];
+    }
+    return "";
+}
+
+function get_lastName() {
+    if (is_logged_in() && isset($_SESSION["user"]["lastName"])) {
+        return $_SESSION["user"]["lastName"];
+    }
+    return "";
+}
+
 function get_user_id() {
     if (is_logged_in() && isset($_SESSION["user"]["id"])) {
         return $_SESSION["user"]["id"];

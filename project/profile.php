@@ -82,9 +82,11 @@
                 if (!empty($_POST["password"]) && !empty($_POST["confirm"] && !empty($_POST["original"]))) {
                     if ($_POST["password"] == $_POST["confirm"]) {
                         $password = $_POST["password"];
+                        $firstName = $_POST["firstName"];
+                        $lastName = $_POST["lastName"];
                         $hash = password_hash($password, PASSWORD_BCRYPT);
-                        $stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
-                        $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
+                        $stmt = $db->prepare("UPDATE Users set, firstName =:firstName, lastName=:lastName, password = :password where id = :id");
+                        $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash,":firstName"=>$firstName, ":lastName"=>$lastName]);
                         if ($r) {
                             flash("Reset Password");
                         }
@@ -101,15 +103,19 @@
             //password is optional, so check if it's even set6
             //if so, then check if it's a valid reset request
             //fetch/select fresh data in case anything changed
-            $stmt = $db->prepare("SELECT email, username from Users WHERE id = :id LIMIT 1");
+            $stmt = $db->prepare("SELECT email, username, firstName, lastName from Users WHERE id = :id LIMIT 1");
             $stmt->execute([":id" => get_user_id()]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($result) {
                 $email = $result["email"];
                 $username = $result["username"];
+                $firstName = $result["firstName"];
+                $lastName = $result["lastName"];
                 //let's update our session too
                 $_SESSION["user"]["email"] = $email;
                 $_SESSION["user"]["username"] = $username;
+                $_SESSION["user"]["firstName"] = $firstName;
+                $_SESSION["user"]["lastName"] = $lastName;
             }
             else {
                 
@@ -133,6 +139,11 @@
             <input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>
             <label for="username">Username</label>
             <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
+
+            <label for="firstName">First Name</label>
+            <input type="text" maxlength="60" name="firstName" value="<?php safer_echo(get_firstName()); ?>"/>
+            <label for="lastName">Last Name</label>
+            <input type="text" maxlength="60" name="lastName" value="<?php safer_echo(get_lastName()); ?>"/>
             <!-- DO NOT PRELOAD PASSWORD-->
             <label for="ogpw">Current Password</label> <!-- Added by dan -->
             <input type="password" name="original" id="ogpw" /> <!-- Added by dan -->
