@@ -104,8 +104,8 @@ if (isset($accID) && !empty($accID)) {
 <h3> <strong>List Transcations </strong></h3>
 <div class="filter">
     <h3> Filter </h3> 
-    <lable for="type_filter"> Action Type: </label> 
-        <select class="type_filter" name="action" id="type_filter" placeholder="">
+    <label for="type_filter"> Action Type: </label> 
+        <select class="form-control" name="action" id="type_filter" placeholder="">
                 <option value ="transfer">transfer</option>
                 <option value ="deposit" <?php echo($results["action_type"] == "deposit" ? 'selected="selected"' : ''); ?>>desposit</option>
                 <option value ="withdrawl">withdraw</option>
