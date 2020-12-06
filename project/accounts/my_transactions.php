@@ -43,7 +43,7 @@ if (isset($accID) && !empty($accID)) {
         $dateCheck = false;
         $startDate = $_POST["trans-start"];
         $endDate = $_POST["trans-end"];
-        $type = $_POST["action"];
+        $type = $_POST["action_type"];
         $params = [];
         $query = "SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q";
 
@@ -105,7 +105,7 @@ if (isset($accID) && !empty($accID)) {
 <div class="filter">
     <h3> Filter </h3> 
     <label for="type_filter"> Action Type: </label> 
-        <select name="action" id="type_filter" placeholder="">
+        <select name="action_type" value="<?php echo $result["action_type"]; ?>">
                 <option value ="transfer">transfer</option>
                 <option value ="deposit" >desposit</option>
                 <option value ="withdrawl">withdraw</option>
