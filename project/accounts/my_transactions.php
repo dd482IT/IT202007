@@ -106,10 +106,10 @@ if (isset($accID) && !empty($accID)) {
     <h3> Filter </h3> 
     <lable for="type_filter"> Action Type: </label> 
         <select class="type_filter" name="action" id="type_filter" placeholder="">
-                <option value ="transfer">transfer</option>
-                <option value ="deposit">desposit</option>
-                <option value ="withdrawl">withdraw</option>
-                <option value ="">All</option>
+                <option value ="transfer" <?php echo($result["action"] == "transfer" ? 'selected="selected"' : ''); ?>>transfer</option>
+                <option value ="deposit" <?php echo($result["action"] == "deposit" ? 'selected="selected"' : ''); ?>>desposit</option>
+                <option value ="withdrawl" <?php echo($result["action"] == "withdrawl" ? 'selected="selected"' : ''); ?>>withdraw</option>
+                <option value="" <?php echo($result["action"] == "" ? 'selected="selected"' : ''); ?>> All</option>
         </select> 
     <label for="startDate">Start date:</label>
         <input class ="startDate" type="date" id="startDate" name="trans-start" min="2000-01-01" max="2099-12-31">
