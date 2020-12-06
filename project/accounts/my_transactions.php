@@ -74,7 +74,7 @@ if (isset($user) && !empty($user)) {
             $stmt->bindValue(":z", $endDate);
         }
         $stmt->bindValue(":q", $user);
-        $r = $stmt->execute($params);
+        $r = $stmt->execute();
     }
     else{
         $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT :offset, :count");
