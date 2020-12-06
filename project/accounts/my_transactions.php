@@ -44,6 +44,11 @@ if (isset($accID) && !empty($accID)) {
         $startDate = $_POST["trans-start"];
         $endDate = $_POST["trans-end"];
         $type = $_POST["action_type"];
+        $action = "deposit";
+        if (isset($result["action_type"])){
+            $action = $result["action_type"];
+        }
+
         $params = [];
         $query = "SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q";
 
@@ -87,6 +92,9 @@ if (isset($accID) && !empty($accID)) {
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         safer_echo($results);
+        if (isset($result["action_type"])){
+            $action = $result["action_type"];
+        }
         if($results != false){
             flash("Results are successfull");
         }
@@ -106,11 +114,11 @@ if (isset($accID) && !empty($accID)) {
 <div class="filter">
     <h3> Filter </h3> 
     <label for="type_filter"> Action Type: </label> 
-        <select name="action_type" value="<?php safer_echo($results["action_type"]); ?>">
-                <option value ="transfer" <?php safer_echo($results["action_type"] == "transfer" ? 'selected="selected"' : ''); ?>>transfer</option>
-                <option value ="deposit" <?php safer_echo($results["action_type"] == "deposit" ? 'selected="selected"' : ''); ?>>desposit</option>
-                <option value ="withdrawl" <?php safer_echo($results["action_type"] == "withdrawl" ? 'selected="selected"' : ''); ?>>withdraw</option>
-                <option value="" <?php safer_echo($results["action_type"] == "" ? 'selected="selected"' : ''); ?>>All</option>
+        <select name="action_type" value="<?php safer_echo($action); ?>">
+                <option value ="transfer" <?php safer_echo($action == "transfer" ? 'selected="selected"' : ''); ?>>transfer</option>
+                <option value ="deposit" <?php safer_echo($action == "deposit" ? 'selected="selected"' : ''); ?>>desposit</option>
+                <option value ="withdrawl" <?php safer_echo($action == "withdrawl" ? 'selected="selected"' : ''); ?>>withdraw</option>
+                <option value="" <?php safer_echo($action == "" ? 'selected="selected"' : ''); ?>>All</option>
         </select>
     <label for="startDate">Start date:</label>
         <input class ="startDate" type="date" id="startDate" name="trans-start" min="2000-01-01" max="2099-12-31">
