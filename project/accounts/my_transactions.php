@@ -61,6 +61,7 @@ if (isset($user) && !empty($user)) {
         }
 
         $query .= " LIMIT :offset, :count";
+        safer_echo($query);
         $stmt=$db->prepare($query);
         $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
         $stmt->bindValue(":count", $per_page, PDO::PARAM_INT);
@@ -119,7 +120,7 @@ if (isset($user) && !empty($user)) {
 </form>
 
 <div class="container-fluid">
-    <h3>My Transacitons</h3>
+    <h3>My Transactions</h3>
     <div class="row">
     <div class="card-group">
 <?php if($results && count($results) > 0):?>
@@ -149,7 +150,7 @@ if (isset($user) && !empty($user)) {
 <?php else:?>
 <div class="col-auto">
     <div class="card">
-       You don't have any eggs.
+       You don't have any transactions.
     </div>
 </div>
 <?php endif;?>
