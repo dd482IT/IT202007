@@ -105,17 +105,17 @@ if (isset($accID) && !empty($accID)) {
 <div class="filter">
     <h3> Filter </h3> 
     <lable for="type_filter"> Action Type: </label> 
-        <select class="type_filter" name="action" value="<?php echo $results["action_type"]; ?>" >
-                <option value ="transfer" <?php echo($results["action_type"] == "transfer" ? 'selected="selected"' : ''); ?>>transfer</option>
-                <option value ="deposit" <?php echo($results["action_type"] == "deposit" ? 'selected="selected"' : ''); ?>>desposit</option>
-                <option value ="withdrawl" <?php echo($results["action_type"] == "withdrawl" ? 'selected="selected"' : ''); ?>>withdrawl</option>
-                <option value="" <?php echo($results["action_type"] == "" ? 'selected="selected"' : ''); ?>> All</option>
+        <select class="type_filter" name="action" id="type_filter" placeholder="">
+                <option value ="transfer">transfer</option>
+                <option value ="deposit">desposit</option>
+                <option value ="withdrawl">withdraw</option>
+                <option value="">All</option>
         </select> 
     <label for="startDate">Start date:</label>
         <input class ="startDate" type="date" id="startDate" name="trans-start" min="2000-01-01" max="2099-12-31">
     <label for="endDate">End date:</label>
         <input type="date" id="endDate" name="trans-end" min="2000-01-01" max="2099-12-31">
-    <input type="submit" name="filter" value="Submit">
+    <input type="submit" name="filter" value="Submit"/>
 </form>
 
 <div class="container-fluid">
