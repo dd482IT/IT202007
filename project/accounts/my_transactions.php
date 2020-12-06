@@ -106,9 +106,9 @@ if (isset($accID) && !empty($accID)) {
     <h3> Filter </h3> 
     <lable for="type_filter"> Action Type: </label> 
         <select class="type_filter" name="action" value="<?php echo $results["action_type"]; ?>" >
-                <option value ="transfer" <?php echo($resresultsult["action_type"] == "transfer" ? 'selected="selected"' : ''); ?>>transfer</option>
+                <option value ="transfer" <?php echo($results["action_type"] == "transfer" ? 'selected="selected"' : ''); ?>>transfer</option>
                 <option value ="deposit" <?php echo($results["action_type"] == "deposit" ? 'selected="selected"' : ''); ?>>desposit</option>
-                <option value ="withdrawl" <?php echo($resresultsult["action_type"] == "withdrawl" ? 'selected="selected"' : ''); ?>>withdrawl</option>
+                <option value ="withdrawl" <?php echo($results["action_type"] == "withdrawl" ? 'selected="selected"' : ''); ?>>withdrawl</option>
                 <option value="" <?php echo($results["action_type"] == "" ? 'selected="selected"' : ''); ?>> All</option>
         </select> 
     <label for="startDate">Start date:</label>
