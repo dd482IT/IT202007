@@ -6,8 +6,7 @@ $results = [];
 $results2 = [];
 
 if(isset($_GET["id"])){ // ASK PROFFESOR 
-  $user = $_GET["id"];
-  safer_echo($user);
+  $accID = $_GET["id"]; // THE ACCOUNT ID
 }
 else{
   safer_echo("The id was not pulled");
@@ -15,7 +14,7 @@ else{
 ?>
 
 <?php
-if (isset($user) && !empty($user)) {
+if (isset($accID) && !empty($accID)) {
     $page = 1;
     $per_page = 10;
     if(isset($_GET["page"])){
@@ -28,7 +27,7 @@ if (isset($user) && !empty($user)) {
     }
     $db = getDB();
     $stmt = $db->prepare("SELECT count(*) as total FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q");
-    $stmt->execute([":q"=>$user]);
+    $stmt->execute([":q"=>$accID]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     $total = 0;
     if($result){
@@ -73,19 +72,19 @@ if (isset($user) && !empty($user)) {
             $stmt->bindValue(":y", $startDate);
             $stmt->bindValue(":z", $endDate);
         }
-        $stmt->bindValue(":q", $user);
+        $stmt->bindValue(":q", $accID);
         $r = $stmt->execute();
     }
     else{
         $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT :offset, :count");
         $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
         $stmt->bindValue(":count", $per_page, PDO::PARAM_INT);
-        $stmt->bindValue(":q", $user);
+        $stmt->bindValue(":q", $accID);
         $r = $stmt->execute();
     }
 
 
-    //$r = $stmt->execute([ ":q" => $user]);
+    //$r = $stmt->execute([ ":q" => $accID]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if($results != false){
