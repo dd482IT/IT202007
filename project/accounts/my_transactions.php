@@ -92,8 +92,8 @@ if (isset($accID) && !empty($accID)) {
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         safer_echo($results);
-        if (isset($result["action_type"])){
-            $action = $result["action_type"];
+        if (isset($results["action_type"])){
+            $action = $results["action_type"];
         }
         if($results != false){
             flash("Results are successfull");
