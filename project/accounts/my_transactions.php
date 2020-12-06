@@ -47,13 +47,13 @@ if (isset($user) && !empty($user)) {
 
         if(!empty($type)){
             $query .= " AND action_type = :x";
-            $params[":x"] = $type;
+            $stmt->bindValue(":x",$type);
         }
 
         if(!empty($date) && !empty($endDate)){
             $query .= " AND created BETWEEN :y AND :z";
-            $params[":y"] = $startDate;
-            $params[":z"] = $endDate;
+            $stmt->bindValue(":y", $startDate);
+            $stmt->bindValue(":z", $endDate);
         }
 
         $query .= " LIMIT :offset, :count";
