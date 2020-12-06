@@ -105,11 +105,11 @@ if (isset($accID) && !empty($accID)) {
 <div class="filter">
     <h3> Filter </h3> 
     <lable for="type_filter"> Action Type: </label> 
-        <select class="type_filter" name="action" value="<?php echo $results["action"]; ?>" >
-                <option value ="transfer" <?php echo($resresultsult["action"] == "transfer" ? 'selected="selected"' : ''); ?>>transfer</option>
-                <option value ="deposit" <?php echo($results["action"] == "deposit" ? 'selected="selected"' : ''); ?>>desposit</option>
-                <option value ="withdrawl" <?php echo($resresultsult["action"] == "withdrawl" ? 'selected="selected"' : ''); ?>>withdrawl</option>
-                <option value="" <?php echo($results["action"] == "" ? 'selected="selected"' : ''); ?>> All</option>
+        <select class="type_filter" name="action" value="<?php echo $results["action_type"]; ?>" >
+                <option value ="transfer" <?php echo($resresultsult["action_type"] == "transfer" ? 'selected="selected"' : ''); ?>>transfer</option>
+                <option value ="deposit" <?php echo($results["action_type"] == "deposit" ? 'selected="selected"' : ''); ?>>desposit</option>
+                <option value ="withdrawl" <?php echo($resresultsult["action_type"] == "withdrawl" ? 'selected="selected"' : ''); ?>>withdrawl</option>
+                <option value="" <?php echo($results["action_type"] == "" ? 'selected="selected"' : ''); ?>> All</option>
         </select> 
     <label for="startDate">Start date:</label>
         <input class ="startDate" type="date" id="startDate" name="trans-start" min="2000-01-01" max="2099-12-31">
