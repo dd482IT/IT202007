@@ -37,14 +37,14 @@ if (isset($accID) && !empty($accID)) {
     $offset = ($page-1) * $per_page;
     //$stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions as Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT 10");
     $r;
-
+    $action = "desposit";
     if(isset($_POST["filter"])){
         $typeCheck = false;
         $dateCheck = false;
         $startDate = $_POST["trans-start"];
         $endDate = $_POST["trans-end"];
         $type = $_POST["action_type"];
-        $action = "desposit";
+        
 
         $params = [];
         $query = "SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q";
