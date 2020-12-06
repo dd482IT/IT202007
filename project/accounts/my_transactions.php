@@ -105,11 +105,11 @@ if (isset($accID) && !empty($accID)) {
 <div class="filter">
     <h3> Filter </h3> 
     <label for="type_filter"> Action Type: </label> 
-        <select name="action_type" value="<?php safer_echo($results[":x"]); ?>">
+        <select name="action_type" value="<?php safer_echo($results["x"]); ?>">
                 <option value ="transfer" <?php safer_echo($results[":x"] == "transfer" ? 'selected="selected"' : ''); ?>>transfer</option>
-                <option value ="deposit" <?php safer_echo($results[":x"] == "deposit" ? 'selected="selected"' : ''); ?>>desposit</option>
-                <option value ="withdrawl" <?php safer_echo($results[":x"] == "withdrawl" ? 'selected="selected"' : ''); ?>>withdraw</option>
-                <option value="" <?php safer_echo($results[":x"] == "" ? 'selected="selected"' : ''); ?>>All</option>
+                <option value ="deposit" <?php safer_echo($results["x"] == "deposit" ? 'selected="selected"' : ''); ?>>desposit</option>
+                <option value ="withdrawl" <?php safer_echo($results["x"] == "withdrawl" ? 'selected="selected"' : ''); ?>>withdraw</option>
+                <option value="" <?php safer_echo($results["x"] == "" ? 'selected="selected"' : ''); ?>>All</option>
         </select>
     <label for="startDate">Start date:</label>
         <input class ="startDate" type="date" id="startDate" name="trans-start" min="2000-01-01" max="2099-12-31">
