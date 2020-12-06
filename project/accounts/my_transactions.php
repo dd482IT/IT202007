@@ -118,9 +118,9 @@ if (isset($accID) && !empty($accID)) {
                 <option value="" <?php safer_echo($action == "" ? 'selected="selected"' : ''); ?>>All</option>
         </select>
     <label for="startDate">Start date:</label>
-        <input class ="startDate" type="date" id="startDate" name="trans-start" min="2000-01-01" max="2099-12-31">
+        <input type="date" value="2019-01-01" name="trans-start" min="2000-01-01" max="2099-12-31">
     <label for="endDate">End date:</label>
-        <input type="date" id="endDate" name="trans-end" min="2000-01-01" max="2099-12-31">
+        <input type="date" value="2020-12-31"name="trans-end" min="2000-01-01" max="2099-12-31">
     <input type="submit" name="filter" value="Submit"/>
 </form>
 
