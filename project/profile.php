@@ -71,22 +71,21 @@
             $r = $stmt->execute([":id" => get_user_id()]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC); //added 
             $password_hash_from_db = $result["password"]; //added
-
+            $firstName = $_POST["firstName"];
+            $lastName = $_POST["lastName"];
             
 
             if ($r && password_verify($_POST["original"], $password_hash_from_db)) {
 
-                $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
-                $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);//addded && and after - 
+                $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, firstName= :firstName, lastName = :lastName where id = :id");
+                $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id(), ":firstName"=>$firstName, ":lastName"=>$lastName]);//addded && and after - 
 
                 if (!empty($_POST["password"]) && !empty($_POST["confirm"] && !empty($_POST["original"]))) {
                     if ($_POST["password"] == $_POST["confirm"]) {
                         $password = $_POST["password"];
-                        $firstName = $_POST["firstName"];
-                        $lastName = $_POST["lastName"];
                         $hash = password_hash($password, PASSWORD_BCRYPT);
-                        $stmt = $db->prepare("UPDATE Users set, firstName =:firstName, lastName=:lastName, password = :password where id = :id");
-                        $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash,":firstName"=>$firstName, ":lastName"=>$lastName]);
+                        $stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
+                        $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
                         if ($r) {
                             flash("Reset Password");
                         }
