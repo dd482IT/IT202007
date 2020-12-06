@@ -39,6 +39,8 @@ if (isset($user) && !empty($user)) {
     $r;
 
     if(isset($_POST["filter"])){
+        $typeCheck = false;
+        $dateCheck = false;
         $startDate = $_POST["trans-start"];
         $endDate = $_POST["trans-end"];
         $type = $_POST["action"];
@@ -48,18 +50,27 @@ if (isset($user) && !empty($user)) {
         if(!empty($type)){
             $query .= " AND action_type = :x";
             $params[":x"] = $type;
+            $typeCheck = true;
         }
 
         if(!empty($date) && !empty($endDate)){
             $query .= " AND created BETWEEN :y AND :z";
             $params[":y"] = $startDate;
             $params[":z"] = $endDate;
+            $dateCheck = true;
         }
 
         $query .= " LIMIT :offset, :count";
         $stmt=$db->prepare($query);
         $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
         $stmt->bindValue(":count", $per_page, PDO::PARAM_INT);
+        if( $typeCheck){
+            $stmt->bindValue(":x", $type);
+        }
+        if($dateCheck){
+            $stmt->bindValue(":y", $startDate);
+            $stmt->bindValue(":z", $endDate);
+        }
         $stmt->bindValue(":q", $user);
         $r = $stmt->execute($params);
     }
@@ -144,7 +155,7 @@ if (isset($user) && !empty($user)) {
 <?php endif;?>
     </div>
     </div>
-        <nav aria-label="My Transactions">
+        <nav aria-label="My Accounts">
             <ul class="pagination justify-content-center">
                 <li class="page-item <?php echo ($page-1) < 1?"disabled":"";?>">
                     <a class="page-link" href="?page=<?php echo $page-1;?>" tabindex="-1">Previous</a>
