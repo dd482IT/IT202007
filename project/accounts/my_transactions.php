@@ -45,7 +45,7 @@ if (isset($accID) && !empty($accID)) {
         $endDate = $_POST["trans-end"];
         $type = $_POST["action"];
         $params = [];
-        $query = "SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q";
+        $query = "SELECT amount, action_type, created, act_src_id, act_dest_id, memo Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q";
 
         if(!empty($type)){
             $query .= " AND action_type = :x";
@@ -61,7 +61,6 @@ if (isset($accID) && !empty($accID)) {
         }
 
         $query .= " LIMIT :offset, :count";
-        safer_echo($query);
         $stmt=$db->prepare($query);
         $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
         $stmt->bindValue(":count", $per_page, PDO::PARAM_INT);
@@ -76,7 +75,7 @@ if (isset($accID) && !empty($accID)) {
         $r = $stmt->execute();
     }
     else{
-        $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT :offset, :count");
+        $stmt=$db->prepare("SELECT amount, action_type, created, act_src_id, act_dest_id, memo Transactions.id as tranID FROM Transactions JOIN Accounts ON Transactions.act_src_id = Accounts.id WHERE Accounts.id = :q LIMIT :offset, :count");
         $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
         $stmt->bindValue(":count", $per_page, PDO::PARAM_INT);
         $stmt->bindValue(":q", $accID);
@@ -116,7 +115,7 @@ if (isset($accID) && !empty($accID)) {
         <input class ="startDate" type="date" id="startDate" name="trans-start" min="2000-01-01" max="2099-12-31">
     <label for="endDate">End date:</label>
         <input type="date" id="endDate" name="trans-end" min="2000-01-01" max="2099-12-31">
-    <input type="submit" name="filter" value="Create"/>
+    <input type="submit" name="filter" value="Submit"/>
 </form>
 
 <div class="container-fluid">
@@ -133,11 +132,8 @@ if (isset($accID) && !empty($accID)) {
                     </div>
                     <div class="card-text">
                         <div>Action Type: <?php safer_echo($r["action_type"]); ?></div>
-                        <?php if(isset($r["amount"])):?>
-                            Amount: <?php safer_echo($r["amount"]);?>
-                        <?php else:?>
-                            Not Set
-                        <?php endif; ?>
+                        Amount: <?php safer_echo($r["amount"]);?>
+                        Memo: <?php safer_echo($r["memo"]);?>
                     </div>
                     <div class="card-footer">
                         <a type="button" href="<?php echo getURL("accounts/view_transactions.php?id=" . $r["tranID"]); ?>">More Details</a>
