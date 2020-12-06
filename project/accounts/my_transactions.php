@@ -88,7 +88,6 @@ if (isset($accID) && !empty($accID)) {
     //$r = $stmt->execute([ ":q" => $accID]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        safer_echo($results);
         if (isset($results["action_type"])){
             $action = $results["action_type"];
         }
