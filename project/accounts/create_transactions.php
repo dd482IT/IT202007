@@ -7,9 +7,9 @@
 $accounts = getDropDown();
 ?>
 
-
-    <h3><strong>Create Transaction</strong></h3> 
-    <form align="center" method="POST">      
+    <h3 class="text-center"><strong>Create Transaction</strong></h3> 
+    <hr>
+    <form align="center" method="POST">     
         <label>Source Account</label placeholder="0">
             <select name="s_id">
             <?php foreach($accounts as $row):?>
@@ -40,6 +40,7 @@ $accounts = getDropDown();
             </select>
         </div>
 
+
         <label>Amount</label> 
         <input type="number" min="1.00" name="amount">
         <label>Action</label> 
@@ -50,7 +51,8 @@ $accounts = getDropDown();
         </select>
         <label>Memo</label>
         <input type="text" name="memo">
-        <input type ="submit" name="save" value="create"/>
+        <input class="btn btn-primary" type ="submit" name="save" value="create"/>
+    <hr> 
     </form> 
 
 
