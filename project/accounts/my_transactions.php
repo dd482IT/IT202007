@@ -39,6 +39,7 @@ if (isset($accID) && !empty($accID)) {
     $r;
 
     if(isset($_POST["filter"])){
+        $results;
         $typeCheck = false;
         $dateCheck = false;
         $startDate = $_POST["trans-start"];
