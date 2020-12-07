@@ -59,6 +59,7 @@ $accounts = getDropDown();
         }
         else{
           flash("Name not found");
+          exit();
         }
         //FINDS THE ACCOUNT NUMBER AND ID BY COMPARING THE LAST 4, NAME NEEDS TO BE COMPARED FIRST^^^
         $stmt=$db->prepare("SELECT Accounts.id as accID, account_number FROM Accounts WHERE Accounts.user_id = :userID AND account_number LIKE :q");
@@ -70,6 +71,7 @@ $accounts = getDropDown();
         }
         else{
           flash("Account Number Not Found");
+          exit();
         }
 
 
