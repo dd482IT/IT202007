@@ -7,10 +7,10 @@
 $accounts = getDropDown();
 ?>
 
-    <h3 class="text-center"><strong>Create Transaction</strong></h3> 
+    <h3 class="text-center"><strong>Send Money</strong></h3> 
     <hr>
     <form align="center" method="POST">     
-        <label>Source Account</label placeholder="0">
+        <label>Source User Account</label placeholder="0">
             <select name="s_id">
             <?php foreach($accounts as $row):?>
                 <option value="<?php echo $row["id"];?>"> 
@@ -18,37 +18,15 @@ $accounts = getDropDown();
                 </option>
             <?php endforeach;?>
             </select>
-        <script>
-            function showTransferForm(){
-                if(document.getElementById('type').value == "transfer"){
-                    document.getElementById('transfer').style.display='block';
-                    document.getElementById('transfer').disabled = false; 
-                }else{
-                    document.getElementById('transfer').style.display='none';
-                    document.getElementById('transfer').disabled = true; 
-                }
-            }
-        </script> 
-        <div id="transfer" disabled>
-            <label>Destination Account </label>
+        <div id="transfer">
+            <label>Destination User Account </label>
             <select name="d_id">
-                <?php foreach($accounts as $row):?>
-                    <option value="<?php echo $row["id"];?>">
-                    <?php echo $row["account_number"];?>
-                    </option>
-                <?php endforeach;?>
             </select>
         </div>
 
 
         <label>Amount</label> 
         <input type="number" min="1.00" name="amount">
-        <label>Action</label> 
-        <select name="action" id="type" placeholder="transfer" onclick="showTransferForm()">
-            <option value ="transfer">transfer</option>
-            <option value ="deposit">desposit</option>
-            <option value ="withdrawl">withdraw</option>
-        </select>
         <label>Memo</label>
         <input type="text" name="memo">
         <input class="btn btn-primary" type ="submit" name="save" value="create"/>
@@ -67,16 +45,10 @@ $accounts = getDropDown();
         $user = get_user_id();
         $db = getDB();
 
-        $stmt=$db->prepare("SELECT id FROM Accounts WHERE account_number = '000000000000'");
-        $results = $stmt->execute();
+        $stmt=$db->prepare("SELECT balance FROM Accounts WHERE Accounts.id = :q");
+        $results = $stmt->execute(["q"=> $source]);
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
-        $world_id = $r["id"];
-        
-        
-        $stmt2=$db->prepare("SELECT balance FROM Accounts WHERE Accounts.id = :q");
-        $results2 = $stmt2->execute(["q"=> $source]);
-        $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-        $balance = $r2["balance"];
+        $balance = $r["balance"];
 
         if(!isset($memo) && empty($memo)){
             $memo = "empty";
