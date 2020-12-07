@@ -58,7 +58,6 @@ $accounts = getDropDown();
         $destUserID = $r["userID"];
         }
         else{
-          $destUserID = null;
           flash("Name not found");
         }
         //FINDS THE ACCOUNT NUMBER AND ID BY COMPARING THE LAST 4, NAME NEEDS TO BE COMPARED FIRST^^^
@@ -70,8 +69,6 @@ $accounts = getDropDown();
           $destAccNum = $r["account_number"];
         }
         else{
-          $destination = null;
-          $destination = null;
           flash("Account Number Not Found");
         }
 
