@@ -60,12 +60,12 @@ $accounts = getDropDown();
           flash("Error Pulling destUserID");
         }
         //FINDS THE ACCOUNT NUMBER AND ID BY COMPARING THE LAST 4, NAME NEEDS TO BE COMPARED FIRST^^^
-        $stmt=$db->prepare("SELECT Accounts.id as accID FROM Accounts WHERE Accounts.user_id = :userID AND account_number as accNum LIKE :q");
+        $stmt=$db->prepare("SELECT Accounts.id as accID FROM Accounts WHERE Accounts.user_id = :userID AND account_number LIKE :q");
         $results = $stmt->execute([":userID"=> $destUserID, ":q"=> "%$destLast4"]);
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
         if($r){
           $destination = $r["accID"];
-          $destAccNum = $r["accNum"];
+          $destAccNum = $r["account_number"];
         }
         else{
           flash("Error Pulling destAccNum and destination");
