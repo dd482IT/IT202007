@@ -22,9 +22,6 @@ if(isset($_GET["page"])){
     }
 }
 
-?>
-
-<?php
     $user = get_user_id();
     if(isset($user)){
     $results = [];
