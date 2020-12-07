@@ -87,9 +87,9 @@ $accounts = getDropDown();
         }
         elseif($amount > $balance){
           flash("Balance Too Low");
-        } 
+        }
         else{
-          flash("Other Error")
+          flash("Other Error");
         }
     }
    
