@@ -26,7 +26,7 @@ if(isset($_GET["page"])){
     if(isset($user)){
     $results = [];
     $db = getDB();
-    $stmt = $db->prepare("SELECT count(*) as total from Accounts e LEFT JOIN Transactions i on e.id = i.act_src_id where e.user_id = :id");
+    $stmt = $db->prepare("SELECT count(*) as total from Accounts where Accounts.user_id = :id");
     $stmt->execute([":id"=>get_user_id()]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     $total = 0;
