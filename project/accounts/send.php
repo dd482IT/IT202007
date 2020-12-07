@@ -54,7 +54,7 @@ $accounts = getDropDown();
         $stmt=$db->prepare("SELECT Users.id as userID FROM Users WHERE Users.lastName LIKE :q");
         $results = $stmt->execute([":q"=> $destLastName]);
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($r["userID"]){
+        if($r){
         $destUserID = $r["userID"];
         }
         else{
@@ -65,7 +65,7 @@ $accounts = getDropDown();
         $stmt=$db->prepare("SELECT Accounts.id as accID, account_number FROM Accounts WHERE Accounts.user_id = :userID AND account_number LIKE :q");
         $results = $stmt->execute([":userID"=> $destUserID, ":q"=> "%$destLast4"]);
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($r["accId"] && $r["account_number"]){
+        if($r){
           $destination = $r["accID"];
           $destAccNum = $r["account_number"];
         }
