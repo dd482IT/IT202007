@@ -19,12 +19,11 @@ $accounts = getDropDown();
             <?php endforeach;?>
             </select>
         <div id="transfer">
-            <label>Destination User Account </label>
-            <select name="d_id">
-            </select>
+            <label>Destination User Account # Last 4 </label>
+            <input type="text" name="destID" placeholder="Search..">
+            <label>Destination User Last Name</label>
+            <input type="text" name="destName" placeholder="Search..">
         </div>
-
-
         <label>Amount</label> 
         <input type="number" min="1.00" name="amount">
         <label>Memo</label>
