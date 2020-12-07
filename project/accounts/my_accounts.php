@@ -22,14 +22,11 @@ if(isset($_GET["page"])){
     }
 }
 
-?>
-
-<?php
     $user = get_user_id();
     if(isset($user)){
     $results = [];
     $db = getDB();
-    $stmt = $db->prepare("SELECT count(*) as total from Accounts e LEFT JOIN Transactions i on e.id = i.act_src_id where e.user_id = :id");
+    $stmt = $db->prepare("SELECT count(*) as total from Accounts where Accounts.user_id = :id");
     $stmt->execute([":id"=>get_user_id()]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     $total = 0;
@@ -97,7 +94,7 @@ if(isset($_GET["page"])){
                 <?php for($i = 0; $i < $total_pages; $i++):?>
                 <li class="page-item <?php echo ($page-1) == $i?"active":"";?>"><a class="page-link" href="?page=<?php echo ($i+1);?>"><?php echo ($i+1);?></a></li>
                 <?php endfor; ?>
-                <li class="page-item <?php echo ($page+1) >= $total_pages?"disabled":"";?>">
+                <li class="page-item <?php echo ($page) >= $total_pages?"disabled":"";?>">
                     <a class="page-link" href="?page=<?php echo $page+1;?>">Next</a>
                 </li>
             </ul>

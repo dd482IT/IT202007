@@ -5,12 +5,14 @@ $query = "";
 $results = [];
 $results2 = [];
 
+
 if(isset($_GET["id"])){ // ASK PROFFESOR 
   $accID = $_GET["id"]; // THE ACCOUNT ID
 }
 else{
   safer_echo("The id was not pulled");
 }
+
 ?>
 
 <?php
@@ -163,13 +165,13 @@ if (isset($accID) && !empty($accID)) {
         <nav aria-label="My Accounts">
             <ul class="pagination justify-content-center">
                 <li class="page-item <?php echo ($page-1) < 1?"disabled":"";?>">
-                    <a class="page-link" href="?page=<?php echo $page-1;?>" tabindex="-1">Previous</a>
+                    <a class="page-link" href="?id=<?php echo ($accID);?>&page=<?php echo $page-1;?>" tabindex="-1">Previous</a>
                 </li>
                 <?php for($i = 0; $i < $total_pages; $i++):?>
-                <li class="page-item <?php echo ($page-1) == $i?"active":"";?>"><a class="page-link" href="?page=<?php echo ($i+1);?>"><?php echo ($i+1);?></a></li>
+                <li class="page-item <?php echo ($page-1) == $i?"active":"";?>"><a class="page-link" href="?id=<?php echo ($accID);?>&page=<?php echo ($i+1);?>"><?php echo ($i+1);?></a></li>
                 <?php endfor; ?>
-                <li class="page-item <?php echo ($page+1) >= $total_pages?"disabled":"";?>">
-                    <a class="page-link" href="?page=<?php echo $page+1;?>">Next</a>
+                <li class="page-item <?php echo ($page) >= $total_pages?"disabled":"";?>">
+                    <a class="page-link" href="?id=<?php echo ($accID);?>&page=<?php echo $page+1;?>">Next</a>
                 </li>
             </ul>
         </nav>
