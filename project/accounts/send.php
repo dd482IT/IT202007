@@ -20,12 +20,12 @@ $accounts = getDropDown();
             </select>
         <div id="transfer">
             <label>User Account # Last 4 </label>
-            <input type="text" name="destID" placeholder="Search..">
+            <input type="text" name="destID" placeholder="Search.." required>
             <label>User Last Name</label>
-            <input type="text" name="destName" placeholder="Search..">
+            <input type="text" name="destName" placeholder="Search.." required>
         </div>
         <label>Amount</label> 
-        <input type="number" min="1.00" name="amount">
+        <input type="number" min="1.00" name="amount" required>
         <label>Memo</label>
         <input type="text" name="memo">
         <input class="btn btn-primary" type ="submit" name="save" value="create"/>
@@ -78,7 +78,7 @@ $accounts = getDropDown();
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
         $balance = $r["balance"];
 
-        if(!isset($memo) && empty($memo)){
+        if(isset($memo) && !empty($memo)){
             $memo = "empty";
         }
         
