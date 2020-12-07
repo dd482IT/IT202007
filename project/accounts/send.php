@@ -54,8 +54,9 @@ $accounts = getDropDown();
         $stmt=$db->prepare("SELECT Users.id as userID FROM Users WHERE Users.lastName LIKE :q");
         $results = $stmt->execute([":q"=> $destLastName]);
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($r){
-        $destUserID = $r["userID"];
+        if($results){
+          $r = $stmt->fetch(PDO::FETCH_ASSOC);
+          $destUserID = $r["userID"];
         }
         else{
           flash("Name not found");
@@ -63,8 +64,8 @@ $accounts = getDropDown();
         //FINDS THE ACCOUNT NUMBER AND ID BY COMPARING THE LAST 4, NAME NEEDS TO BE COMPARED FIRST^^^
         $stmt=$db->prepare("SELECT Accounts.id as accID, account_number FROM Accounts WHERE Accounts.user_id = :userID AND account_number LIKE :q");
         $results = $stmt->execute([":userID"=> $destUserID, ":q"=> "%$destLast4"]);
-        $r = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($r["accID"] && $r["account_number"]){
+        if($results){
+          $r = $stmt->fetch(PDO::FETCH_ASSOC);
           $destination = $r["accID"];
           $destAccNum = $r["account_number"];
         }
