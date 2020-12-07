@@ -47,6 +47,7 @@ $accounts = getDropDown();
         $destAccID;
         $destination;
         $destAccNum;
+        $action = "ext-transfer";
         //SELECT Accounts.id, user_id FROM Accounts WHERE account_number LIKE '%8068'
 
         //FINDS THE USER ID BY COMPARING THE NAME 
