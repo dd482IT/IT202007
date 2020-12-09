@@ -107,10 +107,10 @@
             //password is optional, so check if it's even set6
             //if so, then check if it's a valid reset request
             //fetch/select fresh data in case anything changed
-            $stmt = $db->prepare("SELECT email, username, firstName, lastName from Users WHERE id = :id LIMIT 1");
+            $stmt = $db->prepare("SELECT email, username, firstName, lastName, visibility from Users WHERE id = :id LIMIT 1");
             $stmt->execute([":id" => $id]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($result) {
+            if ($result["visibility"] == "public" || $id == get_user_id()) {
                 $email = $result["email"];
                 $username = $result["username"];
                 $firstName = $result["firstName"];
@@ -122,7 +122,8 @@
                 $_SESSION["user"]["lastName"] = $lastName;
             }
             else {
-                
+                flash("Users Profile Is Private");
+                die(header("Location: home.php"));
             }
         }
         else {
