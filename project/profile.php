@@ -10,6 +10,11 @@
         die(header("Location: login.php"));
     }
 
+    $id = get_user_id();
+    if(isset($_GET["id"])){
+        $id = $_GET["id"];
+    }
+
     $db = getDB();
     //save data if we submitted the form
     if (isset($_POST["saved"])) {
@@ -103,7 +108,7 @@
             //if so, then check if it's a valid reset request
             //fetch/select fresh data in case anything changed
             $stmt = $db->prepare("SELECT email, username, firstName, lastName from Users WHERE id = :id LIMIT 1");
-            $stmt->execute([":id" => get_user_id()]);
+            $stmt->execute([":id" => $id]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($result) {
                 $email = $result["email"];
