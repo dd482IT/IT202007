@@ -110,7 +110,7 @@
             $stmt = $db->prepare("SELECT email, username, firstName, lastName, visibility from Users WHERE id = :id LIMIT 1");
             $stmt->execute([":id" => $id]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($result["visibility"] != "public" || $id == get_user_id()) {
+            if ($result["visibility"] != "public" || $id != get_user_id()) {
                 $email = $result["email"];
                 $username = $result["username"];
                 $firstName = $result["firstName"];
