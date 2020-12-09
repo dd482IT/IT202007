@@ -1,2 +1,2 @@
 ALTER TABLE Users
-    ADD COLUMN visibility BOOLEAN SET default FALSE;
+    ADD COLUMN visibility varchar(60) default 'public';
