@@ -107,6 +107,7 @@
             //password is optional, so check if it's even set6
             //if so, then check if it's a valid reset request
             //fetch/select fresh data in case anything changed
+            }
             $stmt = $db->prepare("SELECT email, username, firstName, lastName, visibility from Users WHERE id = :id LIMIT 1");
             $stmt->execute([":id" => $id]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
