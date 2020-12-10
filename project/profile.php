@@ -72,18 +72,20 @@
         
         if ($isValid) {
             //pull password from DB 
-            $stmt = $db->prepare("SELECT password from Users WHERE id = :id LIMIT 1");//added
+            $stmt = $db->prepare("SELECT password, visibility from Users WHERE id = :id LIMIT 1");//added
             $r = $stmt->execute([":id" => get_user_id()]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC); //added 
             $password_hash_from_db = $result["password"]; //added
             $firstName = $_POST["firstName"];
             $lastName = $_POST["lastName"];
-            $visbility = "public";
+            $visbility = $result["visibility"];
             if(isset($_POST["visbility"])){
-                $visbility = "private";
-            }
-            else{
-                $visbility = "public";
+                if($visbility == "public"){
+                    $visbility = "private";
+                }
+                else{
+                    $visbility = "public";
+                }
             }
             
 
