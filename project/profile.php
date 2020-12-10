@@ -159,12 +159,7 @@
 
 ?>
     <div class="profile">
-        <form method="POST">
-            <?php foreach($profileData as $record):?>
-            <?php if(!$isViewed):?>
-                <input type="password" name="passwordCheck" <?php echo (!$myProfile?"disabled='disabled'":"");?>/>
-            <?php endif;?>
-            <?php if($isViewed):?>    
+        <form method="POST">    
             <text><Strong>Current Email: </Strong></text> <?php safer_echo(get_email()); ?>
             <text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
             <text><Strong>Role:</Strong></text> 
@@ -188,6 +183,5 @@
                 <label for="visbility">Private Profile</label><br>
                 <input class="btn btn-primary" type="submit" name="saved" value="Save Profile"/>
             </form>
-            <?php endif;?>
     </div>
     <?php require(__DIR__ . "/partials/flash.php");
