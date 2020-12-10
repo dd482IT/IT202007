@@ -134,7 +134,6 @@
 
     }
 
-}
 ?>
     <div class="profile">
         <form method="POST">
