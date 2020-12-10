@@ -78,13 +78,19 @@
             $password_hash_from_db = $result["password"]; //added
             $firstName = $_POST["firstName"];
             $lastName = $_POST["lastName"];
+            $visbility = "public";
+            if(isset($_POST["visbility"])){
+                $visbility = "private";
+            }
+            else{
+                $visbility = "public";
+            }
             
 
             if ($r && password_verify($_POST["original"], $password_hash_from_db)) {
 
-                $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, firstName= :firstName, lastName = :lastName where id = :id");
-                $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id(), ":firstName"=>$firstName, ":lastName"=>$lastName]);//addded && and after - 
-
+                $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, firstName= :firstName, lastName = :lastName, visibility = :visibility where id = :id");
+                $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id(), ":firstName"=>$firstName, ":lastName"=>$lastName, ":visibility" => $visbility ]);//addded && and after - 
                 if (!empty($_POST["password"]) && !empty($_POST["confirm"] && !empty($_POST["original"]))) {
                     if ($_POST["password"] == $_POST["confirm"]) {
                         $password = $_POST["password"];
@@ -155,10 +161,8 @@
             <input type="password" name="password"/>
             <label for="cpw">Confirm Password</label>
             <input type="password" name="confirm"/>
-
-            <input type="checkbox" id="visibility" name="visibility" value="private">
-            <label for="visibility"> Visibiltiy</label><br>
-            
+            <input type="checkbox" id="visibility" name="visbility" <?php echo $result["visibility"] == "private "?"checked='checked'":"";?>>    
+            <label for="visbility">Public Profile</label><br>
             <input class="btn btn-primary" type="submit" name="saved" value="Save Profile"/>
         </form>
     </div>
