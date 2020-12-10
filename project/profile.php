@@ -161,7 +161,7 @@
             <input type="password" name="password"/>
             <label for="cpw">Confirm Password</label>
             <input type="password" name="confirm"/>
-            <input type="checkbox" id="visibility" name="visbility" <?php echo $result["visibility"] == "private "?"checked='checked'":"";?>>    
+            <input type="checkbox" id="visibility" name="visbility" <?php echo $result["visibility"] == "private "?"checked='checked'":""; ?>/>    
             <label for="visbility">Public Profile</label><br>
             <input class="btn btn-primary" type="submit" name="saved" value="Save Profile"/>
         </form>
