@@ -108,7 +108,12 @@
             //if so, then check if it's a valid reset request
             //fetch/select fresh data in case anything changed
             }
-            $stmt = $db->prepare("SELECT email, username, firstName, lastName, visibility from Users WHERE id = :id LIMIT 1");
+        }
+        else {
+            flash("Invalid Password");
+        }
+
+        $stmt = $db->prepare("SELECT email, username, firstName, lastName, visibility from Users WHERE id = :id LIMIT 1");
             $stmt->execute([":id" => $id]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($result["visibility"] != "public" || $id != get_user_id()) {
@@ -126,10 +131,6 @@
                 flash("Users Profile Is Private");
                 die(header("Location: home.php"));
             }
-        }
-        else {
-            flash("Invalid Password");
-        }
     
 
     }
