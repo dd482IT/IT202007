@@ -28,7 +28,7 @@ if(isset($_POST["search"])){
     flash("Name not found");
   }
 }
-
+//<a type="button" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">Go To Profile</a>
 ?> 
 
 <h3 class="text-center"><strong>Search for user</strong></h3> 
@@ -42,7 +42,9 @@ if(isset($_POST["search"])){
         </div>
         <?php if($results && count($results) > 0):?>
           <?php foreach($results as $r):?>
-            <a type="button" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">Go To Profile</a>
+              <form action="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">
+                  <input type="submit" value="Go to Google" />
+              </form> 
             <?php endforeach;?>
           <?php endif;?>
     <hr> 
