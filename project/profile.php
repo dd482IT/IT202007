@@ -170,11 +170,10 @@
             <text><Strong>Current Email: </Strong></text> <?php safer_echo(get_email()); ?>
             <text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
             <text><Strong>First Name:</Strong></text> <?php safer_echo(get_firstName()); ?>   
-            <text><Strong>Last Name:</Strong></text> <?php safer_echo(get_lastName()); ?>   
-            <?php else:?>
-                        <?php flash("This is a private page"); die(header("location: home.php")); ?> 
-            <?php endif;?>
-            <?php if(!isset($viewerID) && $id=get_user_id()): ?>    
+            <text><Strong>Last Name:</Strong></text> <?php safer_echo(get_lastName()); ?>  
+            <?php elseif(isset($viewerID) && $result["visibility"] == "private"):?>  
+                <text><Strong> This is private page</Strong></text>
+            <?php else:?>  
                 <text><Strong>Current Email: </Strong></text> <?php safer_echo(get_email()); ?>
                 <text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
                 <text><Strong>First Name:</Strong></text> <?php safer_echo(get_firstName()); ?>   
