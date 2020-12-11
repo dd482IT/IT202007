@@ -165,11 +165,17 @@
 
 ?>
     <div class="profile">
-        <form method="POST">    
+        <form method="POST">
+            <?php if(isset($viewerID)): ?>    
             <text><Strong>Current Email: </Strong></text> <?php safer_echo(get_email()); ?>
             <text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
             <text><Strong>First Name:</Strong></text> <?php safer_echo(get_firstName()); ?>   
             <text><Strong>Last Name:</Strong></text> <?php safer_echo(get_lastName()); ?>   
+            <?php else:?>
+                <text><Strong>Current Email: </Strong></text> <?php safer_echo(get_email()); ?>
+                <text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
+                <text><Strong>First Name:</Strong></text> <?php safer_echo(get_firstName()); ?>   
+                <text><Strong>Last Name:</Strong></text> <?php safer_echo(get_lastName()); ?>   
                 <label for="email">Email</label>
                 <input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>
                 <label for="username">Username</label>
@@ -189,6 +195,7 @@
                 <label for="visbility">Private Profile</label><br>
                 <input class="btn btn-primary" type="submit" name="saved" value="Save Profile"/>
             </form>
+            <?php endif;?>
     </div>
 
     <?php require(__DIR__ . "/partials/flash.php");
