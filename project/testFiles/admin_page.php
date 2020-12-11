@@ -24,27 +24,3 @@
         <input class="btn btn-primary" type ="submit" name="search" value="search"/>
     <hr> 
     </form> 
-
-<?php 
-if(isset($_POST["search"])){
-  $firstName = $_POST["firstName"];
-  $lastName = $_POST["lastName"];
-  $destUserID = null;
-
-  $stmt=$db->prepare("SELECT Users.id as userID FROM Users WHERE Users.lastName LIKE :q AND Users.firstName LIKE :z");
-  $results = $stmt->execute([":q"=> $lastName, ":z"=> $firstName]);
-  $r = $stmt->fetch(PDO::FETCH_ASSOC);
-  if($r){
-    $destUserID = $r["userID"];
-  }
-  else{
-    flash("Name not found");
-  }
-}
-
-
-
-
-
-
-?> 
