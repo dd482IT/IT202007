@@ -86,15 +86,12 @@
             $lastName = $_POST["lastName"];
             $visbility = $result["visibility"];
             if(isset($_POST["visbility"]) && !empty($visbility)){
-                if($result["visibility"] == "public"){
-                    $visbility = "private";
-                }
+                $visbility = "private";
             }
-            if(!isset($_POST["visbility"]) && $result["visibility"] == "private"){
-                if($result["visibility"] == "private"){
-                    $visbility = "private";
-                }
+            else{
+                $visbility = "public";
             }
+            
 
             if ($r && password_verify($_POST["original"], $password_hash_from_db)) {
 
