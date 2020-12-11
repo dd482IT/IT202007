@@ -87,9 +87,11 @@
             $visbility = $result["visibility"];
             if(isset($_POST["visbility"]) && !empty($visbility)){
                 $visbility = "private";
+                flash("Your profile is now private");
             }
             else{
                 $visbility = "public";
+                flash("Your profile is now public");
             }
             
 
