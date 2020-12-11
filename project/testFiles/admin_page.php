@@ -20,7 +20,7 @@ if(isset($_POST["search"])){
 
   $stmt=$db->prepare("SELECT Users.id as userID FROM Users WHERE Users.lastName LIKE :q AND Users.firstName LIKE :z");
   $results = $stmt->execute([":q"=> $lastName, ":z"=> $firstName]);
-  $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $r = $stmt->fetch(PDO::FETCH_ASSOC);
   if($r){
     $destUserID = $r["userID"];
     die(header("location: " . getURL("profile.php?id=" . $r["userID"])));
