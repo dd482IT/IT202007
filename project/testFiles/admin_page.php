@@ -19,7 +19,7 @@ require_once(__DIR__ . "/../lib/helpers.php");
             <label>User Last Name</label>
             <input type="text" name="lastName" placeholder="Search.." required>
         </div>
-        <a class="page-link" href="/../profile.php?id= . <?php safer_echo($r["userID"]);?>">Search for profile<input class="btn btn-primary" type ="submit" name="search" value="search"/></a>
+        <a type="button" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">Go To Profile</a>
     <hr> 
   </form> 
 
