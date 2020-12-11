@@ -15,6 +15,12 @@
         $id = $_GET["id"];
     }
 
+    $viewerID = null; 
+    if(isset($_GET["viewer"])){
+        $viewerID = $_GET["viewer"];;
+    }
+
+
     $db = getDB();
     //save data if we submitted the form
     if (isset($_POST["saved"])) {
@@ -162,12 +168,12 @@
         <form method="POST">    
             <text><Strong>Current Email: </Strong></text> <?php safer_echo(get_email()); ?>
             <text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
-            <text><Strong>Role:</Strong></text> 
+            <text><Strong>First Name:</Strong></text> <?php safer_echo(get_firstName()); ?>   
+            <text><Strong>Last Name:</Strong></text> <?php safer_echo(get_lastName()); ?>   
                 <label for="email">Email</label>
                 <input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>
                 <label for="username">Username</label>
                 <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_email());?>"/>
-
                 <label for="firstName">First Name</label>
                 <input type="text" maxlength="60" name="firstName" value="<?php safer_echo(get_firstName()); ?>"/>
                 <label for="lastName">Last Name</label>

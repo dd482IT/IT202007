@@ -8,7 +8,15 @@ require_once(__DIR__ . "/../lib/helpers.php");
     flash("You don't have permission to access this page");
     die(header("Location: " . getURL("login.php")));
   }
+
+  $id = get_user_id();
+    if(isset($_GET["id"])){
+        $id = $_GET["id"];
+    }
+  
 ?>
+
+
 
 <?php 
 $results =[];
@@ -38,6 +46,6 @@ if(isset($_POST["search"])){
   </form> 
   <?php foreach($results as $r):?>
     <div align="center">
-      <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?> Profile</a>
-    </div>
+      <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]) . safer_echo("&viewer=" . $id); ?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?> Profile</a>
+    </div>   
   <?php endforeach; ?>
