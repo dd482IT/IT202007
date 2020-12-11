@@ -10,6 +10,17 @@
         die(header("Location: login.php"));
     }
 
+    $id = get_user_id();
+    if(isset($_GET["id"])){
+        $id = $_GET["id"];
+    }
+
+    $viewerID = null; 
+    if(isset($_GET["viewer"])){
+        $viewerID = $_GET["viewer"];
+    }
+
+
     $db = getDB();
     //save data if we submitted the form
     if (isset($_POST["saved"])) {
@@ -67,19 +78,27 @@
         
         if ($isValid) {
             //pull password from DB 
-            $stmt = $db->prepare("SELECT password from Users WHERE id = :id LIMIT 1");//added
+            $stmt = $db->prepare("SELECT password, visibility from Users WHERE id = :id LIMIT 1");//added
             $r = $stmt->execute([":id" => get_user_id()]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC); //added 
             $password_hash_from_db = $result["password"]; //added
             $firstName = $_POST["firstName"];
             $lastName = $_POST["lastName"];
+            $visbility = $result["visibility"];
+            if(isset($_POST["visbility"]) && !empty($visbility)){
+                $visbility = "private";
+                flash("Your profile is now private");
+            }
+            else{
+                $visbility = "public";
+                flash("Your profile is now public");
+            }
             
 
             if ($r && password_verify($_POST["original"], $password_hash_from_db)) {
 
-                $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, firstName= :firstName, lastName = :lastName where id = :id");
-                $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id(), ":firstName"=>$firstName, ":lastName"=>$lastName]);//addded && and after - 
-
+                $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, firstName= :firstName, lastName = :lastName, visibility = :visibility where id = :id");
+                $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id(), ":firstName"=>$firstName, ":lastName"=>$lastName, ":visibility" => $visbility ]);//addded && and after - 
                 if (!empty($_POST["password"]) && !empty($_POST["confirm"] && !empty($_POST["original"]))) {
                     if ($_POST["password"] == $_POST["confirm"]) {
                         $password = $_POST["password"];
@@ -102,10 +121,21 @@
             //password is optional, so check if it's even set6
             //if so, then check if it's a valid reset request
             //fetch/select fresh data in case anything changed
-            $stmt = $db->prepare("SELECT email, username, firstName, lastName from Users WHERE id = :id LIMIT 1");
-            $stmt->execute([":id" => get_user_id()]);
+            }
+        }
+        else {
+            flash("Invalid Password");
+        }
+    }
+
+    $isViewed = false;
+    $myProfile = ($id == get_user_id());
+    $profileData = [];
+
+    $stmt = $db->prepare("SELECT email, username, firstName, lastName, visibility from Users WHERE id = :id LIMIT 1");
+            $stmt->execute([":id" => $id]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($result) {
+            if ($result["visibility"] == "public" || $id == get_user_id()) {
                 $email = $result["email"];
                 $username = $result["username"];
                 $firstName = $result["firstName"];
@@ -117,40 +147,54 @@
                 $_SESSION["user"]["lastName"] = $lastName;
             }
             else {
-                
+                flash("Users Profile Is Private");
+                die(header("Location: home.php"));
             }
-        }
-        else {
-            flash("Invalid Password");
-        }
-    
 
+    if($result["visibility"] == "public" || $id == get_user_id()){
+        $profileData = $result;
+        $isViewed = true;
+    }
+    else{
+        flash("This is private profile");
+        die(header("Location: home.php"));
     }
 
-}
 ?>
     <div class="profile">
         <form method="POST">
-        <text><Strong>Current Email: </Strong></text> <?php safer_echo(get_email()); ?>
-        <text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
-        <text><Strong>Role:</Strong></text> 
-            <label for="email">Email</label>
-            <input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>
-            <label for="username">Username</label>
-            <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
-
-            <label for="firstName">First Name</label>
-            <input type="text" maxlength="60" name="firstName" value="<?php safer_echo(get_firstName()); ?>"/>
-            <label for="lastName">Last Name</label>
-            <input type="text" maxlength="60" name="lastName" value="<?php safer_echo(get_lastName()); ?>"/>
-            <!-- DO NOT PRELOAD PASSWORD-->
-            <label for="ogpw">Current Password</label> <!-- Added by dan -->
-            <input type="password" name="original" id="ogpw" /> <!-- Added by dan -->
-            <label for="pw">New Password</label>
-            <input type="password" name="password"/>
-            <label for="cpw">Confirm Password</label>
-            <input type="password" name="confirm"/>
-            <input class="btn btn-primary" type="submit" name="saved" value="Save Profile"/>
-        </form>
+            <?php if(isset($viewerID) && $result["visibility"] == "public"): ?>    
+            <text><Strong>Current Email: </Strong></text> <?php safer_echo(get_email()); ?>
+            <text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
+            <text><Strong>First Name:</Strong></text> <?php safer_echo(get_firstName()); ?>   
+            <text><Strong>Last Name:</Strong></text> <?php safer_echo(get_lastName()); ?>  
+            <?php elseif(isset($viewerID) && $result["visibility"] == "private"):?>  
+                <text><Strong> This is private page</Strong></text>
+            <?php else:?>  
+                <text><Strong>Current Email: </Strong></text> <?php safer_echo(get_email()); ?>
+                <text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
+                <text><Strong>First Name:</Strong></text> <?php safer_echo(get_firstName()); ?>   
+                <text><Strong>Last Name:</Strong></text> <?php safer_echo(get_lastName()); ?>   
+                <label for="email">Email</label>
+                <input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>
+                <label for="username">Username</label>
+                <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_email());?>"/>
+                <label for="firstName">First Name</label>
+                <input type="text" maxlength="60" name="firstName" value="<?php safer_echo(get_firstName()); ?>"/>
+                <label for="lastName">Last Name</label>
+                <input type="text" maxlength="60" name="lastName" value="<?php safer_echo(get_lastName()); ?>"/>
+                <!-- DO NOT PRELOAD PASSWORD-->
+                <label for="ogpw">Current Password</label> <!-- Added by dan -->
+                <input type="password" name="original" id="ogpw" /> <!-- Added by dan -->
+                <label for="pw">New Password</label>
+                <input type="password" name="password"/>
+                <label for="cpw">Confirm Password</label>
+                <input type="password" name="confirm"/>
+                <input type="checkbox" name="visbility" <?php echo $result["visibility"] == "private"?"checked='checked'":"";?> />    
+                <label for="visbility">Private Profile</label><br>
+                <input class="btn btn-primary" type="submit" name="saved" value="Save Profile"/>
+            </form>
+            <?php endif;?>
     </div>
+
     <?php require(__DIR__ . "/partials/flash.php");
