@@ -19,8 +19,9 @@ if(isset($_POST["search"])){
   $destUserID = null;
 
   $stmt=$db->prepare("SELECT firstName, lastName, Users.id as userID FROM Users WHERE Users.lastName LIKE :q AND Users.firstName LIKE :z");
-  $results = $stmt->execute([":q"=> $lastName, ":z"=> $firstName]);
-  $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $r = $stmt->execute([":q"=> $lastName, ":z"=> $firstName]);
+  $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 }
 ?> 
 
@@ -35,6 +36,6 @@ if(isset($_POST["search"])){
         </div>
         <input class="btn btn-primary" type ="submit" name="search" value="find profile"/>
   </form> 
-  <?php foreach($r as $user):?>
-    <a type="button" name="search" href="<?php echo getURL("profile.php?id=" . $user["userID"]); ?>">Go To <?php echo ($user["firstName"] . " " .$user["lastName"]) ?>Profile</a>
+  <?php foreach($results as $r):?>
+    <a type="button" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?>Profile</a>
   <?php endforeach; ?>
