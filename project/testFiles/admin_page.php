@@ -1,4 +1,6 @@
-<?php require_once(__DIR__ . "/partials/nav.php"); ?>
+<?php require_once(__DIR__ . "/partials/nav.php"); 
+      require_once(__DIR__ . "/../lib/helpers.php");
+?>
 
 <?php
   if (!has_role("Admin")) {
