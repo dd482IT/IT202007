@@ -23,6 +23,7 @@ if(isset($_POST["search"])){
   $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
   if($r){
     $destUserID = $r["userID"];
+    die(header("location: " . getURL("profile.php?id=" . $r["userID"])));
   }
   else{
     flash("Name not found");
@@ -39,13 +40,6 @@ if(isset($_POST["search"])){
             <label>User Last Name</label>
             <input type="text" name="lastName" placeholder="Search.." required>
         </div>
-        <?php if($results && count($results) > 0):?>
-          <?php foreach($results as $r):?>
-              <form action="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">
-                  <input type="submit" value="Go to Google" />
-              </form> 
-            <?php endforeach;?>
-          <?php endif;?>
-    <hr> 
+        <input class="btn btn-primary" type ="submit" name="search" value="find profile"/>
   </form> 
   
