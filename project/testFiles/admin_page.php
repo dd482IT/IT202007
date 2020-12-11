@@ -38,6 +38,10 @@ if(isset($_POST["search"])){
             <label>User Last Name</label>
             <input type="text" name="lastName" placeholder="Search.." required>
         </div>
-        <a type="submit" name="search" href="<?php echo getURL("profile.php?id=" . $destUserID); ?>">Go To Profile</a>
+        <?php if($results && count($results) > 0):?>
+          <?php foreach($results as $r):?>
+            <a type="button" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">Go To Profile</a>
+            <?php endforeach;?>
+          <?php endif;?>
     <hr> 
   </form> 
