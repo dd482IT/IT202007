@@ -10,19 +10,6 @@ require_once(__DIR__ . "/../lib/helpers.php");
   }
 ?>
 
-<h3 class="text-center"><strong>Search for user</strong></h3> 
-  <hr>
-  <form align="center" method="POST">     
-        <div id="search">
-            <label>User First Name</label>
-            <input type="text" name="firstName" placeholder="Search.." required>
-            <label>User Last Name</label>
-            <input type="text" name="lastName" placeholder="Search.." required>
-        </div>
-        <a type="button" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">Go To Profile</a>
-    <hr> 
-  </form> 
-
 <?php 
 if(isset($_POST["search"])){
   $db = getDB();
@@ -41,3 +28,16 @@ if(isset($_POST["search"])){
   }
 }
 ?> 
+
+<h3 class="text-center"><strong>Search for user</strong></h3> 
+  <hr>
+  <form align="center" method="POST">     
+        <div id="search">
+            <label>User First Name</label>
+            <input type="text" name="firstName" placeholder="Search.." required>
+            <label>User Last Name</label>
+            <input type="text" name="lastName" placeholder="Search.." required>
+        </div>
+        <a type="button" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">Go To Profile</a>
+    <hr> 
+  </form> 
