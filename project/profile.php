@@ -158,9 +158,9 @@
     }
 
 ?>
-    <?php if($isViewed):?>
     <div class="profile">
         <form method="POST">    
+            <?php foreach($profileData as $record): ?>
             <text><Strong>Current Email: </Strong></text> <?php safer_echo(get_email()); ?>
             <text><Strong>Current Username:</Strong></text> <?php safer_echo(get_username()); ?>   
             <text><Strong>Role:</Strong></text> 
@@ -185,5 +185,5 @@
                 <input class="btn btn-primary" type="submit" name="saved" value="Save Profile"/>
             </form>
     </div>
-    <?php endif;?>
+
     <?php require(__DIR__ . "/partials/flash.php");
