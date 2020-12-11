@@ -27,7 +27,7 @@
 if(isset($_POST["search"])){
   $firstName = $_POST["firstName"];
   $lastName = $_POST["lastName"];
-  $destUserID;
+  $destUserID = null;
 
   $stmt=$db->prepare("SELECT Users.id as userID FROM Users WHERE Users.lastName LIKE :q AND Users.firstName LIKE :z");
   $results = $stmt->execute([":q"=> $lastName, ":z"=> $firstName]);
