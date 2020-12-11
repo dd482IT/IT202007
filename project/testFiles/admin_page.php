@@ -46,6 +46,6 @@ if(isset($_POST["search"])){
   </form> 
   <?php foreach($results as $r):?>
     <div align="center">
-      <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]) . safer_echo("&viewer=" . $id); ?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?> Profile</a>
+      <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"] . "&viewer=" . $id)?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?> Profile</a>
     </div>   
   <?php endforeach; ?>
