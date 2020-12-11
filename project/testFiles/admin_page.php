@@ -37,5 +37,5 @@ if(isset($_POST["search"])){
         <input class="btn btn-primary" type ="submit" name="search" value="find profile"/>
   </form> 
   <?php foreach($results as $r):?>
-    <a type="button" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?>Profile</a>
+    <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"]); ?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?> Profile</a>
   <?php endforeach; ?>
