@@ -26,6 +26,7 @@ require_once(__DIR__ . "/../lib/helpers.php");
 
 <?php 
 if(isset($_POST["search"])){
+  $db = getDB();
   $firstName = $_POST["firstName"];
   $lastName = $_POST["lastName"];
   $destUserID = null;
