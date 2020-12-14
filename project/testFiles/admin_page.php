@@ -74,7 +74,6 @@ if(isset($_POST["search2"])){
   $r = $stmt->execute([":q"=> $userID]);
   if($r){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
   }
   else{
     flash("Error pulling account");
@@ -102,6 +101,9 @@ if(isset($_POST["search2"])){
       <div><Strong>Account Balance:</Strong> <?php safer_echo($r["balance"]); ?></div>
       <div><Strong>First Name:</Strong> <?php safer_echo($r["firstName"]); ?></div>
       <div><Strong>Last Name:</Strong> <?php safer_echo($r["lastName"]); ?></div>
+      <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("my_transactions.php?id=" . $r["accID"] . "&viewer=" . $id)?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?> View Transactions History</a>
     </div>
   <?php endforeach;?>
 <hr>  
+
+
