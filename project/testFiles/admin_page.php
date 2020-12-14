@@ -84,7 +84,7 @@ if(isset($_POST["search2"])){
             <label>User Account Number</label>
             <input type="text" name="account_number" placeholder="Search.." required>
         </div>
-        <input class="btn btn-primary" type ="submit" name="search" value="find profile"/>
+        <input class="btn btn-primary" type ="submit" name="search2" value="find profile"/>
   </form> 
   <?php foreach($results as $r):?>
     <div class="card-text">
