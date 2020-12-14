@@ -94,7 +94,7 @@ if(isset($_POST["search2"])){
         <input class="btn btn-primary" type ="submit" name="search2" value="find account"/>
   </form> 
   <?php foreach($results as $r):?>
-    <div align="center class="card-text">
+    <div align="center" class="card-text">
       <div><Strong>Account Number:</Strong> <?php safer_echo($r["account_number"]); ?></div>
       <div><Strong>Account ID:</Strong> <?php safer_echo($r["accID"]); ?></div>
       <div><Strong>Account Type:</Strong> <?php safer_echo($r["account_type"]); ?></div>
