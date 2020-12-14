@@ -109,16 +109,16 @@ if(isset($_POST["search2"])){
   </form> 
   <?php if($results):?>
     <div align="center" class="card-text">
-      <div><Strong>Account Number:</Strong> <?php safer_echo($r["account_number"]); ?></div>
-      <div><Strong>Account ID:</Strong> <?php safer_echo($r["accID"]); ?></div>
-      <div><Strong>Account Type:</Strong> <?php safer_echo($r["account_type"]); ?></div>
-      <div><Strong>Open on:</Strong> <?php safer_echo($r["opened_date"]); ?></div>
-      <div><Strong>Account Balance:</Strong> <?php safer_echo($r["balance"]); ?></div>
-      <div><Strong>First Name:</Strong> <?php safer_echo($r["firstName"]); ?></div>
-      <div><Strong>Last Name:</Strong> <?php safer_echo($r["lastName"]); ?></div>
-      <input type="checkbox" name="freeze" <?php echo $r["frozen"] == "1"?"checked='checked'":"";?> />    
+      <div><Strong>Account Number:</Strong> <?php safer_echo($results["account_number"]); ?></div>
+      <div><Strong>Account ID:</Strong> <?php safer_echo($results["accID"]); ?></div>
+      <div><Strong>Account Type:</Strong> <?php safer_echo($resultsr["account_type"]); ?></div>
+      <div><Strong>Open on:</Strong> <?php safer_echo($results["opened_date"]); ?></div>
+      <div><Strong>Account Balance:</Strong> <?php safer_echo($results["balance"]); ?></div>
+      <div><Strong>First Name:</Strong> <?php safer_echo($results["firstName"]); ?></div>
+      <div><Strong>Last Name:</Strong> <?php safer_echo($results["lastName"]); ?></div>
+      <input type="checkbox" name="freeze" <?php echo $results["frozen"] == "1"?"checked='checked'":"";?> />    
                 <label for="freeze">Freeze the Profile?</label><br>
-      <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["accID"] . "&viewer=" . $id)?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?>  Transactions History</a>
+      <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("accounts/my_transactions.php?id=" . $results["accID"] . "&viewer=" . $id)?>">Go To <?php echo ($results["firstName"] . " " .$results["lastName"]) ?>  Transactions History</a>
     </div>
   <?php else:?>
       <p>Invalid Account</p>
