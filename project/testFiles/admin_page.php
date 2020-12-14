@@ -66,6 +66,9 @@ if(isset($_POST["search2"])){
     $results1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
     $userID = $results1["userID"];
   }
+  else{
+    flash("Error Pulling $r1");
+  }
 
   $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance from Users JOIN Accounts on Users.id = :q");
   $r = $stmt->execute([":q"=> $userID]);
