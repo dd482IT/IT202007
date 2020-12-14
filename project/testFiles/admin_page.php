@@ -72,14 +72,19 @@ if(isset($_POST["search2"])){
 
   $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance from Users JOIN Accounts on Users.id = :q");
   $r = $stmt->execute([":q"=> $userID]);
-  $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+  if($r){
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+  }
+  else{
+    flash("Error pulling account");
+  }
 
 
 }
 ?> 
 
-<h3 class="text-center"><strong>Search for user</strong></h3> 
+<h3 class="text-center"><strong>Search for Account</strong></h3> 
   <hr>
   <form align="center" method="POST">     
         <div id="search">
