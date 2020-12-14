@@ -73,12 +73,7 @@ if(isset($_POST["search2"])){
   
   $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance, frozen from Users JOIN Accounts on Accounts.user_id = Users.id WHERE Users.id = :q");
   $r = $stmt->execute([":q"=> $userID]);
-  if($r){
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
-  else{
-    flash("Error pulling account");
-  }
+  $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
   $frozen = $results["frozen"];
   $accID = $results["accID"];
 
