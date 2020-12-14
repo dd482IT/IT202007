@@ -78,7 +78,7 @@ if(isset($_POST["search2"])){
   $accID = $results["accID"];
 
 
-  if(isset($_POST["frozen"]) && !empty($frozen)){
+  if(isset($_POST["freeze"]) && !empty($frozen)){
       $frozen = 0;
   }
   else{
