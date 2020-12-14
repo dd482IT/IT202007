@@ -58,6 +58,7 @@ if(isset($_POST["search2"])){
   $db = getDB();
   $account_number = $_POST["account_number"];
   $userID = null;
+ 
 
   $stmt1=$db->prepare("SELECT Accounts.user_id as userID from Accounts WHERE account_number = :q");
   $r1 = $stmt1->execute([":q"=> $account_number]);
@@ -70,7 +71,7 @@ if(isset($_POST["search2"])){
     flash("Error Pulling");
   }
   
-  $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance from Users JOIN Accounts on Accounts.user_id = Users.id WHERE Users.id = :q");
+  $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance, frozen from Users JOIN Accounts on Accounts.user_id = Users.id WHERE Users.id = :q");
   $r = $stmt->execute([":q"=> $userID]);
   if($r){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -78,6 +79,17 @@ if(isset($_POST["search2"])){
   else{
     flash("Error pulling account");
   }
+  $frozen = $result["frozen"];
+  if(isset($_POST["frozen"]) && !empty($frozen)){
+      $frozen = "0";
+      flash("This account is now frozen");
+  }
+  else{
+      $visbility = "1";
+      flash("This account is now unfrozen");
+  }
+  
+
 
 
 }
@@ -101,6 +113,8 @@ if(isset($_POST["search2"])){
       <div><Strong>Account Balance:</Strong> <?php safer_echo($r["balance"]); ?></div>
       <div><Strong>First Name:</Strong> <?php safer_echo($r["firstName"]); ?></div>
       <div><Strong>Last Name:</Strong> <?php safer_echo($r["lastName"]); ?></div>
+      <input type="checkbox" name="freeze" <?php echo $result["frozen"] == "1"?"checked='checked'":"";?> />    
+                <label for="freeze">Freeze the Profile?</label><br>
       <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["accID"] . "&viewer=" . $id)?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?>  Transactions History</a>
     </div>
   <?php endforeach;?>
