@@ -116,7 +116,7 @@ if(isset($_POST["search2"])){
       <div><Strong>Account Balance:</Strong> <?php safer_echo($results["balance"]); ?></div>
       <div><Strong>First Name:</Strong> <?php safer_echo($results["firstName"]); ?></div>
       <div><Strong>Last Name:</Strong> <?php safer_echo($results["lastName"]); ?></div>
-      <input type="checkbox" name="freeze" <?php echo $results["frozen"] == "1"?"checked='checked'":"";?> />    
+      <input type="checkbox" name="freeze" <?php echo $results["frozen"] == 1?"checked='checked'":"";?> />    
                 <label for="freeze">Freeze the Profile?</label><br>
       <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("accounts/my_transactions.php?id=" . $results["accID"] . "&viewer=" . $id)?>">Go To <?php echo ($results["firstName"] . " " .$results["lastName"]) ?>  Transactions History</a>
     </div>
