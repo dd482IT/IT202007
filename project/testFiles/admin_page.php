@@ -107,7 +107,7 @@ if(isset($_POST["search2"])){
         </div>
         <input class="btn btn-primary" type ="submit" name="search2" value="find account"/>
   </form> 
-  <?php foreach($results as $r):?>
+  <?php if($results):?>
     <div align="center" class="card-text">
       <div><Strong>Account Number:</Strong> <?php safer_echo($r["account_number"]); ?></div>
       <div><Strong>Account ID:</Strong> <?php safer_echo($r["accID"]); ?></div>
@@ -120,7 +120,9 @@ if(isset($_POST["search2"])){
                 <label for="freeze">Freeze the Profile?</label><br>
       <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["accID"] . "&viewer=" . $id)?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?>  Transactions History</a>
     </div>
-  <?php endforeach;?>
+  <?php else:?>
+      <p>Invalid Account</p>
+  <?php endif;?>
 <hr>  
 
 
