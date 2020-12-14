@@ -60,7 +60,7 @@ if(isset($_POST["search2"])){
   $userID = null;
 
   $stmt1=$db->prepare("SELECT Accounts.user_id from Accounts WHERE account_number = :q");
-  $r1 = $stmt1->execute([":q"=> $account_number,]);
+  $r1 = $stmt1->execute([":q"=> $account_number]);
  
   if($r1){
     $results1 = $stmt1->fetch(PDO::FETCH_ASSOC);
