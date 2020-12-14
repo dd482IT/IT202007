@@ -31,12 +31,12 @@ if(isset($_POST["save"])){
     $db = getDB();
     $apy;
 
-    if($account_type = "saving"){
-      $apy = 00.01;
+    if($account_type == "saving"){
+      $apy = 0.01;
     }
 
-    if($account_type = "loan"){
-      $apy = 00.07;
+    if($account_type == "loan"){
+      $apy = 0.07;
     }
         
 
