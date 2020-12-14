@@ -252,7 +252,7 @@ function openAccount($account_number, $balance){
 function savingsApy(){
 	$db = getDB();
 	$numOfMonths = 1;//1 for monthly
-	$stmt = $db->prepare("SELECT id, apy, balance FROM Accounts WHERE account_type = 'savings' AND IFNULL(nextAPY, TIMESTAMPADD(MONTH,:months,created)) <= current_timestamp"); 
+	$stmt = $db->prepare("SELECT id, apy, balance FROM Accounts WHERE account_type = 'saving' AND IFNULL(nextAPY, TIMESTAMPADD(MONTH,:months,created)) <= current_timestamp"); 
 	$r = $stmt->execute([":months"=>$numOfMonths]);
 	if($r){
 		$accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -29,15 +29,25 @@ if(isset($_POST["save"])){
     $user= get_user_id();
     $balance = $_POST["balance"];
     $db = getDB();
+    $apy;
+
+    if($account_type = "saving"){
+      $apy = 00.01;
+    }
+
+    if($account_type = "loan"){
+      $apy = 00.07;
+    }
         
 
   while($i < $max){
     $account_number = (String)rand(100000000000,999999999999);
-    $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id) VALUES(:account_number, :account_type, :user)");
+    $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id, apy) VALUES(:account_number, :account_type, :user, :apy)");
     $r = $stmt->execute([
         ":account_number" => $account_number,
         ":account_type"=> $account_type,
-        ":user" => $user
+        ":user" => $user,
+        ":apy" =>$apy,
     ]);
 
     if($r){
