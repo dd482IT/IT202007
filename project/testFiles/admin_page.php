@@ -93,15 +93,15 @@ if(isset($_POST["search2"])){
         </div>
         <input class="btn btn-primary" type ="submit" name="search2" value="find account"/>
   </form> 
-  <?php if($results):?>
+  <?php foreach($results as $r):?>
     <div class="card-text">
-      <div>Account Number: <?php safer_echo($results["account_number"]); ?></div>
-      <div>Account ID: <?php safer_echo($results["accID"]); ?></div>
-      <div>Account Type: <?php safer_echo($results["account_type"]); ?></div>
-      <div>Open on: <?php safer_echo($results["opened_date"]); ?></div>
-      <div>Account Balance: <?php safer_echo($results["balance"]); ?></div>
-      <div>First Name: <?php safer_echo($results["firstName"]); ?></div>
-      <div>Last Name: <?php safer_echo($results["lastName"]); ?></div>
+      <div>Account Number: <?php safer_echo($r["account_number"]); ?></div>
+      <div>Account ID: <?php safer_echo($r["accID"]); ?></div>
+      <div>Account Type: <?php safer_echo($r["account_type"]); ?></div>
+      <div>Open on: <?php safer_echo($r["opened_date"]); ?></div>
+      <div>Account Balance: <?php safer_echo($r["balance"]); ?></div>
+      <div>First Name: <?php safer_echo($r["firstName"]); ?></div>
+      <div>Last Name: <?php safer_echo($r["lastName"]); ?></div>
     </div>
-  <?php endif;?>
-<hr> 
+  <?php endforeach;?>
+<hr>  
