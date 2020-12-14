@@ -57,8 +57,7 @@ $results =[];
 if(isset($_POST["search2"])){
   $db = getDB();
   $account_number = $_POST["account_number"];
-  $destUserID = null;
-  $userID;
+  $userID = null;
 
   $stmt1=$db->prepare("SELECT userID from Accounts WHERE account_number = :q");
   $r1 = $stmt1->execute([":q"=> $account_number,]);
