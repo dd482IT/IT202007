@@ -274,7 +274,7 @@ function savingsApy(){
 				//last column added supports $memo which my example in the link above doesn't support
 				doBankAction($account["id"], $world_id, ($change * -1), "interest", "APY Calc");
 				
-				$stmt = $db->prepare("UPDATE Accounts set balance = (SELECT IFNULL(SUM(amount_change),0) FROM Transactions WHERE act_src_id = :id), nextAPY = TIMESTAMPADD(MONTH,:months,current_timestamp) WHERE id = :id");
+				$stmt = $db->prepare("UPDATE Accounts set balance = (SELECT IFNULL(SUM(amount),0) FROM Transactions WHERE act_src_id = :id), nextAPY = TIMESTAMPADD(MONTH,:months,current_timestamp) WHERE id = :id");
 				$r = $stmt->execute([":id"=>$account["id"], ":months"=>$numOfMonths]);
 				if(!$r){
 					flash(var_export($stmt->errorInfo(), true), "danger");
