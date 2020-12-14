@@ -111,7 +111,7 @@ if(isset($_POST["search2"])){
     <div align="center" class="card-text">
       <div><Strong>Account Number:</Strong> <?php safer_echo($results["account_number"]); ?></div>
       <div><Strong>Account ID:</Strong> <?php safer_echo($results["accID"]); ?></div>
-      <div><Strong>Account Type:</Strong> <?php safer_echo($resultsr["account_type"]); ?></div>
+      <div><Strong>Account Type:</Strong> <?php safer_echo($results["account_type"]); ?></div>
       <div><Strong>Open on:</Strong> <?php safer_echo($results["opened_date"]); ?></div>
       <div><Strong>Account Balance:</Strong> <?php safer_echo($results["balance"]); ?></div>
       <div><Strong>First Name:</Strong> <?php safer_echo($results["firstName"]); ?></div>
