@@ -91,17 +91,17 @@ if(isset($_POST["search2"])){
             <label>User Account Number</label>
             <input type="number" name="account_number" placeholder="Search.." required>
         </div>
-        <input class="btn btn-primary" type ="submit" name="search2" value="find profile"/>
+        <input class="btn btn-primary" type ="submit" name="search2" value="find account"/>
   </form> 
   <?php if($results):?>
     <div class="card-text">
-      <div>Account Number: <?php safer_echo($result["account_number"]); ?></div>
-      <div>Account ID: <?php safer_echo($result["accID"]); ?></div>
-      <div>Account Type: <?php safer_echo($result["account_type"]); ?></div>
-      <div>Open on: <?php safer_echo($result["opened_date"]); ?></div>
-      <div>Account Balance: <?php safer_echo($result["balance"]); ?></div>
-      <div>First Name: <?php safer_echo($result["firstName"]); ?></div>
-      <div>Last Name: <?php safer_echo($result["lastName"]); ?></div>
+      <div>Account Number: <?php safer_echo($results["account_number"]); ?></div>
+      <div>Account ID: <?php safer_echo($results["accID"]); ?></div>
+      <div>Account Type: <?php safer_echo($results["account_type"]); ?></div>
+      <div>Open on: <?php safer_echo($results["opened_date"]); ?></div>
+      <div>Account Balance: <?php safer_echo($results["balance"]); ?></div>
+      <div>First Name: <?php safer_echo($results["firstName"]); ?></div>
+      <div>Last Name: <?php safer_echo($results["lastName"]); ?></div>
     </div>
   <?php endif;?>
 <hr> 
