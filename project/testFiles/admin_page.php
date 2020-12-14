@@ -60,12 +60,12 @@ if(isset($_POST["search2"])){
   $destUserID = null;
   $userID;
 
-  $stmt=$db->prepare("SELECT userID from Accounts WHERE account_number = :q");
-  $r = $stmt->execute([":q"=> $account_number,]);
+  $stmt1=$db->prepare("SELECT userID from Accounts WHERE account_number = :q");
+  $r1 = $stmt1->execute([":q"=> $account_number,]);
  
-  if($r){
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $userID = $results["userID"];
+  if($r1){
+    $results1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+    $userID = $results1["userID"];
   }
 
   $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance from Users JOIN Accounts on Users.id = :q");
