@@ -63,7 +63,7 @@ if(isset($_POST["search2"])){
   $r1 = $stmt1->execute([":q"=> $account_number,]);
  
   if($r1){
-    $results1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+    $results1 = $stmt1->fetch(PDO::FETCH_ASSOC);
     $userID = $results1["userID"];
   }
   else{
@@ -73,12 +73,12 @@ if(isset($_POST["search2"])){
   $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance from Users JOIN Accounts on Users.id = :q");
   $r = $stmt->execute([":q"=> $userID]);
   if($r){
-    $results = $stmt->fetch(PDO::FETCH_ASSOC);
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   }
   else{
     flash("Error pulling account");
-  }
+  }6
 
 
 }
