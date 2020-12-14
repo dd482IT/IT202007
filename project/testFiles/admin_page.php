@@ -58,10 +58,21 @@ if(isset($_POST["search2"])){
   $db = getDB();
   $account_number = $_POST["account_number"];
   $destUserID = null;
+  $userID;
 
-  $stmt=$db->prepare("SELECT * from Accounts WHERE account_number = :q");
-  $r = $stmt->execute([":q"=> $lastName,]);
+  $stmt=$db->prepare("SELECT userID from Accounts WHERE account_number = :q");
+  $r = $stmt->execute([":q"=> $account_number,]);
+ 
+  if($r){
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $userID = $results["userID"];
+  }
+
+  $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance from Users JOIN Accounts on Users.id = :q");
+  $r = $stmt->execute([":q"=> $userID]);
   $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 
 }
 ?> 
@@ -76,8 +87,13 @@ if(isset($_POST["search2"])){
         <input class="btn btn-primary" type ="submit" name="search" value="find profile"/>
   </form> 
   <?php foreach($results as $r):?>
-    <div align="center">
-      <a type="button" class="btn btn-primary" name="search2" href="<?php echo getURL("profile.php?id=" . $r["userID"] . "&viewer=" . $id)?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?> Profile</a>
-    </div>   
+    <div class="card-text">
+      <div>Account Number: <?php safer_echo($r["account_number"]); ?></div>
+      <div>Account ID: <?php safer_echo($r["accID"]); ?></div>
+      <div>Account Type: <?php safer_echo($r["account_type"]); ?></div>
+      <div>Open on: <?php safer_echo($r["opened_date"]); ?></div>
+      <div>Account Balance: <?php safer_echo($r["balance"]); ?></div>
+      <div>First Name: <?php safer_echo($r["firstName"]); ?></div>
+      <div>Last Name: <?php safer_echo($r["lastName"]); ?></div>
   <?php endforeach; ?>
 <hr> 
