@@ -73,7 +73,7 @@ if(isset($_POST["search2"])){
   $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance from Users JOIN Accounts on Users.id = :q");
   $r = $stmt->execute([":q"=> $userID]);
   if($r){
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $results = $stmt->fetch(PDO::FETCH_ASSOC);
 
   }
   else{
