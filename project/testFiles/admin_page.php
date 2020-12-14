@@ -80,15 +80,19 @@ if(isset($_POST["search2"])){
 
   if(isset($_POST["frozen"]) && !empty($frozen)){
       $frozen = 0;
-      flash("This account is now frozen");
   }
   else{
       $frozen = 1;
-      flash("This account is now unfrozen");
   }
   $stmt = $db->prepare("UPDATE Accounts set frozen = :frozen where id = :id");
   $r = $stmt->execute([":id" => $accID, ":frozen" => $frozen]);
 
+  if($r){
+    flash("Frozen has been update");
+  }
+  else{
+    flash("Error Updating Frozen");
+  }
 
 
 }
