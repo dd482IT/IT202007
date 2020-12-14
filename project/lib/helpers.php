@@ -249,7 +249,6 @@ function openAccount($account_number, $balance){
     return doBankAction($world_id, $accID, ($balance * -1), $action, $memo);
 }
 
-
 function savingsApy(){
 	$db = getDB();
 	$numOfMonths = 1;//1 for monthly
@@ -287,7 +286,8 @@ function savingsApy(){
 		flash(var_export($stmt->errorInfo(), true), "danger");
 	}
 }
-?>
+
+
 
 /*
 function accountNumberGenerator(){
