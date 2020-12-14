@@ -74,7 +74,7 @@ if(isset($_POST["search2"])){
   $r = $stmt->execute([":q"=> $userID]);
   if($r){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
   }
   else{
     flash("Error pulling account");
@@ -89,7 +89,7 @@ if(isset($_POST["search2"])){
   <form align="center" method="POST">     
         <div id="search">
             <label>User Account Number</label>
-            <input type="text" name="account_number" placeholder="Search.." required>
+            <input type="number" name="account_number" placeholder="Search.." required>
         </div>
         <input class="btn btn-primary" type ="submit" name="search2" value="find profile"/>
   </form> 
