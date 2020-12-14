@@ -69,8 +69,8 @@ if(isset($_POST["search2"])){
   else{
     flash("Error Pulling");
   }
-
-  $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance from Users JOIN Accounts on Users.id = :q");
+  
+  $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance from Users JOIN Accounts on Accounts.user_id = Users.id WHERE Users.id = :q");
   $r = $stmt->execute([":q"=> $userID]);
   if($r){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
