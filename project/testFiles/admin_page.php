@@ -88,6 +88,7 @@ if(isset($_POST["search2"])){
         </div>
         <input class="btn btn-primary" type ="submit" name="search2" value="find profile"/>
   </form> 
+  <?php if($results):?>
     <div class="card-text">
       <div>Account Number: <?php safer_echo($result["account_number"]); ?></div>
       <div>Account ID: <?php safer_echo($result["accID"]); ?></div>
@@ -96,4 +97,6 @@ if(isset($_POST["search2"])){
       <div>Account Balance: <?php safer_echo($result["balance"]); ?></div>
       <div>First Name: <?php safer_echo($result["firstName"]); ?></div>
       <div>Last Name: <?php safer_echo($result["lastName"]); ?></div>
+    </div>
+  <?php endif;?>
 <hr> 
