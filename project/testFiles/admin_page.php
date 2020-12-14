@@ -59,7 +59,7 @@ if(isset($_POST["search2"])){
   $account_number = $_POST["account_number"];
   $userID = null;
 
-  $stmt1=$db->prepare("SELECT Accounts.user_id from Accounts WHERE account_number = :q");
+  $stmt1=$db->prepare("SELECT Accounts.user_id as userID from Accounts WHERE account_number = :q");
   $r1 = $stmt1->execute([":q"=> $account_number]);
  
   if($r1){
