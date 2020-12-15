@@ -80,7 +80,7 @@ if(isset($_GET["page"])){
                             <a type="button" class="page-link" href="<?php echo getURL("accounts/close_account.php?id=" . $r["AccID"]); ?>"> Close Account</a>
                         <?php endif;?>
                         <?php else:?>
-                        <div><strong> Account has been closed</strong>has been closed.</div>
+                        <div><strong> Account has been closed</strong></div>
                         <?php endif;?>
                         
                     </div>
