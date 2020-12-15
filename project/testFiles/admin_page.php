@@ -111,7 +111,7 @@ if(isset($_POST["search3"])){
   $account_number = $_POST["account_number"];
   $stmt=$db->prepare("SELECT frozen from Accounts WHERE account_number = :q");
   $r = $stmt->execute([":q"=> $account_number]);
-  $results1 = $stmt->fetch(PDO::FETCH_ASSOC);
+  $results   = $stmt->fetch(PDO::FETCH_ASSOC);
   $frozen = $results["frozen"];
 
   if(isset($_POST["freeze"]) && !empty($frozen)){
