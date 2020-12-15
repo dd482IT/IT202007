@@ -78,6 +78,7 @@ if (isset($_POST["login"])) {
                         //on successful login let's serve-side redirect the user to the home page.
                         flash("Log in successful");
                         savingsApy();
+                        loanApy();
                         die(header("Location: home.php"));
                     }
                     else {
