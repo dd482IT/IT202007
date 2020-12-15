@@ -26,12 +26,12 @@ function is_deactivated($userID){
 
 function is_frozen($userID){
     $db = getDB();
-    $stmt = $db->prepare("SELECT active FROM Users WHERE Users.id = :id");
+    $stmt = $db->prepare("SELECT frozen FROM Users WHERE Users.id = :id");
     $r = $stmt->execute([
         ":id"=>$userID
     ]);  
     $result = $stmt->fetch(PDO::FETCH_ASSOC);    
-    $status = $result["active"];
+    $status = $result["frozen"];
 
     if($status == 1){
         return true; 
