@@ -74,6 +74,7 @@ if(isset($_POST["save"])){
     }
     else{
       flash("Loan Accounts require a $500.00 minmium");
+      header("Location: " . getURL("accounts/create_accounts.php"));
     }
     $i++;
   }
