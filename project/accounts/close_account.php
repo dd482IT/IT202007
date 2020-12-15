@@ -19,7 +19,7 @@
 
 <?php
   getDB();
-  $stmt = $db->prepare("SELECT account_number, balance, active FROM Accounts Accounts.id = :id");
+  $stmt = $db->prepare("SELECT account_number, balance, active FROM Accounts WHERE Accounts.id = :id");
   $stmt->execute([":id"=>$accid]);
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
   $account_number = $result["account_number"];
