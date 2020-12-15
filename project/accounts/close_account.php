@@ -27,7 +27,7 @@
     }
     elseif($status == 0){
       flash("Account is already closed");
-      die();
+      die(header("Location: " . getURL("testFiles/admin_page.php")));
     }
 
 
