@@ -6,6 +6,10 @@
     $id = $_GET["id"];
 
   }
+  $viewerID = null; 
+    if(isset($_GET["viewer"])){
+        $viewerID = $_GET["viewer"];
+    }
 ?>
 
 <form method="POST">
@@ -60,8 +64,14 @@ if(isset($_POST["save"])){
       flash("Error creating your account");
     }
     $i++;
-  }  
+  }
+  if($viewerID == null)
+  {
   header("Location: " . getURL("accounts/my_accounts.php"));
+  }
+  else{
+    header("Location: " . getURL("testFiles/admin_page.php"));
+  }
 }
 ?> 
 <?php require(__DIR__ . "/../partials/flash.php");
