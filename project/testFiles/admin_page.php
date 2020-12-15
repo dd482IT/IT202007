@@ -161,11 +161,12 @@ if(isset($_POST["search3"])){
   if(isset($_POST["search4"])){
     $db = getDB();
     $active = null;
-    $account_number = $_POST["account_number"];
-    $stmt=$db->prepare("SELECT active, Accounts.id as accID from Accounts WHERE account_number = :q");
-    $r = $stmt->execute([":q"=> $account_number]);
+    $firstName = $_POST["firstName"];
+    $lastName = $_POST["lastName"];
+    $stmt=$db->prepare("SELECT active, Users.id as userID FROM Users WHERE Users.lastName LIKE :q AND Users.firstName LIKE :z  ");
+    $r = $stmt->execute([":q"=> $firstName, ":z"=> $lastName]);
     $results = $stmt->fetch(PDO::FETCH_ASSOC);
-    $accID = $results["accID"];
+    $userID = $results["userID"];
 
     if($results){
     $active = $results["active"];
@@ -181,8 +182,8 @@ if(isset($_POST["search3"])){
         $active = 0;
     }
     
-    $stmt = $db->prepare("UPDATE Accounts set active = :active where Accounts.id = :accID");
-    $r = $stmt->execute([":active" => $active, ":accID" => $accID]);
+    $stmt = $db->prepare("UPDATE Users set active = :active where Users.id = :userID");
+    $r = $stmt->execute([":active" => $active, ":userID" => $userID]);
 
     if($r && $active == 1){
       flash("Account is now deactivated");
@@ -199,8 +200,10 @@ if(isset($_POST["search3"])){
 <h3 class="text-center"><strong>Deactivate an Account</strong></h3> 
     <form align="center" method="POST"> 
         <div align="center">
-            <label>User Account Number</label>
-            <input type="text" name="account_number" placeholder="Search.." required>
+            <<label>User First Name</label>
+            <input type="text" name="firstName" placeholder="Search.." required>
+            <label>User Last Name</label>
+            <input type="text" name="lastName" placeholder="Search.." required>
         </div>
         <input align="center" class="btn btn-primary" type ="submit" name="search4" value="Active/Deactivate"/>
     </form> 
