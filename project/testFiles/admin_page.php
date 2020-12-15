@@ -208,5 +208,32 @@ if(isset($_POST["search3"])){
         </div>
         <input align="center" class="btn btn-primary" type ="submit" name="search4" value="Active/Deactivate"/>
     </form> 
+<hr>
 
+
+<?php 
+  if(isset($_POST["search5"])){
+    $db = getDB();
+    $userID = ["userID"];
+    $stmt=$db->prepare("SELECT Users.id as userID FROM Users WHERE Users.id = :q");
+    $r = $stmt->execute([":q"=> $userID]);
+    $results = $stmt->fetch(PDO::FETCH_ASSOC);
+  }
+?> 
+
+
+<h3 class="text-center"><strong>Open an Account</strong></h3> 
+    <form align="center" method="POST"> 
+        <div align="center">
+            <label>Enter Users ID</label>
+            <input type="text" name="userID" placeholder="Search.." required>
+        </div>
+        <input align="center" class="btn btn-primary" type ="submit" name="search5" value="Active/Deactivate"/>
+    </form> 
+  <?php if($results):?>
+    <div align="center">
+      <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("accounts/create_accounts.php?id=" . $results["userID"] . "&viewer=" . $id)?>">Account for <?php echo ($results["userID"]) ?> Make Account</a>
+    </div>   
+  <?php endif;?>
+<hr>
 
