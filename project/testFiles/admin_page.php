@@ -218,7 +218,12 @@ if(isset($_POST["search3"])){
     $userID = ["userID"];
     $stmt=$db->prepare("SELECT Users.id as userID FROM Users WHERE Users.id = :q");
     $r = $stmt->execute([":q"=> (int)$userID]);
+    if($r){
     $results = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    else{
+      flash("There was an error finding the userID");
+    }
   }
 ?> 
 
