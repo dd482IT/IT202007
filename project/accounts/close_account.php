@@ -27,7 +27,7 @@
     }
     elseif($status == 0){
       flash("Account is already closed");
-      break;
+      die();
     }
 
 
