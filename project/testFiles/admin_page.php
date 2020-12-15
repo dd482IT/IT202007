@@ -109,10 +109,11 @@ $db = getDB();
 if(isset($_POST["search3"])){
 
   $account_number = $_POST["account_number"];
-  $stmt=$db->prepare("SELECT frozen from Accounts WHERE account_number = :q");
+  $stmt=$db->prepare("SELECT frozen, Accounts.id as accID from Accounts WHERE account_number = :q");
   $r = $stmt->execute([":q"=> $account_number]);
   $results   = $stmt->fetch(PDO::FETCH_ASSOC);
   $frozen = $results["frozen"];
+  $accID = $results["accID"];
 
   if(isset($_POST["freeze"]) && !empty($frozen)){
     $frozen = 0;
