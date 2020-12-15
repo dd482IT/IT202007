@@ -103,60 +103,6 @@ if(isset($_POST["search2"])){
   <hr>
   
 <!----------------------------------------------------------------------------------------------------------------------------------------------------------------> 
-
-<?php
-$db = getDB();
-$frozen = null; 
-$accID = null; 
-if(isset($_POST["search3"])){
-
-  $account_number = $_POST["account_number"];
-  $stmt=$db->prepare("SELECT frozen, Accounts.id as accID from Accounts WHERE account_number = :q");
-  $r = $stmt->execute([":q"=> $account_number]);
-  $results   = $stmt->fetch(PDO::FETCH_ASSOC);
-  $frozen = $results["frozen"];
-  $accID = $results["accID"];
-
-}
-if(isset($_POST["search4"])){
-
-  if(isset($_POST["freeze"]) && !empty($frozen)){
-    $frozen = 0;
-  }
-  else{
-    $frozen = 1;
-  }
-  $stmt = $db->prepare("UPDATE Accounts set frozen = :frozen where id = :id");
-  $r = $stmt->execute([":id" => $accID, ":frozen" => $frozen]);
-
-  if($r){
-    flash("Frozen has been update");
-  }
-  else{
-    flash("Error Updating Frozen");
-  }
-}
-?>
-
-
-  <h3 class="text-center"><strong>Search for Account</strong></h3> 
-  <hr>
-  <form align="center" method="POST">     
-        <div id="search">
-            <label>Freeze </label>
-            <input type="text" name="account_number" placeholder="Search.." required> 
-        </div>
-        <input class="btn btn-primary" type ="submit" name="search3" value="find account"/>
-  </form> 
-  <?php if($results["frozen"] == 0):?>
-    <label> <?php safer_echo($results["account_number"]); ?> is unfrozen  </label>
-
-    <input class="btn btn-primary" type="submit" name="search4" value="freeze account"/>
-  <?php elseif($results["frozen"] == 1):?>
-    <label> <?php safer_echo($results["account_number"]); ?> is frozen </label>
-
-    <input class="btn btn-primary" type ="submit" name="search4" value ="unfreeze account"/>
-  <?php endif;?>
-  <hr>
+    
 
 <!----------------------------------------------------------------------------------------------------------------------------------------------------------------> 
