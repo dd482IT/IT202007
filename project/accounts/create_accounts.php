@@ -22,8 +22,8 @@ function changeMin(){
 </script>
 
 <form method="POST">
-  <label>Account Type</label>
-  <select id="accType" name="account_type">
+  <label>Account Type </label>
+  <select id="accType" name="account_type" onclick=changeMin()>
     <option value ="checking">checking</option>
     <option value ="saving">saving</option>
     <option value ="loan" selected>loan</option>
@@ -68,8 +68,6 @@ if(isset($_POST["save"])){
       if($account_type == "loan"){
         $balance = $balance * -1;
       }
-
-
       openAccount($account_number, $balance);
       break;
     }
