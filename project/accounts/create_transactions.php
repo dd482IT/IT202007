@@ -82,7 +82,7 @@ $accounts = getDropDown();
             $memo = "empty";
         }
         
-        if(!is_frozen($source)){
+        if(!is_frozen($source) || is_activeAccount($source)){
             switch($action){
                 case "deposit":
                     doBankAction($world_id, $source, ($amount * -1), $action, $memo);
@@ -110,7 +110,7 @@ $accounts = getDropDown();
             }
         }
         else{
-            flash("Account is frozen");
+            flash("Account is frozen or inactive");
         }
             
     }

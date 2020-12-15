@@ -24,6 +24,23 @@ function is_deactivated($userID){
     }
 }
 
+function is_activeAccount($accID){
+    $db = getDB();
+    $stmt = $db->prepare("SELECT active FROM Accounts WHERE id = :id");
+    $r = $stmt->execute([
+        ":id"=>$accID
+    ]);  
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);    
+    $status = $result["active"];
+
+    if($status == 1){
+        return true; 
+    }
+    elseif($status == 0){
+        return false;
+    }
+}
+
 function is_frozen($userID){
     $db = getDB();
     $stmt = $db->prepare("SELECT frozen FROM Accounts WHERE Users.id = :id");
