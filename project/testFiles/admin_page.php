@@ -107,6 +107,7 @@ if(isset($_POST["search2"])){
 <?php
 $db = getDB();
 $frozen = null;
+$results = [];
 if(isset($_POST["search2"])){
   $account_number = $_POST["account_number"];
   $stmt=$db->prepare("SELECT frozen from Accounts WHERE account_number = :q");
