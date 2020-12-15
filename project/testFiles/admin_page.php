@@ -238,7 +238,7 @@ if(isset($_POST["search3"])){
     </form> 
   <?php if($results):?>
     <div align="center">
-      <a type="button" class="btn btn-primary" href="<?php echo getURL("accounts/create_accounts.php?id=" . $results["userID"] . "&viewer=" . $id)?>">Account for <?php echo ($results["userID"]) ?> Make Account</a>
+      <a type="button" class="btn btn-primary" name="search5" href="<?php echo getURL("accounts/create_accounts.php?id=" . $results["userID"] . "&viewer=" . $id)?>">Account for <?php echo ($results["userID"]) ?> Make Account</a>
     </div>   
   <?php endif;?>
 <hr>
