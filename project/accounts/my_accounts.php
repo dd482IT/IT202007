@@ -48,7 +48,6 @@ if(isset($_GET["page"])){
         flash(var_export($e, true), "alert");
     }
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
   }
 ?>
 <div class="container-fluid">
@@ -64,7 +63,7 @@ if(isset($_GET["page"])){
                         <strong>Account Number</strong>: <?php safer_echo($r["account_number"]);?>
                     </div>
                     <div class="card-text">
-                        <div> <strong>Current Balance: </strong> <?php safer_echo($r["balance"]); ?></div>
+                        <div> <strong>Current Balance: </strong> <?php if($r["account_type"] == "loan"){safer_echo(abs($r["balance"]));}else{safer_echo(abs($r["balance"]));} ?></div> <!-- CHANGE MADE HERE--> 
                         <?php if(isset($r["account_type"])):?>
                             <strong>Account Type</strong> <?php safer_echo($r["account_type"]);?>
                         <?php else:?>
