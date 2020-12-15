@@ -33,6 +33,7 @@ if(isset($_POST["save"])){
     $user= get_user_id();
     $balance = $_POST["balance"];
     $min = 5.00;
+    
     if($account_type == "loan"){
       $min = 500.00;
     }
