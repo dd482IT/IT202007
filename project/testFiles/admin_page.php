@@ -164,12 +164,13 @@ if(isset($_POST["search3"])){
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
     $stmt=$db->prepare("SELECT active, Users.id as userID FROM Users WHERE Users.lastName LIKE :q AND Users.firstName LIKE :z  ");
-    $r = $stmt->execute([":q"=> $firstName, ":z"=> $lastName]);
+    $r = $stmt->execute([":q"=> $lastName, ":z"=> $firstName]);
     $results = $stmt->fetch(PDO::FETCH_ASSOC);
-    $userID = $results["userID"];
+   
 
     if($results){
-    $active = $results["active"];
+      $active = $results["active"];
+      $userID = $results["userID"];
     }
     else{
       flash("Error Pulling active");
@@ -200,7 +201,7 @@ if(isset($_POST["search3"])){
 <h3 class="text-center"><strong>Deactivate an Account</strong></h3> 
     <form align="center" method="POST"> 
         <div align="center">
-            <<label>User First Name</label>
+            <label>User First Name</label>
             <input type="text" name="firstName" placeholder="Search.." required>
             <label>User Last Name</label>
             <input type="text" name="lastName" placeholder="Search.." required>
