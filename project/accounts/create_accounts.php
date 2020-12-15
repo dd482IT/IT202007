@@ -15,7 +15,7 @@
 
 <?php
   $default = 5.00;
-  if($_POST["account_type"] == "loan"){
+  if(isset( $_POST["account_type"]) && $_POST["account_type"] == "loan"){
     $default = 500.00;
   }
 
