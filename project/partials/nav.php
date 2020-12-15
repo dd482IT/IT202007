@@ -20,10 +20,20 @@ require_once(__DIR__ . "/../lib/helpers.php");
     <?php if (is_logged_in()): ?>
         <li><a href="<?php echo getURL("profile.php");?>">Profile</a></li>
         <li><a href="<?php echo getURL("logout.php");?>">Logout</a></li>
+        <li><a href="<?php echo getURL("logout.php");?>">Logout</a></li>
         <li><a href="<?php echo getURL("accounts/create_accounts.php");?>">Create Account</a></li>
         <li><a href="<?php echo getURL("accounts/my_accounts.php");?>">My Accounts</a></li>
         <li><a href="<?php echo getURL("accounts/create_transactions.php");?>">Make a Transaction</a></li>
         <li><a href="<?php echo getURL("accounts/send.php");?>">Send Money</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Loans
+            </a>
+            div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="<?php echo getURL("accounts/apply_for_loan.php");?>">Apply for Loan</a>
+          <a class="dropdown-item" href="<?php echo getURL("accounts/manage_loan.php");?>">Manage Loan</a>
+        </div>
+      </li>
     <?php endif; ?>
 </ul>
 </nav>
