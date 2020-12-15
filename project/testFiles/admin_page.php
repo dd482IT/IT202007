@@ -150,7 +150,7 @@ if(isset($_POST["search3"])){
 
 ?>
   <h3 class="text-center"><strong>Freeze an Account</strong></h3> 
-    <form> 
+    <form method="POST"> 
         <div align="center">
             <label>User Account Number</label>
             <input type="text" name="account_number" placeholder="Search.." required>
