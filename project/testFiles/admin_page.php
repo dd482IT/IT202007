@@ -154,14 +154,13 @@ if(isset($_POST["search3"])){
         </div>
         <input align="center" class="btn btn-primary" type ="submit" name="search3" value="Freeze/Unfreeze"/>
     </form> 
-
+  <hr>
 <!----------------------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 <?php
   if(isset($_POST["search4"])){
     $db = getDB();
     $active = null;
-    $results = [];
     $account_number = $_POST["account_number"];
     $stmt=$db->prepare("SELECT active, Accounts.id as accID from Accounts WHERE account_number = :q");
     $r = $stmt->execute([":q"=> $account_number]);
