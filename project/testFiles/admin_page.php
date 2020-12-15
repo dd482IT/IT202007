@@ -58,7 +58,6 @@ if(isset($_POST["search2"])){
   $db = getDB();
   $account_number = $_POST["account_number"];
   $userID = null;
- 
 
   $stmt1=$db->prepare("SELECT Accounts.user_id as userID from Accounts WHERE account_number = :q");
   $r1 = $stmt1->execute([":q"=> $account_number]);
@@ -70,34 +69,14 @@ if(isset($_POST["search2"])){
   else{
     flash("Error Pulling");
   }
-  
   $stmt=$db->prepare("SELECT account_number, account_type, firstName, lastName, Accounts.id as accID, opened_date, balance, frozen from Users JOIN Accounts on Accounts.user_id = Users.id WHERE Users.id = :q");
   $r = $stmt->execute([":q"=> $userID]);
   $results = $stmt->fetch(PDO::FETCH_ASSOC);
   $frozen = $results["frozen"];
   $accID = $results["accID"];
-
-
-  if(isset($_POST["freeze"]) && !empty($frozen)){
-      $frozen = 0;
-  }
-  else{
-      $frozen = 1;
-  }
-  $stmt = $db->prepare("UPDATE Accounts set frozen = :frozen where id = :id");
-  $r = $stmt->execute([":id" => $accID, ":frozen" => $frozen]);
-
-  if($r){
-    flash("Frozen has been update");
-  }
-  else{
-    flash("Error Updating Frozen");
-  }
-
-
 }
 ?> 
-
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------> 
 <h3 class="text-center"><strong>Search for Account</strong></h3> 
   <hr>
   <form align="center" method="POST">     
@@ -117,12 +96,55 @@ if(isset($_POST["search2"])){
       <div><Strong>First Name:</Strong> <?php safer_echo($results["firstName"]); ?></div>
       <div><Strong>Last Name:</Strong> <?php safer_echo($results["lastName"]); ?></div>
       <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("accounts/my_transactions.php?id=" . $results["accID"] . "&viewer=" . $id)?>">Go To <?php echo ($results["firstName"] . " " .$results["lastName"]) ?>  Transactions History</a>
-      <input type="checkbox" name="freeze" <?php echo $results["frozen"] == 1?"checked='checked'":"";?> />    
-      <a type="button" class="btn btn-primary" name="freeze"> Freeze the Account?</a>
     </div>
   <?php else:?>
       <p>Invalid Account</p>
   <?php endif;?>
+  <hr>
   
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------> 
+
+<?php
+$db = getDB();
+if(isset($_POST["search3"])){
+  $stmt=$db->prepare("SELECT frozen from Accounts WHERE account_number = :q");
+  $r = $stmt->execute([":q"=> $account_number]);
+  $results1 = $stmt->fetch(PDO::FETCH_ASSOC);
+  $frozen = $results["frozen"];
+
+  if(isset($_POST["freeze"]) && !empty($frozen)){
+    $frozen = 0;
+  }
+  else{
+    $frozen = 1;
+  }
+  $stmt = $db->prepare("UPDATE Accounts set frozen = :frozen where id = :id");
+  $r = $stmt->execute([":id" => $accID, ":frozen" => $frozen]);
+
+  if($r){
+    flash("Frozen has been update");
+  }
+  else{
+    flash("Error Updating Frozen");
+  }
+}
+?>
 
 
+  <h3 class="text-center"><strong>Search for Account</strong></h3> 
+  <hr>
+  <form align="center" method="POST">     
+        <div id="search">
+            <label>Search for an Account to freeze</label>
+            <input type="checkbox" name="account_number " <?php echo $results["frozen"] == 1?"checked='checked'":"";?> />    
+        </div>
+        <input class="btn btn-primary" type ="submit" name="search3" value="find account"/>
+  </form> 
+  <?php if($results):?>
+    <label> Frozen Status </label>
+    <input type="checkbox" name="account_number " <?php echo $results["frozen"] == 1?"checked='checked'":"";?> />   
+    <input class="btn btn-primary" type ="submit" name="search3"/>
+  <?php endif;?>
+  <hr>
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------> 
