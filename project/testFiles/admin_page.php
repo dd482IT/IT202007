@@ -86,7 +86,7 @@ if(isset($_POST["search2"])){
         </div>
         <input class="btn btn-primary" type ="submit" name="search2" value="find account"/>
   </form> 
-  <?php if($results):?>
+  <?php if(isset($results) && !empty($results)):?>
     <div align="center" class="card-text">
       <div><Strong>Account Number:</Strong> <?php safer_echo($results["account_number"]); ?></div>
       <div><Strong>Account ID:</Strong> <?php safer_echo($results["accID"]); ?></div>
