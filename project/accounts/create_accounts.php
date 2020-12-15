@@ -14,7 +14,7 @@
 
 <form method="POST">
   <label>Account Type</label>
-  <select id="type" name="account_type">
+  <select id="type" name="account_type" onclick="showTransferForm()">
     <option value ="checking">checking</option>
     <option value ="saving">saving</option>
     <option value ="loan">loan</option>
