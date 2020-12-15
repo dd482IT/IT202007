@@ -341,7 +341,8 @@ function loanApy(){
 				//if monthly divide accordingly
 				$apy /= 12;
 				$balance = (float)$account["balance"];
-				$change = $balance * $apy;
+                $change = $balance * $apy;
+                $change  = $change * -1;
 				//see https://github.com/MattToegel/IT202/blob/Fall2019/Section16/sample_transactions.php
 				//last column added supports $memo which my example in the link above doesn't support
 				doBankAction($account["id"], $world_id, ($change * -1), "interest", "APY Calc");
