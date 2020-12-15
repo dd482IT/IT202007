@@ -49,17 +49,14 @@ if(isset($_POST["save"])){
       $apy = 0.07;
     }
 
-    $db = getDB();
-    $apy;
-
     if($account_type == "saving"){
       $apy = 0.01;
     }
+       
+    $db = getDB();
+    $apy;
 
-    if($account_type == "loan"){
-      $apy = 0.07;
-    }
-        
+     
 
   while($i < $max){
     $account_number = (String)rand(100000000000,999999999999);
@@ -77,6 +74,7 @@ if(isset($_POST["save"])){
       if($account_type == "loan"){
         $balance = $balance * -1;
       }
+      
       openAccount($account_number, $balance);
       break;
     }
