@@ -105,10 +105,11 @@ if(isset($_POST["search2"])){
     
 
 <?php
-$db = getDB();
-$frozen = null;
-$results = [];
+
 if(isset($_POST["search3"])){
+    $db = getDB();
+    $frozen = null;
+    $results = [];
     $account_number = $_POST["account_number"];
     $stmt=$db->prepare("SELECT frozen, Accounts.id as accID from Accounts WHERE account_number = :q");
     $r = $stmt->execute([":q"=> $account_number]);
@@ -150,7 +151,7 @@ if(isset($_POST["search3"])){
 ?>
   <h3 class="text-center"><strong>Freeze an Account</strong></h3> 
     <form> 
-        <div>
+        <div align="center">
             <label>User Account Number</label>
             <input type="text" name="account_number" placeholder="Search.." required>
         </div>
