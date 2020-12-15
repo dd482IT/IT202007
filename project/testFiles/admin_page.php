@@ -194,6 +194,7 @@ if(isset($_POST["search3"])){
       flash("Error Setting active");
       
     }
+  }
 ?>
 
 <h3 class="text-center"><strong>Deactivate an Account</strong></h3> 
