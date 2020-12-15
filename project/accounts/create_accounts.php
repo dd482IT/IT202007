@@ -37,7 +37,7 @@ if(isset($_POST["save"])){
     $user= get_user_id();
     $balance = $_POST["balance"];
    
-    if($account_type == "loan" && $balance >= 500.00){
+    if($account_type == "loan"){
       $apy = 0.07;
     }
 
@@ -66,15 +66,15 @@ if(isset($_POST["save"])){
     if($r){
       flash("Created successfully with id: " . $db->lastInsertId());
 
-      if($account_type == "loan" && $balance >= 500.00){
+      if($account_type == "loan"){
         $balance = $balance * -1;
       }
       openAccount($account_number, $balance);
       break;
     }
     else{
-      flash("Loan Accounts require a $500.00 minmium");
-      header("Location: " . getURL("accounts/create_accounts.php"));
+      $e = $stmt->errorInfo();
+      flash("Error creating your account");
     }
     $i++;
   }
