@@ -20,7 +20,7 @@
     <option value ="loan">loan</option>
   </select>
   <label>Balance</label>
-  <input type="number" min="<?php echo $min;?>" name="balance" value="<?php echo $result["balance"];?>" />
+  <input type="number" min="<?php echo ($result["account_type"] == "load"?"500.00":"5.00");?>" name="balance" value="<?php echo $result["balance"];?>" />
   <input class="btn btn-primary" type="submit" name="save" value="Create"/>
  
   
@@ -34,11 +34,8 @@ if(isset($_POST["save"])){
     $account_type = $_POST["account_type"]; 
     $user= get_user_id();
     $balance = $_POST["balance"];
-    $min = 5.00;
-    $apy = null;
-    
+   
     if($account_type == "loan"){
-      $min = 500.00;
       $apy = 0.07;
     }
 
