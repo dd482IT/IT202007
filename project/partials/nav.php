@@ -35,7 +35,6 @@ require_once(__DIR__ . "/../lib/helpers.php");
                         <a class="dropdown-item" href="<?php echo getURL("accounts/manage_loan.php");?>">Action</a>
                         <a class="dropdown-item" href="<?php echo getURL("accounts/apply_for_loan.php");?>">Another action</a>
                     </div>
-                </li>
             </div>
         </li>
     <?php endif; ?>
