@@ -82,7 +82,7 @@ $accounts = getDropDown();
             $memo = "empty";
         }
         
-          if(!is_frozen($source) || !is_frozen($destination)){
+          if(!is_frozen($source) && !is_frozen($destination)){
             if($amount <= $balance){
               doBankAction($source,$destination,($amount *-1), $action, $memo);
             }
