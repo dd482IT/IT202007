@@ -106,6 +106,8 @@ if(isset($_POST["search2"])){
 
 <?php
 $db = getDB();
+$frozen = null; 
+$accID = null; 
 if(isset($_POST["search3"])){
 
   $account_number = $_POST["account_number"];
@@ -114,6 +116,9 @@ if(isset($_POST["search3"])){
   $results   = $stmt->fetch(PDO::FETCH_ASSOC);
   $frozen = $results["frozen"];
   $accID = $results["accID"];
+
+}
+if(isset($_POST["search4"])){
 
   if(isset($_POST["freeze"]) && !empty($frozen)){
     $frozen = 0;
@@ -138,15 +143,19 @@ if(isset($_POST["search3"])){
   <hr>
   <form align="center" method="POST">     
         <div id="search">
-            <label>Search for an Account to freeze</label>
+            <label>Freeze </label>
             <input type="text" name="account_number" placeholder="Search.." required> 
         </div>
         <input class="btn btn-primary" type ="submit" name="search3" value="find account"/>
   </form> 
-  <?php if($results):?>
-    <label> Frozen Status </label>
-    <input type="checkbox" name="account_number " <?php echo $results["frozen"] == 1?"checked='checked'":"";?> />   
-    <input class="btn btn-primary" type ="submit" name="search3"/>
+  <?php if($results["frozen"] == 0):?>
+    <label> <?php safer_echo($results["account_number"]); ?> is unfrozen  </label>
+
+    <input class="btn btn-primary" type="submit" name="search4" value="freeze account"/>
+  <?php elseif($results["frozen"] == 1):?>
+    <label> <?php safer_echo($results["account_number"]); ?> is frozen </label>
+
+    <input class="btn btn-primary" type ="submit" name="search4" value ="unfreeze account"/>
   <?php endif;?>
   <hr>
 
