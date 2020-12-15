@@ -135,11 +135,9 @@ if(isset($_POST["search3"])){
 
     if($r && $frozen == 1){
       flash("Account is now frozen");
-      die(header("Location: " . getURL("testFiles/admin_page.php")));
     }
     elseif($r && $frozen == 0){
       flash("Account is now unfrozen");
-      die(header("Location: " . getURL("testFiles/admin_page.php")));
     }else{
       flash("Error Setting frozen");
       
