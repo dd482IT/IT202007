@@ -130,7 +130,7 @@ if(isset($_POST["search3"])){
         $frozen = 0;
     }
     
-    $stmt = $db->prepare("UPDATE Accounts set frozen = :frozen where Accounts.id = :accDI");
+    $stmt = $db->prepare("UPDATE Accounts set frozen = :frozen where Accounts.id = :accID");
     $r = $stmt->execute([":frozen" => $frozen, ":accID" => $accID]);
 
     if($r && $frozen == 1){
