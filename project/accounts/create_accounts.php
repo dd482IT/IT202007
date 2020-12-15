@@ -26,7 +26,7 @@
   <select name="account_type">
     <option value ="checking">checking</option>
     <option value ="saving">saving</option>
-    <option value ="loan" selected="loan">loan</option>
+    <option value ="loan" selected>loan</option>
   </select>
   <label>Balance</label>
   <input type="number" min="<?php echo $default;?>" name="balance" value="<?php echo $result["balance"];?>" />
