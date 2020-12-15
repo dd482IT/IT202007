@@ -108,12 +108,17 @@ $accounts = getDropDown();
                 break;
                 case "transfer":
                     if(!is_frozen($destination) && is_activeAccount($destination))
-                        if($amount <= $balance){
-                            doBankAction($source,$destination,($amount *-1), $action, $memo);
+                        if($account_type != "loan"){
+                            if($amount <= $balance){
+                                doBankAction($source,$destination,($amount *-1), $action, $memo);
+                            }
+                            elseif($amount > $balance){
+                                flash("Balance Too Low");
+                            }
                         }
-                        elseif($amount > $balance){
-                            flash("Balance Too Low");
-                        }
+                        else{
+                            flash("You cannot transfer from a loan account!");
+                        }  
                     else{
                         flash("Destination Account is frozen");
                     }
