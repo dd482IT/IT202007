@@ -107,6 +107,8 @@ if(isset($_POST["search2"])){
 <?php
 $db = getDB();
 if(isset($_POST["search3"])){
+
+  $account_number = $_POST["account_number"];
   $stmt=$db->prepare("SELECT frozen from Accounts WHERE account_number = :q");
   $r = $stmt->execute([":q"=> $account_number]);
   $results1 = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -136,7 +138,7 @@ if(isset($_POST["search3"])){
   <form align="center" method="POST">     
         <div id="search">
             <label>Search for an Account to freeze</label>
-            <input type="checkbox" name="account_number " <?php echo $results["frozen"] == 1?"checked='checked'":"";?> />    
+            <input type="text" name="account_number" placeholder="Search.." required> 
         </div>
         <input class="btn btn-primary" type ="submit" name="search3" value="find account"/>
   </form> 
