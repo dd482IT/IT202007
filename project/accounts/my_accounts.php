@@ -38,7 +38,7 @@ if(isset($_GET["page"])){
 
 
 
-    $stmt = $db->prepare("SELECT Accounts.user_id as UserID, Accounts.id as AccID, account_number, account_type, balance,apy FROM Accounts WHERE Accounts.user_id = :q LIMIT :offset, :count");
+    $stmt = $db->prepare("SELECT Accounts.user_id as UserID, Accounts.id as AccID, account_number, account_type, balance,apy, active FROM Accounts WHERE Accounts.user_id = :q LIMIT :offset, :count");
     $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
     $stmt->bindValue(":count", $per_page, PDO::PARAM_INT);
     $stmt->bindValue(":q", get_user_id());
@@ -63,7 +63,8 @@ if(isset($_GET["page"])){
                         <strong>Account Number</strong>: <?php safer_echo($r["account_number"]);?>
                     </div>
                     <div class="card-text">
-                         <?php if($r["account_type"] == "loan"):?>
+                        <?php if($r["active"] == "1"):?>
+                        <?php if($r["account_type"] == "loan"):?>
                             <div> <strong>Remaining Balance: </strong><?php safer_echo(abs($r["balance"]));?></div>
                             <div> <strong>Current Apy:</strong> <?php safer_echo($r["apy"] * 100 . "%");?></div>
                         <?php else:?>
@@ -76,6 +77,9 @@ if(isset($_GET["page"])){
                         <?php endif; ?>
                         <?php if($r["balance"] == 0):?>
                             <a type="button" class="page-link" href="<?php echo getURL("accounts/close_account.php?id=" . $r["AccID"]); ?>"> Close Account</a>
+                        <?php endif;?>
+                        <?php else:?>
+                        <div> Account <strong><?php safer_echo($r["account_number"]);?></strong>has been closed.</div>
                         <?php endif;?>
                     <a type="button" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["AccID"]); ?>">View Transaction History</a>
                     </div>

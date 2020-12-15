@@ -27,10 +27,8 @@
     }
     elseif($status == 0){
       flash("Account is already closed");
-      die(header("Location: " . getURL("testFiles/admin_page.php")));
+      die(header("Location: " . getURL("accounts/my_accounts.php")));
     }
-
-
 
     $stmt = $db->prepare("UPDATE Accounts SET active = :active WHERE Accounts.id = :id");
     $r = $stmt->execute([
