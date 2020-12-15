@@ -57,34 +57,38 @@ if (isset($_POST["login"])) {
                 flash("Something went wrong, please try again");
             }
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($result && isset($result["password"])) {
-                $password_hash_from_db = $result["password"];
-                if (password_verify($password, $password_hash_from_db)) {
-                    $stmt = $db->prepare("
-SELECT Roles.name FROM Roles JOIN UserRoles on Roles.id = UserRoles.role_id where UserRoles.user_id = :user_id and Roles.is_active = 1 and UserRoles.is_active = 1");
-                    $stmt->execute([":user_id" => $result["id"]]);
-                    $roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(!is_deactivated($result["id"])){
+                if ($result && isset($result["password"])) {
+                    $password_hash_from_db = $result["password"];
+                    if (password_verify($password, $password_hash_from_db)) {
+                        $stmt = $db->prepare("
+    SELECT Roles.name FROM Roles JOIN UserRoles on Roles.id = UserRoles.role_id where UserRoles.user_id = :user_id and Roles.is_active = 1 and UserRoles.is_active = 1");
+                        $stmt->execute([":user_id" => $result["id"]]);
+                        $roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                    unset($result["password"]);//remove password so we don't leak it beyond this page
-                    //let's create a session for our user based on the other data we pulled from the table
-                    $_SESSION["user"] = $result;//we can save the entire result array since we removed password
-                    if ($roles) {
-                        $_SESSION["user"]["roles"] = $roles;
+                        unset($result["password"]);//remove password so we don't leak it beyond this page
+                        //let's create a session for our user based on the other data we pulled from the table
+                        $_SESSION["user"] = $result;//we can save the entire result array since we removed password
+                        if ($roles) {
+                            $_SESSION["user"]["roles"] = $roles;
+                        }
+                        else {
+                            $_SESSION["user"]["roles"] = [];
+                        }
+                        //on successful login let's serve-side redirect the user to the home page.
+                        flash("Log in successful");
+                        savingsApy();
+                        die(header("Location: home.php"));
                     }
                     else {
-                        $_SESSION["user"]["roles"] = [];
+                        flash("Username or Password incorrect");
                     }
-                    //on successful login let's serve-side redirect the user to the home page.
-                    flash("Log in successful");
-                    savingsApy();
-                    die(header("Location: home.php"));
                 }
                 else {
                     flash("Username or Password incorrect");
                 }
-            }
-            else {
-                flash("Username or Password incorrect");
+            }else{
+                flash("Account is deactivated");
             }
         }
     }

@@ -82,16 +82,20 @@ $accounts = getDropDown();
             $memo = "empty";
         }
         
-
-        if($amount <= $balance){
-          doBankAction($source,$destination,($amount *-1), $action, $memo);
-        }
-        elseif($amount > $balance){
-          flash("Balance Too Low");
-        }
-        else{
-          flash("Other Error");
-        }
+          if(!is_frozen($source) && !is_frozen($destination)){
+            if($amount <= $balance){
+              doBankAction($source,$destination,($amount *-1), $action, $memo);
+            }
+            elseif($amount > $balance){
+              flash("Balance Too Low");
+            }
+            else{
+              flash("Other Error");
+            }
+          }
+          else{
+            flash("An account is frozen");
+          }
     }
    
 
