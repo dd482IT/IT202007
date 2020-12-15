@@ -41,11 +41,11 @@ function is_activeAccount($accID){
     }
 }
 
-function is_frozen($userID){
+function is_frozen($accID){
     $db = getDB();
-    $stmt = $db->prepare("SELECT frozen FROM Accounts WHERE Users.id = :id");
+    $stmt = $db->prepare("SELECT frozen FROM Accounts WHERE id = :id");
     $r = $stmt->execute([
-        ":id"=>$userID
+        ":id"=>$accID
     ]);  
     $result = $stmt->fetch(PDO::FETCH_ASSOC);    
     $status = $result["frozen"];
