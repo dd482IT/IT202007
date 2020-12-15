@@ -210,13 +210,14 @@ if(isset($_POST["search3"])){
     </form> 
 <hr>
 
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 
 <?php 
   if(isset($_POST["search5"])){
     $db = getDB();
     $userID = ["userID"];
     $stmt=$db->prepare("SELECT Users.id as userID FROM Users WHERE Users.id = :q");
-    $r = $stmt->execute([":q"=> $userID]);
+    $r = $stmt->execute([":q"=> (int)$userID]);
     $results = $stmt->fetch(PDO::FETCH_ASSOC);
   }
 ?> 
@@ -226,7 +227,7 @@ if(isset($_POST["search3"])){
     <form align="center" method="POST"> 
         <div align="center">
             <label>Enter Users ID</label>
-            <input type="number" name="userID" placeholder="Search.." required>
+            <input type="text" name="userID" placeholder="Search.." required>
         </div>
         <input align="center" class="btn btn-primary" type ="submit" name="search5" value="Find User"/>
     </form> 
