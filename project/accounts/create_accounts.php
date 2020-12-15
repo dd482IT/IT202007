@@ -62,6 +62,12 @@ if(isset($_POST["save"])){
 
     if($r){
       flash("Created successfully with id: " . $db->lastInsertId());
+
+      if($account_type == "loan"){
+        $balance = $balance * -1;
+      }
+
+
       openAccount($account_number, $balance);
       break;
     }
