@@ -156,3 +156,53 @@ if(isset($_POST["search3"])){
     </form> 
 
 <!----------------------------------------------------------------------------------------------------------------------------------------------------------------> 
+
+<?php
+  if(isset($_POST["search4"])){
+    $db = getDB();
+    $active = null;
+    $results = [];
+    $account_number = $_POST["account_number"];
+    $stmt=$db->prepare("SELECT froactivezen, Accounts.id as accID from Accounts WHERE account_number = :q");
+    $r = $stmt->execute([":q"=> $account_number]);
+    $results = $stmt->fetch(PDO::FETCH_ASSOC);
+    $accID = $results["accID"];
+
+    if($results){
+    $active = $results["active"];
+    }
+    else{
+      flash("Error Pulling active");
+    }
+
+    if($active == 0){
+        $active = 1;
+    }
+    elseif($active == 1){
+        $active = 0;
+    }
+    
+    $stmt = $db->prepare("UPDATE Accounts set active = :active where Accounts.id = :accID");
+    $r = $stmt->execute([":active" => $active, ":accID" => $accID]);
+
+    if($r && $active == 1){
+      flash("Account is now deactivated");
+    }
+    elseif($r && $active == 0){
+      flash("Account is now activated");
+    }else{
+      flash("Error Setting active");
+      
+    }
+?>
+
+<h3 class="text-center"><strong>Deactivate an Account</strong></h3> 
+    <form align="center" method="POST"> 
+        <div align="center">
+            <label>User Account Number</label>
+            <input type="text" name="account_number" placeholder="Search.." required>
+        </div>
+        <input align="center" class="btn btn-primary" type ="submit" name="search4" value="Active/Deactivate"/>
+    </form> 
+
+
