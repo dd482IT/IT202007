@@ -155,6 +155,7 @@ if(isset($_POST["search3"])){
             <label>User Account Number</label>
             <input type="text" name="account_number" placeholder="Search.." required>
         </div>
-        <input class="btn btn-primary" type ="submit" name="search3" value="Freeze/Unfreeze"/>
+        <input align="center" class="btn btn-primary" type ="submit" name="search3" value="Freeze/Unfreeze"/>
     </form> 
+
 <!----------------------------------------------------------------------------------------------------------------------------------------------------------------> 
