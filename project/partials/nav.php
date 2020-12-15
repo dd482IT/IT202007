@@ -29,11 +29,11 @@ require_once(__DIR__ . "/../lib/helpers.php");
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Loans
             </a>
-            div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<?php echo getURL("accounts/apply_for_loan.php");?>">Apply for Loan</a>
-          <a class="dropdown-item" href="<?php echo getURL("accounts/manage_loan.php");?>">Manage Loan</a>
-        </div>
-      </li>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="<?php echo getURL("accounts/apply_for_loan.php");?>">Apply for Loan</a>
+            <a class="dropdown-item" href="<?php echo getURL("accounts/manage_loan.php");?>">Manage Loan</a>
+            </div>
+        </li>
     <?php endif; ?>
 </ul>
 </nav>
