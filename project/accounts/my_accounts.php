@@ -72,6 +72,7 @@ if(isset($_GET["page"])){
                         <?php endif; ?>    
                         <?php if(isset($r["account_type"])):?>
                             <strong>Account Type</strong> <?php safer_echo($r["account_type"]);?>
+                            <a type="button" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["AccID"]); ?>">View Transaction History</a>
                         <?php else:?>
                             Not Set
                         <?php endif; ?>
@@ -79,9 +80,9 @@ if(isset($_GET["page"])){
                             <a type="button" class="page-link" href="<?php echo getURL("accounts/close_account.php?id=" . $r["AccID"]); ?>"> Close Account</a>
                         <?php endif;?>
                         <?php else:?>
-                        <div> Account <strong><?php safer_echo($r["account_number"]);?></strong>has been closed.</div>
+                        <div><strong> Account has been closed</strong>has been closed.</div>
                         <?php endif;?>
-                    <a type="button" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["AccID"]); ?>">View Transaction History</a>
+                        
                     </div>
                 </div>
             </div>
