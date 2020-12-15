@@ -13,13 +13,6 @@
 
 ?>
 
-<?php
-  $default = 5.00;
-  if(isset( $_POST["account_type"]) && $_POST["account_type"] == "loan"){
-    $default = 500.00;
-  }
-
-?>
 
 <form method="POST">
   <label>Account Type</label>
@@ -29,7 +22,7 @@
     <option value ="loan" selected>loan</option>
   </select>
   <label>Balance</label>
-  <input type="number" min="<?php echo $default;?>" name="balance" value="<?php echo $result["balance"];?>" />
+  <input type="number" min="5.00" name="balance" value="<?php echo $result["balance"];?>" />
   <input class="btn btn-primary" type="submit" name="save" value="Create"/>
  
   
@@ -44,7 +37,7 @@ if(isset($_POST["save"])){
     $user= get_user_id();
     $balance = $_POST["balance"];
    
-    if($account_type == "loan"){
+    if($account_type == "loan" && $balance >= 500.00){
       $apy = 0.07;
     }
 
@@ -73,15 +66,14 @@ if(isset($_POST["save"])){
     if($r){
       flash("Created successfully with id: " . $db->lastInsertId());
 
-      if($account_type == "loan"){
+      if($account_type == "loan" && $balance >= 500.00){
         $balance = $balance * -1;
       }
       openAccount($account_number, $balance);
       break;
     }
     else{
-      $e = $stmt->errorInfo();
-      flash("Error creating your account");
+      flash("Loan Accounts require a $500.00 minmium");
     }
     $i++;
   }

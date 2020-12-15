@@ -176,7 +176,7 @@ function doBankAction($acc1, $acc2, $amount, $action, $memo)
 {
     $db = getDB();
     $user = get_user_id();
-
+    
     $stmt2 = $db ->prepare("SELECT IFNULL(SUM(Amount),0) AS Total FROM Transactions WHERE Transactions.act_src_id = :q");
     $results2 = $stmt2->execute([":q"=> $acc1]);
     $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
@@ -391,3 +391,5 @@ function accountNumberGenerator(){
 //end flash
 
 ?>
+
+<?php require(__DIR__ . "/../partials/flash.php");
