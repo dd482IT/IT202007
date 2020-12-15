@@ -22,9 +22,20 @@
   <label>Balance</label>
   <input type="number" min="<?php echo $min;?>" name="balance" value="<?php echo $result["balance"];?>" />
   <input class="btn btn-primary" type="submit" name="save" value="Create"/>
-  <?php if($account_type == "loan"): ?>
-    <label>Your Apy will be 7%</label>
-  <?php endif;?>
+  <script>
+            function showTransferForm(){
+                if(document.getElementById('type').value == "transfer"){
+                    document.getElementById('transfer').style.display='block';
+                    document.getElementById('transfer').disabled = false; 
+                }else{
+                    document.getElementById('transfer').style.display='none';
+                    document.getElementById('transfer').disabled = true; 
+                }
+            }
+  </script> 
+        <div id="transfer" disabled>
+            <label>Your Apy will be 7%</label>
+        </div>
 </form>
 
 <?php 
