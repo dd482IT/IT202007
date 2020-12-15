@@ -27,8 +27,6 @@ require_once(__DIR__ . "/../lib/helpers.php");
         <li><a href="<?php echo getURL("accounts/my_accounts.php");?>">My Accounts</a></li>
         <li><a href="<?php echo getURL("accounts/create_transactions.php");?>">Make a Transaction</a></li>
         <li><a href="<?php echo getURL("accounts/send.php");?>">Send Money</a></li>
-        <li><a href="<?php echo getURL("accounts/apply_for_loan.php");?>">Apply For Loan</a></li>
-        <li><a href="<?php echo getURL("accounts/manage_loan.php");?>">Manage Loan</a></li>
     <?php endif; ?>
 </ul>
 </nav>
