@@ -30,8 +30,12 @@ require_once(__DIR__ . "/../lib/helpers.php");
           Loans
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="<?php echo getURL("accounts/apply_for_loan.php");?>">Apply for Loan</a>
-            <a class="dropdown-item" href="<?php echo getURL("accounts/manage_loan.php");?>">Manage Loan</a>
+                <li class="nav-item active">
+                <a class="dropdown-item" href="<?php echo getURL("accounts/apply_for_loan.php");?>">Apply for Loan</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="dropdown-item" href="<?php echo getURL("accounts/manage_loan.php");?>">Manage Loan</a>
+                </li>
             </div>
         </li>
     <?php endif; ?>
