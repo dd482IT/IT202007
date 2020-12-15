@@ -246,3 +246,4 @@ if(isset($_POST["search3"])){
   <?php endforeach;?>
 <hr> 
 
+<?php require(__DIR__ . "/../partials/flash.php");
