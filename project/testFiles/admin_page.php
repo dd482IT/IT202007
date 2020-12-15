@@ -163,7 +163,7 @@ if(isset($_POST["search3"])){
     $active = null;
     $results = [];
     $account_number = $_POST["account_number"];
-    $stmt=$db->prepare("SELECT froactivezen, Accounts.id as accID from Accounts WHERE account_number = :q");
+    $stmt=$db->prepare("SELECT active, Accounts.id as accID from Accounts WHERE account_number = :q");
     $r = $stmt->execute([":q"=> $account_number]);
     $results = $stmt->fetch(PDO::FETCH_ASSOC);
     $accID = $results["accID"];
