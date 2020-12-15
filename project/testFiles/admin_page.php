@@ -49,7 +49,6 @@ if(isset($_POST["search"])){
       <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("profile.php?id=" . $r["userID"] . "&viewer=" . $id)?>">Go To <?php echo ($r["firstName"] . " " .$r["lastName"]) ?> Profile</a>
     </div>   
   <?php endforeach; ?>
-<hr> 
 
 
 <?php 
@@ -95,7 +94,7 @@ if(isset($_POST["search2"])){
       <div><Strong>Account Balance:</Strong> <?php safer_echo($results["balance"]); ?></div>
       <div><Strong>First Name:</Strong> <?php safer_echo($results["firstName"]); ?></div>
       <div><Strong>Last Name:</Strong> <?php safer_echo($results["lastName"]); ?></div>
-      <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("accounts/my_transactions.php?id=" . $results["accID"] . "&viewer=" . $id)?>">Go To <?php echo ($results["firstName"] . " " .$results["lastName"]) ?>  Transactions History</a>
+      <a type="button" class="btn btn-primary" href="<?php echo getURL("accounts/my_transactions.php?id=" . $results["accID"] . "&viewer=" . $id)?>">Go To <?php echo ($results["firstName"] . " " .$results["lastName"]) ?>  Transactions History</a>
     </div>
   <?php else:?>
       <p>Invalid Account</p>
@@ -105,4 +104,59 @@ if(isset($_POST["search2"])){
 <!----------------------------------------------------------------------------------------------------------------------------------------------------------------> 
     
 
+<?php
+$db = getDB();
+$frozen = null;
+if(isset($_POST["search2"])){
+  $account_number = $_POST["account_number"];
+  $stmt=$db->prepare("SELECT frozen from Accounts WHERE account_number = :q");
+  $r = $stmt->execute([":q"=> $account_number]);
+  $results = $stmt->fetch(PDO::FETCH_ASSOC);
+  if($results){
+  $frozen = $results["frozen"];
+  }
+  else{
+    flash("Error Pulling frozen");
+  }
+}
+
+if(isset($_POST["search4"])){
+
+  if($frozen == 0){
+      $frozen ==1;
+
+  }
+  elseif($frozen == 1){
+      $frozen == 0;
+  } 
+
+
+}
+
+
+
+?>
+  <h3 class="text-center"><strong>Freeze an Account</strong></h3> 
+    <form> 
+        <div>
+            <label>User Account Number</label>
+            <input type="text" name="account_number" placeholder="Search.." required>
+        </div>
+        <input class="btn btn-primary" type ="submit" name="search3" value="find profile"/>
+    </form> 
+    <?php if($results["frozen"] == 0):?>
+      <form>
+        <div>
+            <label> Account is not frozen </label>
+        </div>
+        <input class="btn btn-primary" type ="submit" name="search4" value="Freeze"/>
+      </form>
+    <?php elseif($results["frozen"] == 1):?>
+      <form>
+      <div>
+      <label> Account is frozen</label>
+      </div>  
+      <input class="btn btn-primary" type ="submit" name="search4" value="Unfreeze"/>
+    </form>
+    <?php endif;?>
 <!----------------------------------------------------------------------------------------------------------------------------------------------------------------> 
