@@ -28,15 +28,8 @@ require_once(__DIR__ . "/../lib/helpers.php");
         <li><a href="<?php echo getURL("accounts/my_accounts.php");?>">My Accounts</a></li>
         <li><a href="<?php echo getURL("accounts/create_transactions.php");?>">Make a Transaction</a></li>
         <li><a href="<?php echo getURL("accounts/send.php");?>">Send Money</a></li>
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Loan</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="<?php echo getURL("accounts/manage_loan.php");?>">Action</a>
-                        <a class="dropdown-item" href="<?php echo getURL("accounts/apply_for_loan.php");?>">Another action</a>
-                    </div>
-            </div>
-        </li>
+        <li><a href="<?php echo getURL("accounts/manage_loan.php");?>">Apply For Loan</a></li>
+        <li><a href="<?php echo getURL("accounts/manage_loan.php");?>">Manage Loan</a></li>
     <?php endif; ?>
 </ul>
 </nav>
