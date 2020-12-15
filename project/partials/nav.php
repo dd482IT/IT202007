@@ -23,7 +23,6 @@ require_once(__DIR__ . "/../lib/helpers.php");
     <?php if (is_logged_in()): ?>
         <li><a href="<?php echo getURL("profile.php");?>">Profile</a></li>
         <li><a href="<?php echo getURL("logout.php");?>">Logout</a></li>
-        <li><a href="<?php echo getURL("logout.php");?>">Logout</a></li>
         <li><a href="<?php echo getURL("accounts/create_accounts.php");?>">Create Account</a></li>
         <li><a href="<?php echo getURL("accounts/my_accounts.php");?>">My Accounts</a></li>
         <li><a href="<?php echo getURL("accounts/create_transactions.php");?>">Make a Transaction</a></li>
