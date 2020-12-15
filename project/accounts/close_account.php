@@ -3,7 +3,7 @@
 <?php
 //we'll put this at the top so both php block have access to it
   if(isset($_GET["id"])){
-    $id = $_GET["id"];
+    $accid = $_GET["id"];
   }
 ?>
 
@@ -20,7 +20,7 @@
 <?php
   getDB();
   $stmt = $db->prepare("SELECT account_number, balance, active FROM Accounts Accounts.id = :id");
-  $stmt->execute([":id"=>get_user_id()]);
+  $stmt->execute([":id"=>$accid]);
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
   $account_number = $result["account_number"];
 
