@@ -18,19 +18,46 @@
   $stmt->execute([":id"=>$accid]);
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
   $account_number = $result["account_number"];
+  $status = $result["balance"];
+
+  if(isset($_POST["deactivate"])){
+
+    if($status == 1){
+      $status = 0;
+    }
+    else{
+      flash("Account is already deactivated");
+    }
 
 
 
+    $stmt = $db->prepare("UPDATE Accounts SET active WHERE Accounts.id = :id");
+    $r = $stmt->execute([
+      ":amount" => $amount,
+      ":id" => $accid,
+    ]);
+
+    if($r){
+      flash("Account has been deactivated");
+    }
+    else{
+      flash("An Error occuered");
+    }
 
 
+
+  }
 ?>
 
 <form method="POST">
-  <label>Are you deactivating the account number</label><?php safer_echo($result["account_number"]);?>
-  <label>Please Enter the account number</label>
+  <label>Are you deactivating the account number</label> <strong> <?php safer_echo($result["account_number"]);?></strong>
+  <div>
+  <label>Please Enter the account number to confirm:</label>
+  </div>
   <input type="number" name="account_number"/>
-  <input class="btn btn-primary" type="submit" name="save" value="Create"/>
+  <input class="btn btn-primary" type="submit" name="deactivate" value="Create"/>
 </form>
+
 
 
 
