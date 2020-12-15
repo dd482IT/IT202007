@@ -21,7 +21,10 @@
   </select>
   <label>Balance</label>
   <input type="number" min="<?php echo $min;?>" name="balance" value="<?php echo $result["balance"];?>" />
-	<input class="btn btn-primary" type="submit" name="save" value="Create"/>
+  <input class="btn btn-primary" type="submit" name="save" value="Create"/>
+  <?php if($account_type == "loan"): ?>
+    <label>Your Apy will be 7%</label>
+  <?php endif;?>
 </form>
 
 <?php 
@@ -33,9 +36,11 @@ if(isset($_POST["save"])){
     $user= get_user_id();
     $balance = $_POST["balance"];
     $min = 5.00;
+    $apy = null;
     
     if($account_type == "loan"){
       $min = 500.00;
+      $apy = 0.07;
     }
 
     $db = getDB();
@@ -66,8 +71,6 @@ if(isset($_POST["save"])){
       if($account_type == "loan"){
         $balance = $balance * -1;
       }
-
-
       openAccount($account_number, $balance);
       break;
     }
