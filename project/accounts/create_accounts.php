@@ -71,6 +71,7 @@ if(isset($_POST["save"])){
   }
   else{
     header("Location: " . getURL("testFiles/admin_page.php"));
+    flash("Account Made");
   }
 }
 ?> 

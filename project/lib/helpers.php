@@ -7,6 +7,21 @@ function is_logged_in() {
     return isset($_SESSION["user"]);
 }
 
+function is_deactivated($userID){
+    $db = getDB();
+    $stmt = $db->prepare("SELECT active WHERE Users.id = :id");
+    $r = $stmt->execute([
+        ":id"=>$userID
+    ]);  
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);    
+    $status = $result["active"];
+
+    if($status == 1){
+        return true; 
+    }
+    return false;
+}
+
 function has_role($role) {
     if (is_logged_in() && isset($_SESSION["user"]["roles"])) {
         foreach ($_SESSION["user"]["roles"] as $r) {
