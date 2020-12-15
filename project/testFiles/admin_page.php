@@ -109,30 +109,41 @@ $db = getDB();
 $frozen = null;
 $results = [];
 if(isset($_POST["search2"])){
-  $account_number = $_POST["account_number"];
-  $stmt=$db->prepare("SELECT frozen from Accounts WHERE account_number = :q");
-  $r = $stmt->execute([":q"=> $account_number]);
-  $results = $stmt->fetch(PDO::FETCH_ASSOC);
-  if($results){
-  $frozen = $results["frozen"];
+    $account_number = $_POST["account_number"];
+    $stmt=$db->prepare("SELECT frozen, Accounts.id as accID from Accounts WHERE account_number = :q");
+    $r = $stmt->execute([":q"=> $account_number]);
+    $results = $stmt->fetch(PDO::FETCH_ASSOC);
+    $accID = $results["accID"];
+
+    if($results){
+    $frozen = $results["frozen"];
+    }
+    else{
+      flash("Error Pulling frozen");
+    }
+
+    if($frozen == 0){
+        $frozen = 1;
+    }
+    elseif($frozen == 1){
+        $frozen = 0;
+    }
+    
+    $stmt = $db->prepare("UPDATE Accounts set frozen = :frozen where Accounts.id = :accDI");
+    $r = $stmt->execute([":frozen" => $frozen, ":accID" => $accID]);
+
+    if($r && $frozen == 1){
+      flash("Account is now frozen");
+    }
+    elseif($r && $frozen == 0){
+      flash("Account is now unfrozen");
+    }else{
+      flash("Error Setting frozen");
+    }
+
+
   }
-  else{
-    flash("Error Pulling frozen");
-  }
-}
 
-if(isset($_POST["search4"])){
-
-  if($frozen == 0){
-      $frozen ==1;
-
-  }
-  elseif($frozen == 1){
-      $frozen == 0;
-  } 
-
-
-}
 
 
 
@@ -145,19 +156,4 @@ if(isset($_POST["search4"])){
         </div>
         <input class="btn btn-primary" type ="submit" name="search3" value="find profile"/>
     </form> 
-    <?php if($results["frozen"] == 0):?>
-      <form>
-        <div>
-            <label> Account is not frozen </label>
-        </div>
-        <input class="btn btn-primary" type ="submit" name="search4" value="Freeze"/>
-      </form>
-    <?php elseif($results["frozen"] == 1):?>
-      <form>
-      <div>
-      <label> Account is frozen</label>
-      </div>  
-      <input class="btn btn-primary" type ="submit" name="search4" value="Unfreeze"/>
-    </form>
-    <?php endif;?>
 <!----------------------------------------------------------------------------------------------------------------------------------------------------------------> 
