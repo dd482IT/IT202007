@@ -10,12 +10,7 @@
 
 
 
-<form method="POST">
-  <label>Are you deactivating the account number</label><?php safer_echo($result["account_number"]);?>
-  <label>Please Enter the account number Type</label>
-  <input type="number" name="account_number"/>
-  <input class="btn btn-primary" type="submit" name="save" value="Create"/>
-</form>
+
 
 <?php
   getDB();
@@ -29,6 +24,13 @@
 
 
 ?>
+
+<form method="POST">
+  <label>Are you deactivating the account number</label><?php safer_echo($result["account_number"]);?>
+  <label>Please Enter the account number</label>
+  <input type="number" name="account_number"/>
+  <input class="btn btn-primary" type="submit" name="save" value="Create"/>
+</form>
 
 
 
