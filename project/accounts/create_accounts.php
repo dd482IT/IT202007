@@ -19,7 +19,7 @@
     <option value ="saving">saving</option>
   </select>
   <label>Balance</label>
-  <input type="number" min="5.00" name="balance" value="<?php echo $result["balance"];?>" />
+  <input type="number" min="<?php echo $min;?>" name="balance" value="<?php echo $result["balance"];?>" />
 	<input class="btn btn-primary" type="submit" name="save" value="Create"/>
 </form>
 
@@ -31,6 +31,11 @@ if(isset($_POST["save"])){
     $account_type = $_POST["account_type"]; 
     $user= get_user_id();
     $balance = $_POST["balance"];
+    $min = 5.00;
+    if($account_type == "loan"){
+      $min = 500.00;
+    }
+
     $db = getDB();
     $apy;
 
