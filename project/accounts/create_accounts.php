@@ -13,16 +13,24 @@
 
 ?>
 
+<script>
+function changeMin(){
+    var input = document.getElementById("balance");
+    if(document.getElementById("accType").value == "loan"){
+      input.setAttribute("min", 500.00);
+    }
+  }
+</script>
 
 <form method="POST">
   <label>Account Type</label>
-  <select name="account_type">
+  <select id="accType" name="account_type">
     <option value ="checking">checking</option>
     <option value ="saving">saving</option>
     <option value ="loan" selected>loan</option>
   </select>
   <label>Balance</label>
-  <input type="number" min="5.00" name="balance" value="<?php echo $result["balance"];?>" />
+  <input id="balance" type="number" min="5.00" name="balance" value="<?php echo $result["balance"];?>" />
   <input class="btn btn-primary" type="submit" name="save" value="Create"/>
  
   
