@@ -226,13 +226,13 @@ if(isset($_POST["search3"])){
     <form align="center" method="POST"> 
         <div align="center">
             <label>Enter Users ID</label>
-            <input type="text" name="userID" placeholder="Search.." required>
+            <input type="number" name="userID" placeholder="Search.." required>
         </div>
-        <input align="center" class="btn btn-primary" type ="submit" name="search5" value="Active/Deactivate"/>
+        <input align="center" class="btn btn-primary" type ="submit" name="search5" value="Find User"/>
     </form> 
   <?php if($results):?>
     <div align="center">
-      <a type="button" class="btn btn-primary" name="search" href="<?php echo getURL("accounts/create_accounts.php?id=" . $results["userID"] . "&viewer=" . $id)?>">Account for <?php echo ($results["userID"]) ?> Make Account</a>
+      <a type="button" class="btn btn-primary" href="<?php echo getURL("accounts/create_accounts.php?id=" . $results["userID"] . "&viewer=" . $id)?>">Account for <?php echo ($results["userID"]) ?> Make Account</a>
     </div>   
   <?php endif;?>
 <hr>
