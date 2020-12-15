@@ -82,29 +82,37 @@ $accounts = getDropDown();
             $memo = "empty";
         }
         
-
-        switch($action){
-            case "deposit":
-                doBankAction($world_id, $source, ($amount * -1), $action, $memo);
-            break;
-            case "withdrawl":
-                if($amount <= $balance){
-                doBankAction($source, $world_id, ($amount * -1), $action, $memo);
-                }
-                elseif($amount > $balance){
-                    flash("Balance Too Low");
-                }
-            break;
-            case "transfer":
-                if($amount <= $balance){
-                    doBankAction($source,$destination,($amount *-1), $action, $memo);
-                }
-                elseif($amount > $balance){
-                    flash("Balance Too Low");
-                }
-            break;
+        if(!is_frozen($source)){
+            switch($action){
+                case "deposit":
+                    doBankAction($world_id, $source, ($amount * -1), $action, $memo);
+                break;
+                case "withdrawl":
+                    if($amount <= $balance){
+                    doBankAction($source, $world_id, ($amount * -1), $action, $memo);
+                    }
+                    elseif($amount > $balance){
+                        flash("Balance Too Low");
+                    }
+                break;
+                case "transfer":
+                    if(!is_frozen($destination))
+                        if($amount <= $balance){
+                            doBankAction($source,$destination,($amount *-1), $action, $memo);
+                        }
+                        elseif($amount > $balance){
+                            flash("Balance Too Low");
+                        }
+                    else{
+                        flash("Destination Account is frozen");
+                    }
+                break;
+            }
         }
-          
+        else{
+            flash("Account is frozen");
+        }
+            
     }
    
 
