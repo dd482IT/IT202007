@@ -64,7 +64,7 @@ if(isset($_GET["page"])){
                     </div>
                     <div class="card-text">
                         <?php if($r["active"] == "1"):?>
-                        <?php if($r["account_type"] == "loan"):?>
+                        <?php if($r["account_type"] == "loan" || $r["account_type"] == "saving"):?>
                             <div> <strong>Remaining Balance: </strong><?php safer_echo(abs($r["balance"]));?></div>
                             <div> <strong>Current Apy:</strong> <?php safer_echo($r["apy"] * 100 . "%");?></div>
                         <?php else:?>
