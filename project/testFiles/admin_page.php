@@ -163,7 +163,7 @@ if(isset($_POST["search3"])){
     $active = null;
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
-    $stmt=$db->prepare("SELECT active, Users.id as userID FROM Users WHERE Users.lastName LIKE :q AND Users.firstName LIKE :z  ");
+    $stmt=$db->prepare("SELECT active, Users.id as userID FROM Users WHERE Users.lastName LIKE :q AND Users.firstName LIKE :z");
     $r = $stmt->execute([":q"=> $lastName, ":z"=> $firstName]);
     $results = $stmt->fetch(PDO::FETCH_ASSOC);
    
@@ -215,11 +215,12 @@ if(isset($_POST["search3"])){
 <?php 
   if(isset($_POST["search5"])){
     $db = getDB();
-    $userID = ["userID"];
-    $stmt=$db->prepare("SELECT Users.id as userID FROM Users WHERE Users.id = :q");
-    $r = $stmt->execute([":q"=> (int)$userID]);
+    $firstName = $_POST["firstName"];
+    $lastName = $_POST["lastName"];
+    $stmt=$db->prepare("SELECT Users.id as userID FROM Users WHERE Users.lastName LIKE :q AND Users.firstName LIKE :z  ");
+    $r = $stmt->execute([":q"=> $lastName, ":z"=> $firstName]);
     if($r){
-    $results = $stmt->fetch(PDO::FETCH_ASSOC);
+      $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     else{
       flash("There was an error finding the userID");
@@ -231,15 +232,17 @@ if(isset($_POST["search3"])){
 <h3 class="text-center"><strong>Open an Account</strong></h3> 
     <form align="center" method="POST"> 
         <div align="center">
-            <label>Enter Users ID</label>
-            <input type="text" name="userID" placeholder="Search.." required>
+        <label>User First Name</label>
+            <input type="text" name="firstName" placeholder="Search.." required>
+            <label>User Last Name</label>
+            <input type="text" name="lastName" placeholder="Search.." required>
         </div>
         <input align="center" class="btn btn-primary" type ="submit" name="search5" value="Find User"/>
     </form> 
-  <?php if($results):?>
+  <?php foreach($results as $r):?>
     <div align="center">
-      <a type="button" class="btn btn-primary" name="search5" href="<?php echo getURL("accounts/create_accounts.php?id=" . $results["userID"] . "&viewer=" . $id)?>">Account for <?php echo ($results["userID"]) ?> Make Account</a>
+      <a type="button" class="btn btn-primary" name="search5" href="<?php echo getURL("accounts/create_accounts.php?id=" . $r["userID"] . "&viewer=" . $id)?>">Account for <?php echo ($r["userID"]) ?> Make Account</a>
     </div>   
-  <?php endif;?>
-<hr>
+  <?php endforeach;?>
+<hr> 
 
