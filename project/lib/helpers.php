@@ -9,7 +9,7 @@ function is_logged_in() {
 
 function is_deactivated($userID){
     $db = getDB();
-    $stmt = $db->prepare("SELECT active WHERE Users.id = :id");
+    $stmt = $db->prepare("SELECT active FROM Users WHERE Users.id = :id");
     $r = $stmt->execute([
         ":id"=>$userID
     ]);  
@@ -19,7 +19,9 @@ function is_deactivated($userID){
     if($status == 1){
         return true; 
     }
-    return false;
+    elseif($status == 0){
+        return false;
+    }
 }
 
 function has_role($role) {
