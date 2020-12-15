@@ -74,6 +74,9 @@ if(isset($_GET["page"])){
                         <?php else:?>
                             Not Set
                         <?php endif; ?>
+                        <?php if($r["balance"] == 0):?>
+                            <a type="button" class="page-link" href="<?php echo getURL("accounts/close_account.php?id=" . $r["AccID"]); ?>"> Close Account</a>
+                        <?php endif;?>
                     <a type="button" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["AccID"]); ?>">View Transaction History</a>
                     </div>
                 </div>
