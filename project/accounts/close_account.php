@@ -31,9 +31,9 @@
 
 
 
-    $stmt = $db->prepare("UPDATE Accounts SET active WHERE Accounts.id = :id");
+    $stmt = $db->prepare("UPDATE Accounts SET active = :active WHERE Accounts.id = :id");
     $r = $stmt->execute([
-      ":amount" => $amount,
+      ":active" => $status,
       ":id" => $accid
     ]);
 
