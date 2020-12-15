@@ -26,7 +26,7 @@ function is_deactivated($userID){
 
 function is_frozen($userID){
     $db = getDB();
-    $stmt = $db->prepare("SELECT frozen FROM Accounts WHERE Users.id = :id");
+    $stmt = $db->prepare("SELECT frozen FROM Accounts WHERE id = :id");
     $r = $stmt->execute([
         ":id"=>$userID
     ]);  
