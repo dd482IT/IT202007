@@ -38,7 +38,7 @@ if(isset($_GET["page"])){
 
 
 
-    $stmt = $db->prepare("SELECT Accounts.user_id as UserID, Accounts.id as AccID, account_number, account_type, balance FROM Accounts WHERE Accounts.user_id = :q LIMIT :offset, :count");
+    $stmt = $db->prepare("SELECT Accounts.user_id as UserID, Accounts.id as AccID, account_number, account_type, balance,apy FROM Accounts WHERE Accounts.user_id = :q LIMIT :offset, :count");
     $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
     $stmt->bindValue(":count", $per_page, PDO::PARAM_INT);
     $stmt->bindValue(":q", get_user_id());
@@ -65,6 +65,7 @@ if(isset($_GET["page"])){
                     <div class="card-text">
                          <?php if($r["account_type"] == "loan"):?>
                             <div> <strong>Remaining Balance: </strong><?php safer_echo(abs($r["balance"]));?></div>
+                            <div> <strong>Current Apy:</strong> <?php safer_echo($r["apy"]);?></div>
                         <?php else:?>
                             <div> <strong> Current Balance: </strong><?php safer_echo($r["balance"]);?></div>
                         <?php endif; ?>    

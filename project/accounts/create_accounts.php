@@ -14,7 +14,7 @@
 
 <form method="POST">
   <label>Account Type</label>
-  <select id="type" name="account_type" onclick="showTransferForm()">
+  <select name="account_type">
     <option value ="checking">checking</option>
     <option value ="saving">saving</option>
     <option value ="loan">loan</option>
@@ -22,20 +22,8 @@
   <label>Balance</label>
   <input type="number" min="<?php echo $min;?>" name="balance" value="<?php echo $result["balance"];?>" />
   <input class="btn btn-primary" type="submit" name="save" value="Create"/>
-  <script>
-            function showTransferForm(){
-                if(document.getElementById('type').value == "transfer"){
-                    document.getElementById('transfer').style.display='block';
-                    document.getElementById('transfer').disabled = false; 
-                }else{
-                    document.getElementById('transfer').style.display='none';
-                    document.getElementById('transfer').disabled = true; 
-                }
-            }
-  </script> 
-        <div id="transfer" disabled>
-            <label>Your Apy will be 7%</label>
-        </div>
+ 
+  
 </form>
 
 <?php 
