@@ -63,7 +63,11 @@ if(isset($_GET["page"])){
                         <strong>Account Number</strong>: <?php safer_echo($r["account_number"]);?>
                     </div>
                     <div class="card-text">
-                        <div> <strong>Current Balance: </strong> <?php if($r["account_type"] == "loan"){safer_echo(abs($r["balance"]));}else{safer_echo(abs($r["balance"]));} ?></div> <!-- CHANGE MADE HERE--> 
+                         <?php if($r["account_type"] == "loan"):?>
+                            <div> <strong>Remaining Balance: </strong><?php safer_echo(abs($r["balance"]));?></div>
+                        <?php else:?>
+                            <div> <strong> Current Balance: </strong><?php safer_echo($r["balance"]);?></div>
+                        <?php endif; ?>    
                         <?php if(isset($r["account_type"])):?>
                             <strong>Account Type</strong> <?php safer_echo($r["account_type"]);?>
                         <?php else:?>
