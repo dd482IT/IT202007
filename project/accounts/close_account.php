@@ -26,7 +26,8 @@
       $status = 0;
     }
     elseif($status == 0){
-      flash("Account is already deactivated");
+      flash("Account is already closed");
+      break;
     }
 
 
@@ -38,7 +39,7 @@
     ]);
 
     if($r){
-      flash("Account has been deactivated");
+      flash("Account has been closed");
     }
     else{
       flash("An Error occuered");
