@@ -25,7 +25,7 @@
     if($status == 1){
       $status = 0;
     }
-    else{
+    elseif($status == 0){
       flash("Account is already deactivated");
     }
 
@@ -34,7 +34,7 @@
     $stmt = $db->prepare("UPDATE Accounts SET active WHERE Accounts.id = :id");
     $r = $stmt->execute([
       ":amount" => $amount,
-      ":id" => $accid,
+      ":id" => $accid
     ]);
 
     if($r){
@@ -54,7 +54,7 @@
   <div>
   <label>Please Enter the account number to confirm:</label>
   </div>
-  <input type="number" name="account_number"/>
+  <input type="text" name="account_number"/>
   <input class="btn btn-primary" type="submit" name="deactivate" value="Create"/>
 </form>
 
