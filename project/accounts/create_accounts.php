@@ -18,6 +18,9 @@
     if(document.getElementById("accType").value == "loan"){
       input.setAttribute("min", 500.00);
     }
+    else{
+      input.setAttribute("min", 5.00);
+    }
   }
 </script>
 
