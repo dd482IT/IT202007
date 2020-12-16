@@ -22,7 +22,7 @@
       input.setAttribute("min", 5.00);
     }
   }
-</script>
+</script> 
 
 <form method="POST">
   <label>Account Type </label>
