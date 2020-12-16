@@ -13,7 +13,7 @@
 ?>
 
 <script> //https://stackoverflow.com/questions/16611774/how-to-change-max-or-min-value-of-input-type-date-from-js
-function changeMin(){
+  function changeMin(){
     var input = document.getElementById("balance");
     if(document.getElementById("accType").value == "loan"){
       input.setAttribute("min", 500.00);
@@ -23,7 +23,7 @@ function changeMin(){
 
 <form method="POST">
   <label>Account Type </label>
-  <select id="accType" name="account_type" onclick=changeMin()>
+  <select id="accType" name="account_type" onchange=changeMin()>
     <option value ="checking">checking</option>
     <option value ="saving">saving</option>
     <option value ="loan" selected>loan</option>
