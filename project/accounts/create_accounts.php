@@ -23,7 +23,7 @@
 
 <form method="POST">
   <label>Account Type </label>
-  <select id="accType" name="account_type" onchange=changeMin()>
+  <select id="accType" name="account_type" oninput=changeMin()>
     <option value ="checking">checking</option>
     <option value ="saving">saving</option>
     <option value ="loan" selected>loan</option>
