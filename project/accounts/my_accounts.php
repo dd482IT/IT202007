@@ -38,7 +38,7 @@ if(isset($_GET["page"])){
 
 
 
-    $stmt = $db->prepare("SELECT Accounts.user_id as UserID, Accounts.id as AccID, account_number, account_type, balance FROM Accounts WHERE Accounts.user_id = :q LIMIT :offset, :count");
+    $stmt = $db->prepare("SELECT Accounts.user_id as UserID, Accounts.id as AccID, account_number, account_type, balance,apy, active FROM Accounts WHERE Accounts.user_id = :q LIMIT :offset, :count");
     $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
     $stmt->bindValue(":count", $per_page, PDO::PARAM_INT);
     $stmt->bindValue(":q", get_user_id());
@@ -48,7 +48,6 @@ if(isset($_GET["page"])){
         flash(var_export($e, true), "alert");
     }
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
   }
 ?>
 <div class="container-fluid">
@@ -64,13 +63,26 @@ if(isset($_GET["page"])){
                         <strong>Account Number</strong>: <?php safer_echo($r["account_number"]);?>
                     </div>
                     <div class="card-text">
-                        <div> <strong>Current Balance: </strong> <?php safer_echo($r["balance"]); ?></div>
+                        <?php if($r["active"] == "1"):?>
+                        <?php if($r["account_type"] == "loan" || $r["account_type"] == "saving"):?>
+                            <div> <strong>Remaining Balance: </strong><?php safer_echo(abs($r["balance"]));?></div>
+                            <div> <strong>Current Apy:</strong> <?php safer_echo($r["apy"] * 100 . "%");?></div>
+                        <?php else:?>
+                            <div> <strong> Current Balance: </strong><?php safer_echo($r["balance"]);?></div>
+                        <?php endif; ?>    
                         <?php if(isset($r["account_type"])):?>
                             <strong>Account Type</strong> <?php safer_echo($r["account_type"]);?>
+                            <a type="button" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["AccID"]); ?>">View Transaction History</a>
                         <?php else:?>
                             Not Set
                         <?php endif; ?>
-                    <a type="button" href="<?php echo getURL("accounts/my_transactions.php?id=" . $r["AccID"]); ?>">View Transaction History</a>
+                        <?php if($r["balance"] == 0):?>
+                            <a type="button" class="page-link" href="<?php echo getURL("accounts/close_account.php?id=" . $r["AccID"]); ?>"> Close Account</a>
+                        <?php endif;?>
+                        <?php else:?>
+                        <div><strong> Account has been closed</strong></div>
+                        <?php endif;?>
+                        
                     </div>
                 </div>
             </div>

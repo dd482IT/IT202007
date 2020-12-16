@@ -1,15 +1,15 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <div class="login">
 
-    <form class="login" method="POST">
-        <label class="login-label"> <strong> Login </strong> </label>
-        <label for="email">Email or Username:</label>
-        <input type="text" id="email" name="email" required/>
-        <label for="p1">Password:</label>
-        <input type="password" id="p1" name="password" required/>
-        <input class="btn btn-primary" type="submit" name="login" value="Login"/>
-    </form>
-</div>
+        <form class="login" method="POST">
+            <label class="login-label"> <strong> Login </strong> </label>
+            <label for="email">Email or Username:</label>
+            <input type="text" id="email" name="email" required/>
+            <label for="p1">Password:</label>
+            <input type="password" id="p1" name="password" required/>
+            <input class="btn btn-primary" type="submit" name="login" value="Login"/>
+        </form>
+</div>  
 <?php
 if (isset($_POST["login"])) {
     $email = null;
@@ -46,7 +46,7 @@ if (isset($_POST["login"])) {
             
             if(isset($email)){
               $params = array(":email" => $email);
-            }elseif(isset($username)){
+            }elseif(isset($username)){  
               $params = array(":username" => $username);
             }
             $r = $stmt->execute($params);
@@ -78,6 +78,7 @@ if (isset($_POST["login"])) {
                         //on successful login let's serve-side redirect the user to the home page.
                         flash("Log in successful");
                         savingsApy();
+                        loanApy();
                         die(header("Location: home.php"));
                     }
                     else {

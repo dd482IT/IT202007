@@ -73,36 +73,52 @@ $accounts = getDropDown();
         $world_id = $r["id"];
         
         
-        $stmt2=$db->prepare("SELECT balance FROM Accounts WHERE Accounts.id = :q");
+        $stmt2=$db->prepare("SELECT balance, account_type  FROM Accounts WHERE Accounts.id = :q");
         $results2 = $stmt2->execute(["q"=> $source]);
         $r2 = $stmt2->fetch(PDO::FETCH_ASSOC);
         $balance = $r2["balance"];
+        $account_type = $r2["account_type"];
 
         if(!isset($memo) && empty($memo)){
             $memo = "empty";
         }
         
-        if(!is_frozen($source)){
+        if(!is_frozen($source) && is_activeAccount($source)){
             switch($action){
                 case "deposit":
-                    doBankAction($world_id, $source, ($amount * -1), $action, $memo);
+                    if($account_type != "loan"){
+                        doBankAction($world_id, $source, ($amount * -1), $action, $memo);
+                    }
+                    else{
+                        flash("Unable to deposit to a loan account");
+                    }
                 break;
                 case "withdrawl":
-                    if($amount <= $balance){
-                    doBankAction($source, $world_id, ($amount * -1), $action, $memo);
-                    }
-                    elseif($amount > $balance){
-                        flash("Balance Too Low");
-                    }
-                break;
-                case "transfer":
-                    if(!is_frozen($destination))
+                    if($account_type != "loan"){
                         if($amount <= $balance){
-                            doBankAction($source,$destination,($amount *-1), $action, $memo);
+                        doBankAction($source, $world_id, ($amount * -1), $action, $memo);
                         }
                         elseif($amount > $balance){
                             flash("Balance Too Low");
                         }
+                    }
+                    else{
+                        flash("Unable to withdrawal from a loan account");
+                    }
+                break;
+                case "transfer":
+                    if(!is_frozen($destination) && is_activeAccount($destination))
+                        if($account_type != "loan"){
+                            if($amount <= $balance){
+                                doBankAction($source,$destination,($amount *-1), $action, $memo);
+                            }
+                            elseif($amount > $balance){
+                                flash("Balance Too Low");
+                            }
+                        }
+                        else{
+                            flash("You cannot transfer from a loan account!");
+                        }  
                     else{
                         flash("Destination Account is frozen");
                     }
@@ -110,7 +126,7 @@ $accounts = getDropDown();
             }
         }
         else{
-            flash("Account is frozen");
+            flash("Account is frozen or inactive");
         }
             
     }

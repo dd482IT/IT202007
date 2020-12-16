@@ -12,29 +12,40 @@
     }
 ?>
 
+<script> //https://stackoverflow.com/questions/16611774/how-to-change-max-or-min-value-of-input-type-date-from-js
+  function changeMin(){
+    var input = document.getElementById("balance");
+    if(document.getElementById("accType").value == "loan"){
+      input.setAttribute("min", 500.00);
+    }
+    else{
+      input.setAttribute("min", 5.00);
+    }
+  }
+</script> 
+
 <form method="POST">
-  <label>Account Type</label>
-  <select name="account_type">
+  <label>Account Type </label>
+  <select id="accType" name="account_type" oninput=changeMin()>
     <option value ="checking">checking</option>
     <option value ="saving">saving</option>
     <option value ="loan">loan</option>
   </select>
   <label>Balance</label>
-  <input type="number" min="5.00" name="balance" value="<?php echo $result["balance"];?>" />
-	<input class="btn btn-primary" type="submit" name="save" value="Create"/>
+  <input id="balance" type="number" min="5.00" name="balance" value="<?php echo $result["balance"];?>" />
+  <input class="btn btn-primary" type="submit" name="save" value="Create"/>
 </form>
 
 <?php 
 $i = 0; 
 $max = 100; 
 if(isset($_POST["save"])){
+    $db = getDB();
     $account_number;
     $account_type = $_POST["account_type"]; 
     $user= get_user_id();
     $balance = $_POST["balance"];
-    $db = getDB();
     $apy;
-
     if($account_type == "saving"){
       $apy = 0.01;
     }
@@ -56,6 +67,10 @@ if(isset($_POST["save"])){
 
     if($r){
       flash("Created successfully with id: " . $db->lastInsertId());
+
+      if($account_type == "loan"){
+        $balance = $balance * -1;
+      }
       openAccount($account_number, $balance);
       break;
     }

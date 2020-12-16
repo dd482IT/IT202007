@@ -24,11 +24,28 @@ function is_deactivated($userID){
     }
 }
 
-function is_frozen($userID){
+function is_activeAccount($accID){
+    $db = getDB();
+    $stmt = $db->prepare("SELECT active FROM Accounts WHERE id = :id");
+    $r = $stmt->execute([
+        ":id"=>$accID
+    ]);  
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);    
+    $status = $result["active"];
+
+    if($status == 1){
+        return true; 
+    }
+    elseif($status == 0){
+        return false;
+    }
+}
+
+function is_frozen($accID){
     $db = getDB();
     $stmt = $db->prepare("SELECT frozen FROM Accounts WHERE id = :id");
     $r = $stmt->execute([
-        ":id"=>$userID
+        ":id"=>$accID
     ]);  
     $result = $stmt->fetch(PDO::FETCH_ASSOC);    
     $status = $result["frozen"];
@@ -174,6 +191,7 @@ function getDropDown(){
 
 function doBankAction($acc1, $acc2, $amount, $action, $memo)
 {
+    
     $db = getDB();
     $user = get_user_id();
 
@@ -321,6 +339,45 @@ function savingsApy(){
 	}
 }
 
+function loanApy(){
+	$db = getDB();
+	$numOfMonths = 1;//1 for monthly
+	$stmt = $db->prepare("SELECT id, apy, balance FROM Accounts WHERE account_type = 'loan' AND IFNULL(nextApy, TIMESTAMPADD(MONTH,:months,opened_date)) <= current_timestamp"); 
+	$r = $stmt->execute([":months"=>$numOfMonths]);
+	if($r){
+		$accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		if($accounts){
+			$stmt = $db->prepare("SELECT id FROM Accounts where account_number = '000000000000'");
+			$r = $stmt->execute();
+			if(!$r){
+				flash(var_export($stmt->errorInfo(), true), "danger");
+			}
+			$result = $stmt->fetch(PDO::FETCH_ASSOC);
+			$world_id = $result["id"];
+			foreach($accounts as $account){
+				$apy = $account["apy"];
+				//if monthly divide accordingly
+				$apy /= 12;
+				$balance = (float)$account["balance"];
+                $change = $balance * $apy;
+                $change  = $change * -1;
+				//see https://github.com/MattToegel/IT202/blob/Fall2019/Section16/sample_transactions.php
+				//last column added supports $memo which my example in the link above doesn't support
+				doBankAction($account["id"], $world_id, ($change * -1), "interest", "APY Calc");
+				
+				$stmt = $db->prepare("UPDATE Accounts set balance = (SELECT IFNULL(SUM(amount),0) FROM Transactions WHERE act_src_id = :id), nextApy = TIMESTAMPADD(MONTH,:months,current_timestamp) WHERE id = :id");
+				$r = $stmt->execute([":id"=>$account["id"], ":months"=>$numOfMonths]);
+				if(!$r){
+					flash(var_export($stmt->errorInfo(), true), "danger");
+				}
+			}
+		}
+	}
+	else{
+		flash(var_export($stmt->errorInfo(), true), "danger");
+	}
+}
+
 
 
 /*
@@ -352,3 +409,5 @@ function accountNumberGenerator(){
 //end flash
 
 ?>
+
+<?php require(__DIR__ . "/../partials/flash.php");
